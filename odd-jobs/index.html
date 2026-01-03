@@ -1,88 +1,141 @@
-:root {
-  --jnz-orange: #f57c00;
-  --jnz-orange-dark: #e65100;
-  --jnz-orange-light: #ff9800;
-  --jnz-black: #000;
-  --jnz-dark: #1c1c1c;
-  --jnz-grey: #333;
-  --jnz-white: #fff;
-  --jnz-text-muted: #ccc;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Odd Jobs NZ | JobsNZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <p>This platform is part of JobsNZ.</p>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+   background: #f57c00;
+color: #fff;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--jnz-orange);
-  color: var(--jnz-white);
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-}
+  h1, h2, h3 {
+    color: #f57c00;
+  }
 
-h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 30px 0;
+  }
 
-h2 {
-  font-size: 26px;
-  margin-top: 40px;
-}
+  .action-card {
+    border: 2px solid #00B050;
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.2s, transform 0.1s;
+  }
 
-h3 {
-  color: var(--jnz-orange-light);
-}
+  .action-card:hover {
+    background: #111;
+    transform: translateY(-2px);
+  }
 
-p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--jnz-text-muted);
-}
+  .action-card h3 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
 
-.actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
-}
+  .action-card p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
 
-.action-card {
-  background: var(--jnz-dark);
-  border: 1px solid var(--jnz-grey);
-  border-radius: 8px;
-  padding: 25px;
-  text-decoration: none;
-  color: var(--jnz-white);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+  hr {
+    margin: 40px 0;
+    border: none;
+    border-top: 1px solid #333;
+  }
 
-.action-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
+  @media (min-width: 700px) {
+    .actions {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
 
-.action-card h3 {
-  margin-top: 0;
-  font-size: 22px;
-}
+</head>
+<body>
 
-.action-card p {
-  font-size: 15px;
-  color: var(--jnz-text-muted);
-}
+  <h1>Odd Jobs NZ</h1>
 
-hr {
-  margin: 60px 0;
-  border: none;
-  border-top: 1px solid var(--jnz-grey);
-}
+<p>
+  A community-based platform connecting people already living in New Zealand
+  with local, short-term and casual work opportunities. Choose one
+</p>
 
-a {
-  color: var(--jnz-orange-light);
-  text-decoration: none;
-}
+<h2>Get started</h2>
 
-a:hover {
-  text-decoration: underline;
-}
+<div class="actions">
+
+  <a class="action-card" href="/worker-jobs.html">
+    <h3>View available jobs</h3>
+    <p>Browse current work opportunities</p>
+  </a>
+
+  <a class="action-card" href="/post-job.html">
+    <h3>Post a job</h3>
+    <p>List a task or job that needs doing</p>
+  </a>
+
+  <a class="action-card" href="/worker-profile.html">
+    <h3>I’m looking for work</h3>
+    <p>Tell us about your skills (optional)</p>
+  </a>
+
+</div>
+
+<hr>
+
+<h2>Add Your Industry to JobsNZ</h2>
+
+<p>
+  JobsNZ is a modular workforce platform designed to host multiple
+  industry-specific job and workforce tools under a shared public framework.
+</p>
+
+<p>
+  We welcome expressions of interest from industries, organisations, collectives,
+  and service providers who wish to contribute an industry-specific application,
+  tool, or pathway that supports lawful work opportunities in Aotearoa / New Zealand.
+</p>
+
+<h3>Who this is for</h3>
+
+<ul>
+  <li>Industry groups or associations</li>
+  <li>Small business collectives</li>
+  <li>Sector-led workforce initiatives</li>
+  <li>Community or regional employment programmes</li>
+  <li>Project-based or seasonal industries</li>
+</ul>
+
+<h3>How to express interest</h3>
+
+<p>
+  Email the Virtual Online Contact Centre with a brief outline of your industry
+  and proposed workforce tool or pathway:
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <a href="mailto:virtualonlinenz@outlook.com">virtualonlinenz@outlook.com</a>
+</p>
+
+<p>
+  Odd Jobs NZ is part of the JobsNZ platform and is a job-matching service only.
+</p>
+
+</body>
+</html>
+
