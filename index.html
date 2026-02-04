@@ -229,6 +229,51 @@ color: #fff;
       <li>Cover Letter Creation — $25</li>
       <li>Otherwise free to use</li>
     </ul>
+.industry-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.industry-block {
+  flex: 1;                  /* equal width for all 3 blocks */
+  min-height: 220px;        /* same height for all blocks */
+  background: #000;         /* black background for all */
+  color: #fff;              /* white text */
+  border-left: 6px solid #f57c00;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.industry-block h2 {
+  color: #f57c00;
+  margin-top: 0;
+}
+
+.industry-block .features {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.industry-block .features li {
+  margin-bottom: 8px;
+}
+
+.industry-btn {
+  padding: 12px 20px;
+  background: #f57c00;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
 
     <button class="industry-btn" onclick="scrollToContact()">
       Read Notes Below for Contact Details
