@@ -1,127 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Create Worker Profile – Odd Jobs NZ</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-     background: #f57c00;
-color: #fff;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 30px;
-    }
-    h1 {
-      background: #f57c00;
-color: #fff;
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: none;
-    }
-    .skills label {
-      display: block;
-      margin-top: 5px;
-    }
-    .btn {
-      margin-top: 30px;
-      width: 100%;
-      padding: 15px;
-      background: #00B050;
-      color: #000;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
-    .note {
-      font-size: 14px;
-      opacity: 0.85;
-      margin-top: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Create Worker Profile – Odd Jobs NZ</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f57c00;
+  color: #fff;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+}
+
+.skills label {
+  display: block;
+  margin-top: 5px;
+}
+
+.btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background: #00B050;
+  color: #000;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>Create Worker Profile</h1>
+<h1>Create Worker Profile</h1>
 
-  <p class="note">
-    This site is for people already living in Aotearoa/New Zealand.  
-    Odd Jobs NZ does not guarantee work and does not assist with immigration.
-  </p>
+<p class="note">
+This site is for people already living in Aotearoa/New Zealand.
+Odd Jobs NZ does not guarantee work and does not assist with immigration.
+</p>
 
-  <form onsubmit="goToJobs(); return false;">
+<form id="workerForm">
 
-    <label>Full Name
-      <input required>
-    </label>
+<label>Full Name
+  <input id="name" required>
+</label>
 
-    <label>Email
-      <input type="email" required>
-    </label>
+<label>Email
+  <input id="email" type="email" required>
+</label>
 
-    <label>Phone Number
-      <input required>
-    </label>
+<label>Phone Number
+  <input id="phone" required>
+</label>
 
-    <label>Location (City / Region in NZ)
-      <input required>
-    </label>
+<label>Location
+  <input id="location" required>
+</label>
 
-    <label>Skills</label>
-    <div class="skills">
-      <label><input type="checkbox"> Gardening / Mowing</label>
-      <label><input type="checkbox"> Fruit Picking / Seasonal</label>
-      <label><input type="checkbox"> Forestry</label>
-      <label><input type="checkbox"> Hospitality </label>
-      <label><input type="checkbox"> Tourism </label>
-      <label><input type="checkbox"> Delivery / Moving</label>
-      <label><input type="checkbox"> General Odd Jobs</label>
-    </div>
+<label>Skills</label>
+<div class="skills">
+  <label><input type="checkbox" value="Gardening / Mowing"> Gardening / Mowing</label>
+  <label><input type="checkbox" value="Fruit Picking / Seasonal"> Fruit Picking / Seasonal</label>
+  <label><input type="checkbox" value="Forestry"> Forestry</label>
+  <label><input type="checkbox" value="Hospitality"> Hospitality</label>
+  <label><input type="checkbox" value="Tourism"> Tourism</label>
+  <label><input type="checkbox" value="Delivery / Moving"> Delivery / Moving</label>
+  <label><input type="checkbox" value="General Odd Jobs"> General Odd Jobs</label>
+</div>
 
-    <label>Availability
-      <input placeholder="e.g. weekdays, weekends, flexible">
-    </label>
+<label>Availability
+  <input id="availability">
+</label>
 
-    <label>Upload CV (optional)
-      <input type="file" accept=".pdf,.doc,.docx">
-    </label>
+<label>
+  <input type="checkbox" id="over18" required>
+  I confirm I am 18 years or older
+</label>
 
-    <label>
-      <input type="checkbox" id="over18" required>
-      I confirm I am 18 years of age or older
-    </label>
+<button class="btn" type="submit">
+Save Profile & View Workers
+</button>
 
-    <button class="btn" type="submit">
-      Save profile & view jobs
-    </button>
-
-  </form>
-
-  <p class="note">
-    Your information is private unless you choose to contact an employer.
-  </p>
+</form>
 </div>
 
 <script>
-  function goToJobs() {
-    if (!document.getElementById("over18").checked) {
-      alert("You must confirm you are 18 or older.");
-      return;
-    }
-    location.href = "/worker-jobs.html";
+document.getElementById("workerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  if (!document.getElementById("over18").checked) {
+    alert("You must confirm you are 18 or older.");
+    return;
   }
+
+  // Get selected skills
+  const skills = Array.from(
+    document.querySelectorAll(".skills input:checked")
+  ).map(cb => cb.value);
+
+  // Worker object
+  const worker = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    location: document.getElementById("location").value,
+    skills: skills.join(", "),
+    availability: document.getElementById("availability").value
+  };
+
+  // Get existing workers
+  let workers = JSON.parse(localStorage.getItem("workers")) || [];
+
+  // Add new worker
+  workers.push(worker);
+
+  // Save back to storage
+  localStorage.setItem("workers", JSON.stringify(workers));
+
+  // Redirect to worker list
+  window.location.href = "workers.html";
+});
 </script>
 
 </body>
