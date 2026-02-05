@@ -9,73 +9,9 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
- background: #f57c00;
-color: #fff;
+      background: #f57c00;
+      color: #fff;
     }
-<!-- INDUSTRY PLATFORM BLOCKS -->
-<div class="industry-container">
-
-  <!-- Odd Jobs -->
-  <div class="industry-block">
-    <h2>ODD JOBS</h2>
-    <p>Find workers for everyday jobs NZ-wide</p>
-  </div>
-
-  <!-- Immediate Painters -->
-  <div class="industry-block">
-    <h2>IMMEDIATE PAINTERS</h2>
-    <p>Connect with painters ready to work now</p>
-  </div>
-
-  <!-- Add Your Industry -->
-  <div class="industry-block add-industry">
-    <h2>ADD YOUR INDUSTRY</h2>
-    <p>Create your own NZ-wide worker sub-platform</p>
-
-    <ul class="features">
-      <li>Basic Plan — $19/month (colour coding included)</li>
-      <li>CV Creation — $25</li>
-      <li>Cover Letter Creation — $25</li>
-      <li>Otherwise free to use</li>
-    </ul>
-
-    <button class="industry-btn" onclick="scrollToContact()">
-      Read Notes Below for Contact Details
-    </button>
-  </div>
-
-</div>
-
-
-.tagline {
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.features {
-  text-align: left;
-  margin: 20px 0;
-}
-
-.features li {
-  margin-bottom: 8px;
-}
-
-.price {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px 0;
-  color: #00B050;
-}
-
-.industry-btn {
-  padding: 12px 20px;
-  background: #f57c00;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
 
     header {
       background: linear-gradient(135deg, #ff8c00, #e65100);
@@ -87,14 +23,6 @@ color: #fff;
       margin: 0;
       font-size: 42px;
       letter-spacing: 1px;
-    }
-
-    header p {
-      margin-top: 15px;
-      font-size: 18px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     main {
@@ -119,51 +47,52 @@ color: #fff;
       color: #ddd;
     }
 
-    .apps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
+    /* INDUSTRY BLOCKS */
+    .industry-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 30px auto;
+      max-width: 1200px;
+      flex-wrap: wrap; /* mobile responsive */
     }
 
-    .app-card {
-      background: #1c1c1c;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 25px;
+    .industry-block {
+      flex: 1 1 30%;
+      min-height: 220px;
+      background: #000; /* black background for all blocks */
+      color: #fff;
+      border-left: 6px solid #f57c00;
+      padding: 20px;
       text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .app-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-
-    .app-card h3 {
+    .industry-block h2 {
+      color: #f57c00;
       margin-top: 0;
-      color: #ff9800;
-      font-size: 22px;
     }
 
-    .app-card p {
-      font-size: 15px;
-      line-height: 1.5;
-      color: #ccc;
-      margin-bottom: 20px;
+    .industry-block .features {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      text-align: left;
     }
 
-    .app-card a {
-      display: inline-block;
-      padding: 10px 18px;
-      background: #ff8c00;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 4px;
+    .industry-block .features li {
+      margin-bottom: 8px;
     }
 
-    .app-card a:hover {
-      background: #ffa726;
+    .industry-btn {
+      padding: 12px 20px;
+      background: #f57c00;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
     }
 
     footer {
@@ -179,31 +108,23 @@ color: #fff;
 
 <body>
 
-  <header>
-   
-  </header>
+<header>
+  <h1>One Platform. Multiple Workforce Solutions.</h1>
+</header>
 
-  <main>
+<main>
 
-    <section class="intro">
-      <h1>One Platform. Multiple Workforce Solutions.</h1>
-      <p>
-        JobsNZ is a modular platform hosting multiple job and workforce applications,
-        beginning with <strong>Odd Jobs NZ</strong> and <strong>Immediate Painters</strong>.
-        Each application operates independently while sharing a common platform vision. If you 
-        would like to affiliate with ODD-JOBS and add your industry, contact us via Virtual
-        Online Contact Centre virtualonlinenz@outlook.com
-        Unless related to site administation, users are people (18+, NZ-based) seeking practical job 
-        opportunities, sector-specific tools, and community-based work. Using this site for legal jobs and not 
-        personally affiliated with the site. Users are responsible for ensuring compliance with
-       New Zealand employment and tax obligations. For official guidance, refer to Inland 
-        Revenue (IRD) and Employment New Zealand.
+  <section class="intro">
+    <p>
+      JobsNZ is a modular platform hosting multiple job and workforce applications,
+      beginning with <strong>Odd Jobs NZ</strong> and <strong>Immediate Painters</strong>.
+      Each application operates independently while sharing a common platform vision.
+      If you would like to affiliate with ODD-JOBS and add your industry, contact us via:
+      <strong>virtualonlinenz@outlook.com</strong>.
+    </p>
+  </section>
 
-      </p>
-    </section>
-<section class="apps">
-
-  <div class="industry-container">
+  <section class="industry-container">
 
     <!-- Odd Jobs -->
     <div class="industry-block">
@@ -234,28 +155,20 @@ color: #fff;
       </button>
     </div>
 
-  </div>
+  </section>
 
-</section>
+</main>
 
+<footer>
+  JobsNZ is a job-matching and workforce coordination platform only.
+  Employment relationships and compliance obligations remain between users.
+</footer>
 
-    <button class="industry-btn" onclick="scrollToContact()">
-      Read Notes Below for Contact Details
-    </button>
-  </div>
-
-</div>
-
-
-    </section>
-
-  </main>
-
-  <footer>
-    JobsNZ is a job-matching and workforce coordination platform only.
-    Employment relationships and compliance obligations remain between users.
-  </footer>
+<script>
+  function scrollToContact() {
+    window.location.href = "#contact"; // replace with your contact section ID
+  }
+</script>
 
 </body>
 </html>
-
