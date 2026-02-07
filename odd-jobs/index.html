@@ -2,304 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Odd Jobs NZ | JobsNZ</title>
+  <title>JobsNZ Homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <p>This platform is part of JobsNZ.</p>
   <style>
     :root {
-  --jnz-orange: #f57c00;
-  --jnz-orange-dark: #e65100;
-  --jnz-orange-light: #ff9800;
-  --jnz-black: #000;
-  --jnz-dark: #1c1c1c;
-  --jnz-grey: #333;
-  --jnz-white: #fff;
-  --jnz-text-muted: #ccc;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--jnz-orange);
-  color: var(--jnz-white);
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-size: 26px;
-  margin-top: 40px;
-}
-
-h3 {
-  color: #fff;
-}
-
-p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #fff;
-}
-
-.actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin: 40px 0;
-}
-
-.action-card {
-  background: var(--jnz-dark);
-  border: 1px solid var(--jnz-grey);
-  border-radius: 8px;
-  padding: 25px;
-  text-decoration: none;
-  color: var(--jnz-white);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.action-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.action-card h3 {
-  margin-top: 0;
-  font-size: 22px;
-}
-
-.action-card p {
-  font-size: 15px;
-  color: var(--jnz-text-muted);
-}
-
-hr {
-  margin: 60px 0;
-  border: none;
-  border-top: 1px solid var(--jnz-grey);
-}
-
-a {
-  color: #fff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
+      --jnz-orange: #f57c00;
+      --jnz-orange-dark: #e65100;
+      --jnz-dark: #1c1c1c;
+      --jnz-white: #fff;
     }
-
-</style>
-
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--jnz-orange);
+      color: var(--jnz-white);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 { font-size: 36px; margin-bottom: 10px; }
+    .industry-block {
+      background: var(--jnz-dark);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .cta-box {
+      background-color: var(--jnz-orange-dark);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .cta-box:hover { background-color: var(--jnz-orange); }
+    footer { margin-top: 40px; font-size: 14px; opacity: 0.8; border-top: 1px solid #333; padding-top: 20px; }
+    footer a { color: #fff; text-decoration: underline; }
+  </style>
 </head>
 <body>
 
-  <h1>Odd Jobs NZ</h1>
+  <h1>JobsNZ – Welcome</h1>
+  <p>Select a service below to get started:</p>
 
-<p>
-  A community-based platform connecting people already living in New Zealand
-  with local, short-term and casual work opportunities. Choose one
-</p>
-
-<h2>Get started</h2>
-
-<div class="actions">
-
-  <a class="action-card" href="/worker-jobs.html">
-    <h3>View available jobs</h3>
-    <p>Browse current work opportunities</p>
-  </a>
-
-  <a class="action-card" href="/post-job.html">
-    <h3>Post a job</h3>
-    <p>List a task or job that needs doing</p>
-  </a>
-
-  <a class="action-card" href="/worker-profile.html">
-    <h3>I’m looking for work</h3>
-    <p>Tell us about your skills (optional)</p>
-  </a>
-<section class="bottom-marketing">
-  <div class="marketing-container">
-
-    <div class="marketing-video">
-      <video width="100%" controls>
-        <source src="marketing-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <div class="marketing-cta">
-      <div class="industry-block add-industry">
-        <h2>Add Your Industry to JobsNZ</h2>
-        <p>Build your own sub-platform and connect your workforce nationwide.</p>
-        <ul class="features">
-          <li>Basic Plan — $19/month (color coding included)</li>
-          <li>CV Creation — $25</li>
-          <li>Cover Letter — $25</li>
-        </ul>
-        <div class="cta-box" onclick="window.location.href='/industry-signup.html'">
-          Click Here To Get Started
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-</div>
-
-<hr>
-
-<h2>Add Your Industry to JobsNZ</h2>
-
-<p>
-  JobsNZ is a modular workforce platform designed to host multiple
-  industry-specific job and workforce tools under a shared public framework.
-</p>
-
-<p>
-  We welcome expressions of interest from industries, organisations, collectives,
-  and service providers who wish to contribute an industry-specific application,
-  tool, or pathway that supports lawful work opportunities in Aotearoa / New Zealand.
-</p>
-
-<h3>Who this is for</h3>
-
-<ul>
-  <li>Industry groups or associations</li>
-  <li>Small business collectives</li>
-  <li>Sector-led workforce initiatives</li>
-  <li>Community or regional employment programmes</li>
-  <li>Project-based or seasonal industries</li>
-</ul>
-
-<h3>How to express interest</h3>
-
-<p>
-  Email the Virtual Online Contact Centre with a brief outline of your industry
-  and proposed workforce tool or pathway:
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <a href="mailto:virtualonlinenz@outlook.com">virtualonlinenz@outlook.com</a>
-</p>
-<!-- Odd Jobs -->
-<div class="industry-block">
-  <h2>Odd Jobs NZ</h2>
-  <p>Find workers for everyday jobs NZ-wide.</p>
-  <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-    Click Here To Get Started
-  </div>
-</div>
-
- <div class="industry-block">
-  <h2>Immediate Painters</h2>
-  <p>Connect with painters ready to work now.</p>
-  <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-    Click Here To Get Started
-  </div>
-</div>
-
+  <!-- Odd Jobs -->
   <div class="industry-block">
-  <h2>Add Your Industry</h2>
-  <p>Build your own sub-platform and connect your workforce nationwide.</p>
-  <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-    Click Here To Get Started
+    <h2>Odd Jobs NZ</h2>
+    <p>Find workers for everyday jobs NZ-wide.</p>
+    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
+      Click Here To Get Started
+    </div>
   </div>
-</div>
 
+  <!-- Immediate Painters -->
+  <div class="industry-block">
+    <h2>Immediate Painters</h2>
+    <p>Connect with painters ready to work now.</p>
+    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
+      Click Here To Get Started
+    </div>
+  </div>
 
+  <!-- Add Your Industry -->
+  <div class="industry-block">
+    <h2>Add Your Industry</h2>
+    <p>Build your own sub-platform and connect your workforce nationwide.</p>
+    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
+      Click Here To Get Started
+    </div>
+  </div>
 
+  <footer>
+    <p>This platform is part of JobsNZ and is a job matching service only.</p>
+    <p>
+      <a href="/terms.html">Terms of Use</a> |
+      <a href="/contact.html">General Enquiries</a>
+    </p>
+  </footer>
 
 </body>
+</html>
 
-<p style="opacity:0.7;font-size:14px;">
-  This platform is part of JobsNZ and is a job matching service only.
-</p>
-<form action="mailto:virtualonlinenz@outlook.com" method="post" enctype="text/plain">
-  <label>Your Name</label><br>
-  <input type="text" name="name" required><br><br>
-
-  <label>Your Email</label><br>
-  <input type="email" name="email" required><br><br>
-
-  <label>Message (general enquiries only)</label><br>
-  <textarea name="message" required></textarea><br><br>
-
-  <button type="submit">Send Enquiry</button>
-  <div class="card">
-  <label>
-    <input type="checkbox" name="platform_role_ack" required>
-    I understand and agree that this platform is not an employer, recruitment agency,
-    labour hire provider, or contractor. I acknowledge that the platform is a
-    job-seeking and advertising tool only, and that any work arrangements, payments,
-    obligations, or disputes are solely between the job advertiser and the job seeker.
-  </label>
-</div>
-
-<div class="card">
-  <label>
-    <input type="checkbox" name="employment_dispute_ack" required>
-    I understand that employment or contract-related issues must be raised directly
-    with the relevant employer or through appropriate New Zealand authorities, and
-    not with the platform.
-  </label>
-</div>
-
-<p>
-  <a href="/terms.html" target="_blank">Read full Terms of Use</a>
-</p>
-
-</form>
-  <hr>
-
-<h3>Important Platform Notice</h3>
-
-<div>
-  <label>
-    <input type="checkbox" name="platform_role_ack" required>
-    I understand and agree that this platform is not an employer, recruitment agency,
-    labour hire provider, or contractor. I acknowledge that the platform is a
-    job-seeking and advertising tool only, and that any work arrangements, payments,
-    obligations, or disputes are solely between the job advertiser and the job seeker.
-  </label>
-</div>
-
-<br>
-
-
-<p>
-  <a href="/terms.html" target="_blank">Read full Terms of Use</a>
-</p>
-
-</form>
-</html><footer>
-  <p>
-  <footer>
-  <p>
-    Odd Jobs / Immediate Painters is a connection platform only and is not an employer
-    or recruitment agency.
-  </p>
- 
-</footer>
-
-
-  </p>
-  <p>
-    <a href="/terms.html">Terms of Use</a> |
-    <a href="/contact.html">General Enquiries</a>
-  </p>
-</footer>
 
 
