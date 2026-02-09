@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Cards & Surveys Quote</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      padding: 40px;
+    }
+
+    .form-container {
+      max-width: 700px;
+      margin: auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,255,0,0.3);
+    }
+
+    h1 {
+      color: #00ff00;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #00ff00;
+      color: #000;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #00cc00;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+  <h1>Request a Quote</h1>
+
+  <form action="https://formspree.io/f/yourID" method="POST">
+
+```
+<label>Full Name</label>
+<input type="text" name="name" required>
+
+<label>Business Name</label>
+<input type="text" name="business_name">
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Phone</label>
+<input type="tel" name="phone">
+
+<label>Service Needed</label>
+<select name="service">
+  <option>Business Cards</option>
+  <option>Customer Surveys</option>
+  <option>Both</option>
+</select>
+
+<label>Quantity</label>
+<input type="number" name="quantity">
+
+<label>Details / Instructions</label>
+<textarea name="details" rows="5"></textarea>
+
+<button type="submit">Send Quote Request</button>
+```
+
+  </form>
+</div>
+
+</body>
+</html>
