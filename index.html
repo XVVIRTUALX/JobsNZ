@@ -1,331 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JobsNZ Homepage</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color:
+  <meta charset="UTF-8">
+  <title>JobsNZ - One Platform, Multiple Workforce Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    }
-
-  /* CRSS Block Styling */
-
-.crss-block {
-  background-color: #3a2618;
-  border: 2px solid #1f5e3c;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  color: #f5f5f5;
-}
-
-.crss-block h2 {
-  color: #3fae6f;
-}
-
-.crss-block p {
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* Quote Button */
-
-.quote-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 18px;
-  background-color: #2e8b57;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.quote-btn:hover {
-  background-color: #3fae6f;
-}
-
-    
+  <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--jnz-orange);
-      color: var(--jnz-white);
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 20px;
-    }
-
-   
-
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, var(--jnz-orange-light), var(--jnz-orange-dark));
-    }
-
-    header h1 {
-      font-size: 42px;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .intro {
-      text-align: center;
-      margin-bottom: 50px;
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-    .industry-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 60px;
-    }
-
-    .industry-block {
-      flex: 1 1 30%;
-      background: var(--jnz-black);
-      color: var(--jnz-white);
-      border-left: 6px solid var(--jnz-orange);
-      padding: 20px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 220px;
-    }
-
-    .industry-block h2 {
-      color: var(--jnz-orange);
-      margin-top: 0;
-    }
-
-    .industry-block p {
-      margin: 15px 0;
-      font-size: 16px;
-    }
-
-    .industry-block .features {
-      list-style: none;
       padding: 0;
-      margin: 10px 0;
-      text-align: left;
+      background-color: #000;
+      color: #fff;
     }
 
-    .industry-block .features li {
-      margin-bottom: 8px;
-    }
-
-    .cta-box {
-      margin-top: 20px;
-      padding: 12px;
-      background: var(--jnz-dark);
-      border: 1px solid var(--jnz-orange);
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-.quote-button {
-  display: inline-block;
-  padding: 12px 20px;
-  background-color: #00ff00;
-  color: #000;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.quote-button:hover {
-  background-color: #00cc00;
-}
-
-    .cta-box:hover {
-      background: var(--jnz-orange);
-      color: var(--jnz-black);
-    }
-
-    .bottom-marketing {
+    .container {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 60px;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
     }
 
-    .marketing-video, .marketing-cta {
-      flex: 1 1 45%;
+    /* Left column: Job Platforms */
+    .left-column {
+      flex: 2;
+      min-width: 650px;
+      margin-right: 20px;
     }
 
-    .marketing-video video {
-      width: 100%;
+    .platform-block {
+      background-color: #111;
+      border-left: 5px solid #00ff00;
+      padding: 20px;
+      margin-bottom: 20px;
       border-radius: 8px;
     }
 
-    @media (max-width: 768px) {
-      .industry-block {
-        flex: 1 1 100%;
-      }
-      .marketing-video, .marketing-cta {
-        flex: 1 1 100%;
-      }
+    .platform-block h2 {
+      color: #00ff00;
+      margin-top: 0;
     }
 
-    footer {
-      background: var(--jnz-black);
-      color: var(--jnz-text-muted);
+    .platform-block p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .platform-block a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background-color: #00ff00;
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .platform-block a:hover {
+      background-color: #00cc00;
+    }
+
+    /* Right column: Quote Boxes */
+    .right-column {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .quote-box {
+      background-color: #111;
+      border: 2px solid #00ff00;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
       text-align: center;
-      padding: 20px;
+    }
+
+    .quote-box h3 {
+      color: #00ff00;
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .quote-box a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #00ff00;
+      color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
       font-size: 14px;
     }
 
-    footer a {
-      color: var(--jnz-white);
-      text-decoration: none;
-      margin: 0 5px;
+    .quote-box a:hover {
+      background-color: #3fae6f;
+      color: #fff;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-column {
+        margin-right: 0;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>One Platform. Multiple Workforce Solutions.</h1>
-</header>
+<div class="container">
 
-<section class="intro">
-  JobsNZ is a modular platform hosting multiple job and workforce applications, starting with <strong>Odd Jobs NZ</strong> and <strong>Immediate Painters</strong>.
-  Each application operates independently while sharing a common platform vision. Industries are welcome to join and create their own workforce tools.
-</section>
+  <!-- Left Column: Platforms -->
+  <div class="left-column">
 
-<section class="industry-container">
+    <div class="platform-block">
+      <h2>Odd Jobs NZ</h2>
+      <p>Find workers for everyday jobs NZ-wide.</p>
+      <a href="/ODD-JOBS-NZ/">Click Here To Get Started</a>
+    </div>
 
-  <!-- Odd Jobs -->
-  <div class="industry-block">
-    <h2>Odd Jobs NZ</h2>
-    <p>Find workers for everyday jobs NZ-wide.</p>
-    <div class="cta-box" onclick="window.location.href='/odd-jobs/'">Click Here To Get Started</div>
-  </div>
+    <div class="platform-block">
+      <h2>Immediate Painters</h2>
+      <p>Connect with painters ready to work now.</p>
+      <a href="/ODD-JOBS-NZ/immediate-painters/">Click Here To Get Started</a>
+    </div>
 
-  <!-- Immediate Painters -->
-  <div class="industry-block">
-    <h2>Immediate Painters</h2>
-    <p>Connect with painters ready to work now.</p>
-    <div class="cta-box" onclick="window.location.href='/Immediate-Painters/'">Click Here To Get Started</div>
-  </div>
-<!-- Second Page Service Blocks (mirror of homepage) -->
-
-<div class="industry-block">
-  <h2>Basic Plan</h2>
-  <p>Perfect for adding your industry and promoting your services.</p>
-  <a href="/business-cards-surveys/quote-form/index.html?service=Basic+Plan" class="quote-button">
-    Request a Quote
-  </a>
-</div>
-<div class="industry-block crss-block">
-  <h2>Climate Resilience & Sustainability Services</h2>
-
-  <p>
-    Connect workforce, projects, and digital tools focused on climate change
-    response, environmental sustainability, and resilient infrastructure.
-  </p>
-
-  <p>
-    This platform operates as both a job marketplace and a resource app,
-    supporting organisations, councils, researchers, and private industry
-    nationwide.
-  </p>
-
-  <a href="/business-cards-surveys/quote-form/index.html?service=CRSS"
-     class="quote-btn">
-     Request a Quote
-  </a>
-</div>
-
-  
-<div class="industry-block">
-  <h2>CV Creation</h2>
-  <p>Professional CV creation service to highlight your skills.</p>
-  <a href="/business-cards-surveys/quote-form/index.html?service=CV+Creation" class="quote-button">
-    Request a Quote
-  </a>
-</div>
-
-<div class="industry-block">
-  <h2>Cover Letter Creation</h2>
-  <p>Custom cover letters tailored for each job application.</p>
-  <a href="/business-cards-surveys/quote-form/index.html?service=Cover+Letter" class="quote-button">
-    Request a Quote
-  </a>
-</div>
-
-<div class="industry-block">
-  <h2>Business Cards</h2>
-  <p>Create professional business cards with basic or extensive design options.</p>
-  <a href="/business-cards-surveys/quote-form/index.html?service=Business+Cards" class="quote-button">
-    Request a Quote
-  </a>
-</div>
-
-<div class="industry-block">
-  <h2>Surveys</h2>
-  <p>Environmental or Marketing survey setup for your research or business.</p>
-  <a href="/business-cards-surveys/quote-form/index.html?service=Survey" class="quote-button">
-    Request a Quote
-  </a>
-</div>
-
-
-
-
-</section>
-
-<section class="bottom-marketing">
-
-  <!-- Left: Marketing Video -->
-  <div class="marketing-video">
-    <video controls>
-      <source src="marketing-video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  <!-- Right: Add Industry CTA -->
-  <div class="marketing-cta">
-    <div class="industry-block">
-      <h2>Add Your Industry to JobsNZ</h2>
+    <div class="platform-block">
+      <h2>Add Your Industry</h2>
       <p>Build your own sub-platform and connect your workforce nationwide.</p>
-      <ul class="features">
-        <li>Basic Plan — $19/month</li>
-        <li>CV Creation — $25</li>
-        <li>Cover Letter Creation — $25</li>
-      </ul>
-      <div class="cta-box" onclick="window.location.href='/industry-signup.html'">Click Here To Get Started</div>
+      <a href="/ODD-JOBS-NZ/">Request a Quote</a>
+    </div>
+
+    <div class="platform-block">
+      <h2>Climate Resilience & Sustainability Services</h2>
+      <p>
+        Connect workforce, projects, and digital tools focused on climate change response, environmental sustainability, and resilient infrastructure.
+        This platform operates as both a job marketplace and a resource app, supporting organisations, councils, researchers, and private industry nationwide.
+      </p>
+      <a href="/Climate-Resilience-Sustainability-Services/">Request a Quote</a>
+    </div>
+
+  </div>
+
+  <!-- Right Column: Quote Boxes -->
+  <div class="right-column">
+    <div class="quote-box">
+      <h3>CV Creation</h3>
+      <a href="/quote-form/?service=CV_Creation">Request a Quote</a>
+    </div>
+
+    <div class="quote-box">
+      <h3>Cover Letter</h3>
+      <a href="/quote-form/?service=Cover_Letter">Request a Quote</a>
+    </div>
+
+    <div class="quote-box">
+      <h3>Business Cards</h3>
+      <a href="/quote-form/?service=Business_Cards">Request a Quote</a>
+    </div>
+
+    <div class="quote-box">
+      <h3>Market / Survey</h3>
+      <a href="/quote-form/?service=Survey">Request a Quote</a>
+    </div>
+
+    <div class="quote-box">
+      <h3>Add Industry</h3>
+      <a href="/quote-form/?service=Add_Industry">Request a Quote</a>
     </div>
   </div>
 
-</section>
-
-<footer>
-  <p>JobsNZ is a job-matching and workforce coordination platform only.</p>
-  <p>
-    <a href="/terms.html">Terms of Use</a> |
-    <a href="/contact.html">General Enquiries</a>
-  </p>
-</footer>
+</div>
 
 </body>
 </html>
