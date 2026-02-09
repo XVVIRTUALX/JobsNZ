@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Business Cards & Surveys Quote</title>
+  <title>Business Cards & Surveys Quote Request</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -56,48 +55,81 @@
     button:hover {
       background: #00cc00;
     }
-  </style>
 
+    .note {
+      font-size: 13px;
+      color: #ccc;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body>
-
 <div class="form-container">
   <h1>Request a Quote</h1>
 
- <form action="mailto:virtualonlinenz@outlook.com" method="POST" enctype="text/plain">
+  <form action="mailto:virtualonlinenz@outlook.com" method="POST" enctype="text/plain">
 
-```
-<label>Full Name</label>
-<input type="text" name="name" required>
+    <!-- Client Details -->
+    <label>Full Name</label>
+    <input type="text" name="Name" required>
 
-<label>Business Name</label>
-<input type="text" name="business_name">
+    <label>Business / Organisation Name</label>
+    <input type="text" name="Business_Name">
 
-<label>Email</label>
-<input type="email" name="email" required>
+    <label>Email</label>
+    <input type="email" name="Email" required>
 
-<label>Phone</label>
-<input type="tel" name="phone">
+    <label>Phone</label>
+    <input type="tel" name="Phone">
 
-<label>Service Needed</label>
-<select name="service">
-  <option>Business Cards</option>
-  <option>Customer Surveys</option>
-  <option>Both</option>
-</select>
+    <label>Delivery Address</label>
+    <textarea name="Delivery_Address" rows="3"></textarea>
 
-<label>Quantity</label>
-<input type="number" name="quantity">
+    <!-- Service Type -->
+    <label>Service Required</label>
+    <select name="Service_Type" required>
+      <option value="">-- Select --</option>
+      <option value="Business Cards">Business Cards</option>
+      <option value="Survey">Survey</option>
+      <option value="Both">Both</option>
+    </select>
 
-<label>Details / Instructions</label>
-<textarea name="details" rows="5"></textarea>
+    <!-- Business Card Package -->
+    <label>Business Card Package</label>
+    <select name="Business_Card_Package">
+      <option value="">-- Select if applicable --</option>
+      <option value="Basic Design – 250 Cards">Basic Design – 250 Cards</option>
+      <option value="Extensive Design – 100 Cards">Extensive Design – 100 Cards</option>
+    </select>
 
-<button type="submit">Send Quote Request</button>
-```
+    <!-- Survey Type -->
+    <label>Survey Type</label>
+    <select name="Survey_Type">
+      <option value="">-- Select if applicable --</option>
+      <option value="Environmental Survey">Environmental Survey</option>
+      <option value="Marketing Survey">Marketing Survey</option>
+    </select>
+
+    <!-- Payment Preference -->
+    <label>Preferred Payment Method</label>
+    <select name="Payment_Method">
+      <option value="Crypto">Cryptocurrency</option>
+      <option value="Cash">Cash</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+    </select>
+
+    <!-- Design / Logo Notes -->
+    <label>Design / Logo / Notes</label>
+    <textarea name="Design_Notes" rows="5" placeholder="Provide details about your business card or survey here. Attach files manually in your email client."></textarea>
+
+    <button type="submit">Send Quote Request</button>
+
+    <p class="note">
+      After clicking submit, your email client will open. Please attach any files (design, logo) manually before sending.
+    </p>
 
   </form>
 </div>
-
 </body>
 </html>
