@@ -1,181 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JobsNZ - One Platform, Multiple Workforce Solutions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>ODD-JOBS.NZ | Workforce Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      color: #fff;
+<style>
+
+/* ===== GLOBAL ===== */
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg,#0a0f14,#05080c);
+    color:#d9e1e8;
+}
+
+/* ===== MAIN WRAP ===== */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* ===== TITLE ===== */
+.main-title{
+    text-align:center;
+    font-size:38px;
+    font-weight:bold;
+    color:#4CAF50;
+    margin-bottom:25px;
+}
+
+/* ===== INTRO ===== */
+.intro{
+    text-align:center;
+    max-width:900px;
+    margin:0 auto 40px auto;
+    line-height:1.6;
+    color:#c7d2db;
+}
+
+/* ===== GRID ===== */
+.grid{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:30px;
+}
+
+/* ===== PANELS ===== */
+.panel{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.panel h2{
+    margin:0 0 8px 0;
+    font-size:22px;
+    color:#ffffff;
+}
+
+.panel p{
+    margin:0;
+    color:#b8c4cc;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    float:right;
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color:white;
+    padding:10px 22px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 8px rgba(0,0,0,0.5);
+    transition:0.2s;
+}
+
+.btn:hover{
+    background: linear-gradient(180deg,#6fff73,#35b63f);
+}
+
+/* ===== RIGHT BOX ===== */
+.side-box{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+    text-align:center;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.side-box h3{
+    margin-top:0;
+    color:#ffffff;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:50px;
+    padding-top:25px;
+    border-top:1px solid #1e2a33;
+    text-align:center;
+    color:#9fb0bd;
+    font-size:14px;
+}
+
+.footer a{
+    color:#c7d2db;
+    text-decoration:none;
+    margin:0 10px;
+}
+
+.footer a:hover{
+    text-decoration:underline;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr;
     }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+    .btn{
+        float:none;
+        display:inline-block;
+        margin-top:12px;
     }
+}
 
-    /* Left column: Job Platforms */
-    .left-column {
-      flex: 2;
-      min-width: 650px;
-      margin-right: 20px;
-    }
-
-    .platform-block {
-      background-color: #111;
-      border-left: 5px solid #00ff00;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-    }
-
-    .platform-block h2 {
-      color: #00ff00;
-      margin-top: 0;
-    }
-
-    .platform-block p {
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .platform-block a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 16px;
-      background-color: #00ff00;
-      color: #000;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .platform-block a:hover {
-      background-color: #00cc00;
-    }
-
-    /* Right column: Quote Boxes */
-    .right-column {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .quote-box {
-      background-color: #111;
-      border: 2px solid #00ff00;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .quote-box h3 {
-      color: #00ff00;
-      margin-top: 0;
-      font-size: 16px;
-    }
-
-    .quote-box a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 12px;
-      background-color: #00ff00;
-      color: #000;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .quote-box a:hover {
-      background-color: #3fae6f;
-      color: #fff;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-      }
-      .left-column {
-        margin-right: 0;
-      }
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <!-- Left Column: Platforms -->
-  <div class="left-column">
-
-    <div class="platform-block">
-      <h2>Odd Jobs NZ</h2>
-      <p>Find workers for everyday jobs NZ-wide.</p>
-      <a href="/ODD-JOBS-NZ/">Click Here To Get Started</a>
+    <!-- TITLE -->
+    <div class="main-title">
+        One Platform. Multiple Workforce Solutions.
     </div>
 
-    <div class="platform-block">
-      <h2>Immediate Painters</h2>
-      <p>Connect with painters ready to work now.</p>
-      <a href="/ODD-JOBS-NZ/immediate-painters/">Click Here To Get Started</a>
+    <!-- INTRO -->
+    <div class="intro">
+        JobsNZ is a modular platform hosting multiple job and workforce applications, starting with Odd Jobs NZ and Immediate Painters.<br><br>
+        Each application operates independently while sharing a common platform vision.<br><br>
+        Industries are welcome to join and create their own workforce tools.
     </div>
 
-    <div class="platform-block">
-      <h2>Add Your Industry</h2>
-      <p>Build your own sub-platform and connect your workforce nationwide.</p>
-      <a href="/ODD-JOBS-NZ/">Request a Quote</a>
+    <div class="grid">
+
+        <!-- LEFT COLUMN -->
+        <div>
+
+            <!-- 1 ODD JOBS -->
+            <div class="panel">
+                <a href="#" class="btn">Get Started</a>
+                <h2>Odd-Jobs NZ</h2>
+                <p>Find workers for everyday jobs NZ-wide.</p>
+            </div>
+
+            <!-- 2 IMMEDIATE PAINTERS -->
+            <div class="panel">
+                <a href="#" class="btn">Get Started</a>
+                <h2>Immediate Painters</h2>
+                <p>Connect with painters ready to work now.</p>
+            </div>
+
+            <!-- 3 CLIMATE RSS -->
+            <div class="panel">
+                <a href="#" class="btn">Get Started</a>
+                <h2>Climate-Resilience-Sustainability-Services</h2>
+                <p>
+                    Workforce solutions across carbon audits, renewable energy,
+                    urban farming, climate resilience and waste reduction services.
+                </p>
+            </div>
+
+            <!-- 4 ADD INDUSTRY -->
+            <div class="panel">
+                <a href="#" class="btn">Get Started</a>
+                <h2>Add Your Industry</h2>
+                <p>Build your own sub-platform on JobsNZ.</p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+
+            <div class="side-box">
+                <h3>CV Creation</h3>
+                <a href="#" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Cover Letters</h3>
+                <a href="#" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Business Cards</h3>
+                <a href="#" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Market / Survey</h3>
+                <a href="#" class="btn">Request a Quote</a>
+            </div>
+
+            <!-- NEW CLIMATE ASSIST -->
+            <div class="side-box">
+                <h3>Climate / Sustainability Assist</h3>
+                <a href="#" class="btn">Request a Quote</a>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="platform-block">
-      <h2>Climate Resilience & Sustainability Services</h2>
-      <p>
-        Connect workforce, projects, and digital tools focused on climate change response, environmental sustainability, and resilient infrastructure.
-        This platform operates as both a job marketplace and a resource app, supporting organisations, councils, researchers, and private industry nationwide.
-      </p>
-      <a href="/Climate-Resilience-Sustainability-Services/">Request a Quote</a>
-    </div>
+    <!-- FOOTER -->
+    <div class="footer">
+        JobsNZ is a job-matching and workforce coordination platform only, designed for NZ citizens and residents.<br><br>
 
-  </div>
+        It is not an employment recruitment agency. All services operate as a self-service workforce connection platform between users and industries.<br><br>
 
-  <!-- Right Column: Quote Boxes -->
-  <div class="right-column">
-    <div class="quote-box">
-      <h3>CV Creation</h3>
-      <a href="/quote-form/?service=CV_Creation">Request a Quote</a>
+        <a href="#">Terms of Use</a> |
+        <a href="#">General Enquiries</a>
     </div>
-
-    <div class="quote-box">
-      <h3>Cover Letter</h3>
-      <a href="/quote-form/?service=Cover_Letter">Request a Quote</a>
-    </div>
-
-    <div class="quote-box">
-      <h3>Business Cards</h3>
-      <a href="/quote-form/?service=Business_Cards">Request a Quote</a>
-    </div>
-
-    <div class="quote-box">
-      <h3>Market / Survey</h3>
-      <a href="/quote-form/?service=Survey">Request a Quote</a>
-    </div>
-
-    <div class="quote-box">
-      <h3>Add Industry</h3>
-      <a href="/quote-form/?service=Add_Industry">Request a Quote</a>
-    </div>
-  </div>
 
 </div>
 
