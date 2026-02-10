@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post a Job | Immediate Painters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --jnz-green: #16a34a;
+      --jnz-green-dark: #166534;
+      --jnz-black: #0f0f0f;
+      --jnz-white: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--jnz-black);
+      color: var(--jnz-white);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: var(--jnz-green);
+    }
+
+    .industry-block {
+      background: #1a1a1a;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .cta-box {
+      background-color: var(--jnz-green-dark);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cta-box:hover {
+      background-color: var(--jnz-green);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.8;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+
+    footer a { color: var(--jnz-green); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <h1>Post a Painting Job</h1>
+  <p>Fill out the form below to post a painting job. VOCC will receive your submission.</p>
+
+  <div class="industry-block">
+    <form action="send-quote.php" method="POST" enctype="multipart/form-data">
+
+      <label for="name">Your Name *</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="jobtitle">Job Title *</label>
+      <input type="text" id="jobtitle" name="jobtitle" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location">
+
+      <label for="budget">Budget (NZD)</label>
+      <input type="text" id="budget" name="budget">
+
+      <label for="description">Job Description *</label>
+      <textarea id="description" name="description" rows="6" required></textarea>
+
+      <label for="files">Attach Files (optional)</label>
+      <input type="file" name="files[]" multiple>
+
+      <!-- Hidden field for internal job tracking -->
+      <input type="hidden" name="jobid" value="JOB-<?php echo time(); ?>">
+
+      <div class="cta-box" onclick="this.closest('form').submit();">
+        Submit Job
+      </div>
+
+    </form>
+  </div>
+
+  <footer>
+    <p>This platform is part of JobsNZ and operates as a job matching service.</p>
+    <p>
+      <a href="index.html">Home</a> |
+      <a href="../terms.html">Terms of Use</a> |
+      <a href="../contact.html">General Enquiries</a>
+    </p>
+  </footer>
+
+</body>
+</html>
