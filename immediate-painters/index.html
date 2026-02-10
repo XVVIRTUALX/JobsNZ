@@ -2,121 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Immediate Painters | Next Step | JobsNZ</title>
+  <title>Immediate Painters – JobNZ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --jnz-orange: #f57c00;
-      --jnz-orange-dark: #e65100;
-      --jnz-dark: #1c1c1c;
-      --jnz-white: #fff;
+      --jnz-uniform-green: #1e7f2e;   /* hover / main accent */
+      --jnz-uniform-black: #1c1c1c;   /* background */
+      --jnz-white: #ffffff;           /* text */
+      --jnz-green-dark: #14521a;      /* button default */
     }
+
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--jnz-orange);
+      background-color: var(--jnz-uniform-black);
       color: var(--jnz-white);
+      font-family: Arial, Helvetica, sans-serif;
       max-width: 1100px;
       margin: 0 auto;
       padding: 20px;
     }
-    h1 { font-size: 36px; margin-bottom: 10px; }
-    p { font-size: 16px; line-height: 1.6; }
-    form {
-      background: var(--jnz-dark);
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: var(--jnz-uniform-green);
+    }
+
+    .industry-block {
+      background-color: var(--jnz-uniform-green);
       padding: 20px;
+      margin: 20px 0;
       border-radius: 8px;
-      margin-top: 20px;
     }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    input[type="text"], input[type="email"], textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #333;
-    }
-    textarea { resize: vertical; }
-    .checkbox-card { background-color: var(--jnz-dark); padding: 10px; margin-bottom: 15px; border-radius: 5px; }
-    .checkbox-card input { margin-right: 10px; }
-    button[type="submit"] {
-      background-color: var(--jnz-orange-dark);
-      color: #fff;
-      padding: 12px 25px;
-      border: none;
+
+    .cta-box {
+      background-color: var(--jnz-green-dark);
+      color: var(--jnz-white);
+      padding: 15px 25px;
       border-radius: 8px;
+      text-align: center;
       cursor: pointer;
-      font-size: 16px;
+      display: inline-block;
+      margin-top: 15px;
       font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s;
     }
-    button[type="submit"]:hover { background-color: var(--jnz-orange); }
+
+    .cta-box:hover {
+      background-color: var(--jnz-uniform-green);
+    }
+
     footer {
       margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #333;
       font-size: 14px;
       opacity: 0.8;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      color: var(--jnz-white);
     }
-    footer a { color: #fff; text-decoration: underline; }
-    .back-home { margin-top: 20px; display: inline-block; color: #fff; text-decoration: underline; cursor: pointer; }
+
+    footer a {
+      color: var(--jnz-white);
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Immediate Painters – Next Step</h1>
-  <p>Thank you for choosing Immediate Painters. “Those legally entitled to work in New Zealand please fill out the form below to get started.</p>
+  <h1>Immediate Painters</h1>
+  <p>Connect with painters ready to work now. Select an option below to get started:</p>
 
-  <form action="mailto:virtualonlinenz@outlook.com" method="post" enctype="text/plain">
-    <label>Your Name</label>
-    <input type="text" name="name" required>
-
-    <label>Your Email</label>
-    <input type="email" name="email" required>
-
-    <label>Phone Number</label>
-    <input type="text" name="phone">
-
-    <label>Type of Painting Work You’re Looking For</label>
-    <textarea name="work-type" rows="4" required></textarea>
-
-    <label>Location / Area</label>
-    <input type="text" name="location">
-
-    <div class="checkbox-card">
-      <label>
-        <input type="checkbox" name="platform_role_ack" required>
-        I understand this platform is a connection tool only and not an employer or contractor.
-      </label>
+  <div class="industry-block">
+    <h2>Apply for a Painting Job</h2>
+    <p>If you’re a painter looking for work, submit your application and quote.</p>
+    <div class="cta-box" onclick="window.location.href='immediate-painters-quote.html'">
+      Submit a Quote / Apply
     </div>
+  </div>
 
-    <div class="checkbox-card">
-      <label>
-        <input type="checkbox" name="employment_dispute_ack" required>
-        I understand any employment or contract-related issues must be handled directly with the employer or NZ authorities.
-      </label>
+  <div class="industry-block">
+    <h2>Post a Painting Job</h2>
+    <p>If you need painters, advertise your job and receive quotes directly from contractors.</p>
+    <div class="cta-box" onclick="window.location.href='post-job.html'">
+      Post a Job
     </div>
+  </div>
 
-    <button type="submit">Submit</button>
-  </form>
-
-  <div class="back-home" onclick="window.location.href='../../index.html'">
-    ← Back to Homepage
+  <div class="industry-block">
+    <h2>Back to JobNZ Home Page</h2>
+    <div class="cta-box" onclick="window.location.href='/'">
+      Home Page
+    </div>
   </div>
 
   <footer>
-    <p style="font-size:14px; opacity:0.8;">
-  All work opportunities listed on this platform are for individuals who are legally entitled to work in New Zealand. 
-  This includes New Zealand citizens, residents, and holders of valid work visas. 
-  The platform does not discriminate based on nationality, ethnicity, or origin, and 
-  any work arrangements, payments, or obligations are solely between the job poster and the worker.
-.</p>
+    <p>Immediate Painters – part of JobNZ. All jobs are freelance-managed.</p>
     <p>
       <a href="/terms.html">Terms of Use</a> |
       <a href="/contact.html">General Enquiries</a>
     </p>
-    <p>Immediate Painters is a connection platform only and is not an employer or recruitment agency.</p>
   </footer>
 
 </body>
 </html>
-
