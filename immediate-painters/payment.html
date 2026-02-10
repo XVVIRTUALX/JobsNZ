@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Options | JobsNZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --jnz-green: #16a34a;
+      --jnz-green-dark: #166534;
+      --jnz-black: #0f0f0f;
+      --jnz-white: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--jnz-black);
+      color: var(--jnz-white);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: var(--jnz-green);
+    }
+
+    h2 {
+      color: var(--jnz-green);
+      margin-top: 0;
+    }
+
+    h3 {
+      color: var(--jnz-green);
+    }
+
+    .industry-block {
+      background: #1a1a1a;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .cta-box {
+      background-color: var(--jnz-green-dark);
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cta-box:hover {
+      background-color: var(--jnz-green);
+    }
+
+    .disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    ul {
+      line-height: 1.8;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.8;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+
+    footer a {
+      color: var(--jnz-green);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Payment Options</h1>
+  <p>Arrangements for payment occur once a quote has been accepted.</p>
+
+  <!-- Standard Payments -->
+  <div class="industry-block">
+    <h2>Standard Payment Methods</h2>
+
+    <p>
+      Payments for accepted quotes are arranged directly between the employer 
+      and contractor unless facilitated by the JobsNZ Virtual Online Contact 
+      Centre (VOCC).
+    </p>
+
+    <ul>
+      <li>Bank Transfer (NZD)</li>
+      <li>Cash by Agreement</li>
+      <li>Invoice Payment</li>
+    </ul>
+
+    <div class="cta-box" onclick="window.location.href='/'">
+      Back to Home Page
+    </div>
+  </div>
+
+  <!-- Digital / Future Payments -->
+  <div class="industry-block">
+    <h2>Emerging Digital Payment Infrastructure</h2>
+
+    <p>
+      JobsNZ is exploring future-ready payment systems to support faster, secure, 
+      and traceable transactions across our platform.
+    </p>
+
+    <p>
+      One developing framework of interest is <strong>Project Babbage (BRC100)</strong> — 
+      a digital infrastructure initiative focused on enabling scalable internet-native 
+      payments and data exchange.
+    </p>
+
+    <p>
+      This work is associated with developments within the <strong>BSV (Bitcoin SV)</strong> 
+      ecosystem, including a protocol stabilisation upgrade known as 
+      <strong>“Chronicles”</strong>, aimed at permanently locking the original Bitcoin 
+      protocol structure for long-term enterprise reliability.
+    </p>
+
+    <ul>
+      <li>Secure micro-payments for job deposits and quotes</li>
+      <li>Immutable contract and work completion records</li>
+      <li>Data-linked payment verification</li>
+      <li>Cross-border contractor payments</li>
+    </ul>
+
+    <p>
+      These systems are currently under observation and development and are not 
+      yet the primary payment method on JobsNZ.
+    </p>
+
+    <div class="cta-box disabled">
+      Pay via Digital Ledger (Coming Soon)
+    </div>
+  </div>
+
+  <!-- VOCC Support -->
+  <div class="industry-block">
+    <h2>VOCC Payment Assistance</h2>
+
+    <p>
+      The Virtual Online Contact Centre (VOCC) can assist with payment logging, 
+      invoice coordination, and dispute record tracking where requested.
+    </p>
+
+    <ul>
+      <li>Manual payment recording</li>
+      <li>Invoice documentation</li>
+      <li>Quote acceptance confirmation</li>
+      <li>Completion sign-off tracking</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>This platform is part of JobsNZ and operates as a job matching service.</p>
+    <p>
+      <a href="/terms.html">Terms of Use</a> |
+      <a href="/contact.html">General Enquiries</a>
+    </p>
+  </footer>
+
+</body>
+</html>
