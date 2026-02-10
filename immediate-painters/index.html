@@ -2,41 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Immediate Painters – JobNZ</title>
+  <title>Immediate Painters – Get Started</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --jnz-uniform-green: #1e7f2e;   /* hover / main accent */
-      --jnz-uniform-black: #1c1c1c;   /* background */
-      --jnz-white: #ffffff;           /* text */
-      --jnz-green-dark: #14521a;      /* button default */
+      --green-dark: #14521a;
+      --green: #16a34a;
+      --black: #0f0f0f;
+      --grey: #1a1a1a;
+      --white: #ffffff;
     }
 
     body {
-      background-color: var(--jnz-uniform-black);
-      color: var(--jnz-white);
-      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--black);
+      color: var(--white);
       max-width: 1100px;
       margin: 0 auto;
       padding: 20px;
     }
 
     h1 {
+      color: var(--green);
       font-size: 36px;
-      margin-bottom: 10px;
-      color: var(--jnz-uniform-green);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     .industry-block {
-      background-color: var(--jnz-uniform-green);
+      background: var(--grey);
       padding: 20px;
       margin: 20px 0;
       border-radius: 8px;
+      text-align: center;
+    }
+
+    .industry-block h2 {
+      color: var(--green);
+      margin-bottom: 10px;
     }
 
     .cta-box {
-      background-color: var(--jnz-green-dark);
-      color: var(--jnz-white);
+      background-color: var(--green-dark);
+      color: var(--white);
       padding: 15px 25px;
       border-radius: 8px;
       text-align: center;
@@ -45,11 +60,11 @@
       margin-top: 15px;
       font-weight: bold;
       text-decoration: none;
-      transition: background-color 0.3s;
+      transition: background 0.3s;
     }
 
     .cta-box:hover {
-      background-color: var(--jnz-uniform-green);
+      background-color: var(--green);
     }
 
     footer {
@@ -58,30 +73,31 @@
       opacity: 0.8;
       border-top: 1px solid #333;
       padding-top: 20px;
-      color: var(--jnz-white);
+      text-align: center;
     }
 
     footer a {
-      color: var(--jnz-white);
+      color: var(--green);
       text-decoration: underline;
+      margin: 0 10px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Immediate Painters</h1>
-  <p>Connect with painters ready to work now. Select an option below to get started:</p>
-<div class="industry-block">
-  <h2>Apply for a Painting Job</h2>
-  <p>If you’re a painter looking for work, submit your application and quote.</p>
+  <h1>Immediate Painters – Get Started</h1>
+  <p>What would you like to do?</p>
 
-  <div class="cta-box" onclick="window.location.href='quote.html'">
-    Submit a Quote / Apply
+  <!-- 1. Search Jobs -->
+  <div class="industry-block">
+    <h2>Search Jobs</h2>
+    <p>If you’re a painter looking for work, view available jobs and submit a quote.</p>
+    <div class="cta-box" onclick="window.location.href='worker-jobs.html'">
+      Search Jobs
+    </div>
   </div>
-</div>
 
- 
-
+  <!-- 2. Post a Painting Job -->
   <div class="industry-block">
     <h2>Post a Painting Job</h2>
     <p>If you need painters, advertise your job and receive quotes directly from contractors.</p>
@@ -90,19 +106,25 @@
     </div>
   </div>
 
+  <!-- 3. Apply for a Painting Job -->
   <div class="industry-block">
-    <h2>Back to JobNZ Home Page</h2>
-    <div class="cta-box" onclick="window.location.href='/'">
+    <h2>Apply for a Painting Job</h2>
+    <p>If you’re a painter ready to quote for a specific job, submit your application here.</p>
+    <div class="cta-box" onclick="window.location.href='quote.html'">
+      Submit a Quote / Apply
+    </div>
+  </div>
+
+  <!-- Optional: Back to JobNZ Home -->
+  <div class="industry-block">
+    <h2>Back to JobNZ Home</h2>
+    <div class="cta-box" onclick="window.location.href='../index.html'">
       Home Page
     </div>
   </div>
 
   <footer>
-    <p>Immediate Painters – part of JobNZ. All jobs are freelance-managed.</p>
-    <p>
-      <a href="/terms.html">Terms of Use</a> |
-      <a href="/contact.html">General Enquiries</a>
-    </p>
+    <p>&copy; 2026 JobNZ | <a href="../terms.html">Terms of Use</a> | <a href="../contact.html">Contact</a></p>
   </footer>
 
 </body>
