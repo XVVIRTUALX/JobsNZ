@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JobsNZ Homepage</title>
+  <title>Odd Jobs - Get Started</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
@@ -19,61 +19,40 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 20px;
+      text-align: center;
     }
-    h1 { font-size: 36px; margin-bottom: 10px; }
-    .industry-block {
-      background: var(--jnz-dark);
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
+    h1 { font-size: 36px; margin-bottom: 20px; }
     .cta-box {
-      background-color: var(--jnz-orange-dark);
+      background-color: var(--jnz-dark);
       color: #fff;
-      padding: 15px 25px;
-      border-radius: 8px;
+      padding: 20px 40px;
+      border-radius: 10px;
       text-align: center;
       cursor: pointer;
-      display: inline-block;
-      margin-top: 15px;
+      display: block;
+      margin: 20px auto;
       font-weight: bold;
       text-decoration: none;
+      font-size: 20px;
+      transition: 0.3s;
+      max-width: 300px;
     }
-    .cta-box:hover { background-color: var(--jnz-orange); }
+    .cta-box:hover { background-color: var(--jnz-orange-dark); }
     footer { margin-top: 40px; font-size: 14px; opacity: 0.8; border-top: 1px solid #333; padding-top: 20px; }
     footer a { color: #fff; text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <h1>JobsNZ – Welcome</h1>
-  <p>Select a service below to get started:</p>
+  <h1>Odd Jobs NZ – Get Started</h1>
+  <p>What would you like to do?</p>
 
-  <!-- Odd Jobs -->
-  <div class="industry-block">
-    <h2>Odd Jobs NZ</h2>
-    <p>Find “individuals legally entitled to work in New Zealand for everyday jobs NZ-wide.</p>
-    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-      Click Here To Get Started
-    </div>
+  <div class="cta-box" onclick="window.location.href='/ODD-JOBS-NZ/odd-jobs/worker-jobs.html'">
+    Search Jobs
   </div>
 
-  <!-- Immediate Painters -->
-  <div class="industry-block">
-    <h2>Immediate Painters</h2>
-    <p>Connect with painters ready to work now.</p>
-    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/immediate-painters/'">
-      Click Here To Get Started
-    </div>
-  </div>
-
-  <!-- Add Your Industry -->
-  <div class="industry-block">
-    <h2>Add Your Industry</h2>
-    <p>Build your own sub-platform and connect your workforce nationwide.</p>
-    <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-      Click Here To Get Started
-    </div>
+  <div class="cta-box" onclick="window.location.href='/ODD-JOBS-NZ/odd-jobs/post-job.html'">
+    Post a Job
   </div>
 
   <footer>
@@ -86,6 +65,3 @@
 
 </body>
 </html>
-
-
-
