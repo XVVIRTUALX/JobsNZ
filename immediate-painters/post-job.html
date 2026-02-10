@@ -18,22 +18,24 @@
 <body>
 
 <h1>Post a Painting Job</h1>
-
-<form id="jobForm">
+<form id="jobForm" method="post" action="send-quote.php">
+  <input type="hidden" name="type" value="jobpost">
+  
   <label for="title">Job Title*</label>
-  <input type="text" id="title" name="title" required>
+  <input type="text" name="title" id="title" required>
 
   <label for="location">Location*</label>
-  <input type="text" id="location" name="location" required>
+  <input type="text" name="location" id="location" required>
 
   <label for="budget">Budget (NZD)*</label>
-  <input type="number" id="budget" name="budget" required>
+  <input type="number" name="budget" id="budget" required>
 
   <label for="description">Description*</label>
-  <textarea id="description" name="description" rows="5" required></textarea>
+  <textarea name="description" id="description" required></textarea>
 
   <button type="submit">Submit Job</button>
 </form>
+
 
 <div id="message" style="margin-top:20px;"></div>
 
