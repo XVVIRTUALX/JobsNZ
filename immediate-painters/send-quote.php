@@ -1,9 +1,13 @@
 <?php
+// ==============================
 // Configuration
-$employer_email = "employer@example.com"; // replace with real employer email
-$vocc_email = "voccsupport@example.com"; // optional VOCC CC
+// ==============================
+$employer_email = "employer@example.com"; // Replace with actual employer email
+$vocc_email     = "voccsupport@example.com"; // Optional VOCC CC
 
+// ==============================
 // Get form data
+// ==============================
 $name   = $_POST['name'] ?? '';
 $email  = $_POST['email'] ?? '';
 $jobid  = $_POST['jobid'] ?? '';
@@ -15,7 +19,9 @@ if(empty($name) || empty($email) || empty($jobid) || empty($quote)) {
     die("Please fill in all required fields.");
 }
 
-// Prepare email
+// ==============================
+// Prepare email content
+// ==============================
 $subject = "New Painting Quote Submission - Job ID: $jobid";
 $message = "You have received a new quote submission for Job ID: $jobid\n\n";
 $message .= "Name: $name\n";
@@ -23,7 +29,9 @@ $message .= "Email: $email\n";
 $message .= "Quote Amount: $quote NZD\n";
 $message .= "Notes: $notes\n";
 
+// ==============================
 // Handle file uploads
+// ==============================
 $attachments = [];
 if(isset($_FILES['files'])) {
     foreach($_FILES['files']['tmp_name'] as $key => $tmp_name) {
@@ -31,12 +39,13 @@ if(isset($_FILES['files'])) {
         $file_tmp  = $_FILES['files']['tmp_name'][$key];
         $file_size = $_FILES['files']['size'][$key];
 
-        // Limit file size (e.g., 10MB)
+        // Limit file size to 10MB
         if($file_size > 10*1024*1024) continue;
 
-        // Move to temporary folder
+        // Create uploads folder if not exists
         $upload_dir = "uploads/";
         if(!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
+
         $file_path = $upload_dir . basename($file_name);
         if(move_uploaded_file($file_tmp, $file_path)) {
             $attachments[] = $file_path;
@@ -44,27 +53,32 @@ if(isset($_FILES['files'])) {
     }
 }
 
-// Send email using PHPMailer (recommended for attachments)
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
+// ==============================
+// Include PHPMailer (Manual Download Method)
+// ==============================
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// ==============================
+// Send Email
+// ==============================
 $mail = new PHPMailer(true);
 
 try {
-    //Server settings
+    // Server settings
     $mail->isSMTP();
     $mail->Host       = 'smtp.example.com'; // your SMTP server
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'you@example.com';
-    $mail->Password   = 'yourpassword';
-    $mail->SMTPSecure = 'tls';
+    $mail->Username   = 'you@example.com';   // SMTP username
+    $mail->Password   = 'yourpassword';      // SMTP password
+    $mail->SMTPSecure = 'tls';               // encryption
     $mail->Port       = 587;
 
-    //Recipients
+    // Recipients
     $mail->setFrom($email, $name);
     $mail->addAddress($employer_email);  
     if(!empty($vocc_email)) $mail->addCC($vocc_email);
@@ -74,7 +88,7 @@ try {
         $mail->addAttachment($file);
     }
 
-    // Content
+    // Email content
     $mail->isHTML(false);
     $mail->Subject = $subject;
     $mail->Body    = $message;
@@ -82,7 +96,7 @@ try {
     $mail->send();
     echo "<p>Quote submitted successfully! <a href='/'>Back to Home</a></p>";
 
-    // Optional: delete uploaded files after sending to keep server clean
+    // Delete uploaded files to keep server clean
     foreach($attachments as $file) {
         unlink($file);
     }
@@ -91,3 +105,4 @@ try {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 ?>
+
