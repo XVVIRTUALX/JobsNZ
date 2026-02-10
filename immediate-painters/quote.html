@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit a Quote – Immediate Painters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --jnz-uniform-green: #1e7f2e;
+      --jnz-uniform-black: #1c1c1c;
+      --jnz-white: #ffffff;
+      --jnz-green-dark: #14521a;
+    }
+
+    body {
+      background-color: var(--jnz-uniform-black);
+      color: var(--jnz-white);
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2 { color: var(--jnz-uniform-green); }
+
+    form {
+      background-color: var(--jnz-green-dark);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .cta-box {
+      background-color: var(--jnz-uniform-green);
+      color: var(--jnz-white);
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      transition: background-color 0.3s;
+    }
+
+    .cta-box:hover {
+      background-color: var(--jnz-white);
+      color: var(--jnz-uniform-black);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.8;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+
+    footer a { color: var(--jnz-white); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <h1>Immediate Painters – Submit a Quote</h1>
+  <p>Fill in your details and upload any supporting documents or images for the job. Your submission will be sent directly to the employer.</p>
+
+  <form action="send-quote.php" method="post" enctype="multipart/form-data">
+    <label for="name">Your Name</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="email">Your Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="jobid">Job ID</label>
+    <input type="text" name="jobid" id="jobid" placeholder="Assigned Job ID" required>
+
+    <label for="quote">Quote Amount (NZD)</label>
+    <input type="number" name="quote" id="quote" required>
+
+    <label for="notes">Notes / Description</label>
+    <textarea name="notes" id="notes" placeholder="Optional details about your services..."></textarea>
+
+    <label for="files">Upload Supporting Documents / Images</label>
+    <input type="file" name="files[]" id="files" multiple accept=".jpg,.png,.pdf,.doc,.docx">
+
+    <button type="submit" class="cta-box">Submit Quote</button>
+  </form>
+
+  <footer>
+    <p>Immediate Painters – part of JobNZ. Jobs are freelance-managed and sent directly to employers.</p>
+    <p><a href="/">Back to Home Page</a> | <a href="/contact.html">General Enquiries</a></p>
+  </footer>
+
+</body>
+</html>
