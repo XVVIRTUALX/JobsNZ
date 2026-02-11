@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>JobsNZ – Odd Jobs Homepage</title>
+<title>Odd Jobs NZ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 /* ===== GLOBAL ===== */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(180deg,#0a1f0a,#061306); /* Original green/black feel */
+    background: #0f1f0f;
     color: #d9e1e8;
 }
 
@@ -25,7 +25,7 @@ body {
     text-align: center;
     font-size: 38px;
     font-weight: bold;
-    color: #16a34a; /* green for Odd Jobs */
+    color: #16a34a;
     margin-bottom: 25px;
 }
 
@@ -45,61 +45,7 @@ body {
     gap: 30px;
 }
 
-/* ===== PANELS / LEFT COLUMN ===== */
-.panel {
-    background: linear-gradient(145deg,#0f1f0f,#061306);
-    border: 1px solid #1e2a33;
-    border-radius: 10px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.6);
-}
-
-.panel h2 {
-    margin: 0 0 8px 0;
-    font-size: 22px;
-    color: #ffffff;
-}
-
-.panel p {
-    margin: 0;
-    color: #b8c4cc;
-}
-
-/* ===== BUTTON ===== */
-.btn {
-    float: right;
-    background: linear-gradient(180deg,#5edb63,#2e9e36);
-    color: white;
-    padding: 10px 22px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    transition: 0.2s;
-}
-
-.btn:hover {
-    background: linear-gradient(180deg,#6fff73,#35b63f);
-}
-
-/* ===== RIGHT COLUMN / SIDE BOXES ===== */
-.side-box {
-    background: linear-gradient(145deg,#0f1f0f,#061306);
-    border: 1px solid #1e2a33;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 18px;
-    text-align: center;
-    box-shadow: 0 0 12px rgba(0,0,0,0.6);
-}
-
-.side-box h3 {
-    margin-top: 0;
-    color: #ffffff;
-}
-
-/* Original panels */
+/* ===== PANELS ===== */
 .panel {
     background: linear-gradient(145deg,#0f1f0f,#061306);
     border:1px solid #1e2a33;
@@ -109,78 +55,105 @@ body {
     box-shadow:0 0 12px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* ensures Apply button sticks to bottom */
+    justify-content: space-between;
 }
 
-/* Climate / Industry colors only */
-.panel-climate {
-     background: linear-gradient(145deg,#0f1f0f,#061306); /* brown/green */
-    border: 1px solid #6B4C3A;
+.panel h2 {
+    margin:0 0 8px 0;
+    font-size:22px;
+    color:#ffffff;
 }
 
-.panel-climate h2 {
-    color: #D1E231; /* bright green */
+.panel p {
+    margin:0;
+    color:#b8c4cc;
 }
 
-.panel-climate p {
-    color: #f0f2d0;
+/* ===== BUTTON ===== */
+.btn {
+    float:right;
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color:white;
+    padding:10px 22px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 8px rgba(0,0,0,0.5);
+    transition:0.2s;
 }
 
-/* MOBILE */
-@media(max-width: 800px) {
+.btn:hover {
+    background: linear-gradient(180deg,#6fff73,#35b63f);
+}
+
+/* ===== RIGHT BOX ===== */
+.side-box {
+    background: linear-gradient(145deg,#0f1f0f,#061306);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+    text-align:center;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.side-box h3 {
+    margin-top:0;
+    color:#ffffff;
+}
+
+.side-box a {
+    display:inline-block;
+    margin-top:12px;
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color:white;
+    padding:10px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.side-box a:hover {
+    background: linear-gradient(180deg,#6fff73,#35b63f);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:800px){
     .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
     }
 }
 </style>
 </head>
+
 <body>
-
 <div class="container">
-
     <div class="main-title">Odd Jobs NZ – Get Started</div>
-    <div class="intro">
-        What would you like to do? Choose a service or industry to connect with workers or post jobs.
-    </div>
+    <div class="intro">What would you like to do?</div>
 
     <div class="grid">
-
-        <!-- LEFT COLUMN: MAIN PANELS -->
+        <!-- LEFT COLUMN -->
         <div>
             <div class="panel">
                 <h2>Search Jobs</h2>
-                <p>Find available jobs posted by individuals or organisations across NZ.</p>
+                <p>Find work available in your area across multiple industries.</p>
                 <a href="/ODD-JOBS-NZ/worker-jobs.html" class="btn">Search Jobs</a>
             </div>
 
             <div class="panel">
                 <h2>Post a Job</h2>
-                <p>Advertise your job and receive direct responses from freelancers.</p>
+                <p>Advertise a job and receive quotes directly from contractors.</p>
                 <a href="/ODD-JOBS-NZ/post-job.html" class="btn">Post a Job</a>
             </div>
 
             <div class="panel">
-                <h2>Apply / Submit a Quote</h2>
-                <p>If you want to apply or provide a quote for a job, submit here.</p>
+                <h2>Apply for a Quote</h2>
+                <p>If you want a service done, submit a request for a quote.</p>
                 <a href="/ODD-JOBS-NZ/quote.html" class="btn">Submit a Quote</a>
-            </div>
-
-            <!-- Climate / Sustainability -->
-            <div class="panel panel-climate">
-                <h2>Climate / Sustainability Jobs</h2>
-                <p>Workforce and project services supporting environmental resilience, emissions reduction, and sustainable development.</p>
-                <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">View Jobs</a>
-            </div>
-
-            <!-- Industry Panel -->
-            <div class="panel panel-climate">
-                <h2>Add Your Industry</h2>
-                <p>Build your own sub-platform and connect your workforce nationwide.</p>
-                <a href="/ODD-JOBS-NZ/odd-jobs/" class="btn">Get Started</a>
             </div>
         </div>
 
-        <!-- RIGHT COLUMN: SIDE BOXES -->
+        <!-- RIGHT COLUMN -->
         <div>
             <div class="side-box">
                 <h3>CV Creation</h3>
@@ -207,7 +180,6 @@ body {
                 <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">View Jobs</a>
             </div>
         </div>
-
     </div>
 </div>
 </body>
