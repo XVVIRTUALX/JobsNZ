@@ -2,139 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ODD-JOBS.NZ | Workforce Platform</title>
+<title>JobsNZ | Odd Jobs NZ & More</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 /* ===== GLOBAL ===== */
-body{
-    margin:0;
+body {
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(180deg,#0a0f14,#05080c);
-    color:#d9e1e8;
+    background: linear-gradient(180deg, #0a0f14, #05080c);
+    color: #d9e1e8;
 }
 
 /* ===== MAIN WRAP ===== */
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:40px 20px;
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
 }
 
-/* ===== TITLE ===== */
-.main-title{
-    text-align:center;
-    font-size:38px;
-    font-weight:bold;
-    color:#4CAF50;
-    margin-bottom:25px;
+/* ===== HEADER ===== */
+.main-title {
+    text-align: center;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 25px;
 }
 
 /* ===== INTRO ===== */
-.intro{
-    text-align:center;
-    max-width:900px;
-    margin:0 auto 40px auto;
-    line-height:1.6;
-    color:#c7d2db;
+.intro {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+    color: #c7d2db;
 }
 
 /* ===== GRID ===== */
-.grid{
-    display:grid;
+.grid {
+    display: grid;
     grid-template-columns: 2fr 1fr;
-    gap:30px;
+    gap: 30px;
 }
 
 /* ===== PANELS ===== */
-.panel{
-    background: linear-gradient(145deg,#0e141a,#0a0f14);
-    border:1px solid #1e2a33;
-    border-radius:10px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 0 12px rgba(0,0,0,0.6);
+.panel {
+    background: linear-gradient(145deg, #0e141a, #0a0f14);
+    border: 1px solid #1e2a33;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
 }
 
-.panel h2{
-    margin:0 0 8px 0;
-    font-size:22px;
-    color:#ffffff;
+.panel h2 {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    color: #ffffff;
 }
 
-.panel p{
-    margin:0;
-    color:#b8c4cc;
+.panel p {
+    margin: 0;
+    color: #b8c4cc;
 }
 
 /* ===== BUTTON ===== */
-.btn{
-    float:right;
-    background: linear-gradient(180deg,#5edb63,#2e9e36);
-    color:white;
-    padding:10px 22px;
-    border-radius:6px;
-    text-decoration:none;
-    font-weight:bold;
-    box-shadow:0 0 8px rgba(0,0,0,0.5);
-    transition:0.2s;
+.btn {
+    float: right;
+    background: linear-gradient(180deg, #5edb63, #2e9e36);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    transition: 0.2s;
 }
-/* icon inside button */
-.btn svg {
-    vertical-align: middle; /* aligns icon with text */
-    margin-left: 6px;
 
-.btn:hover{
-    background: linear-gradient(180deg,#6fff73,#35b63f);
+.btn:hover {
+    background: linear-gradient(180deg, #6fff73, #35b63f);
 }
 
 /* ===== RIGHT BOX ===== */
-.side-box{
-    background: linear-gradient(145deg,#0e141a,#0a0f14);
-    border:1px solid #1e2a33;
-    border-radius:10px;
-    padding:20px;
-    margin-bottom:18px;
-    text-align:center;
-    box-shadow:0 0 12px rgba(0,0,0,0.6);
+.side-box {
+    background: linear-gradient(145deg, #0e141a, #0a0f14);
+    border: 1px solid #1e2a33;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 18px;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(0,0,0,0.6);
 }
 
-.side-box h3{
-    margin-top:0;
-    color:#ffffff;
+.side-box h3 {
+    margin-top: 0;
+    color: #ffffff;
 }
 
-/* ===== FOOTER ===== */
-.footer{
-    margin-top:50px;
-    padding-top:25px;
-    border-top:1px solid #1e2a33;
-    text-align:center;
-    color:#9fb0bd;
-    font-size:14px;
+/* ===== TWO‑COLUMN LAYOUT ===== */
+.homepage-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
-.footer a{
-    color:#c7d2db;
-    text-decoration:none;
-    margin:0 10px;
+.left-column {
+    flex: 2;
+    min-width: 300px;
 }
 
-.footer a:hover{
-    text-decoration:underline;
+.right-column {
+    flex: 1;
+    min-width: 250px;
 }
 
-/* ===== MOBILE ===== */
-@media(max-width:900px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .btn{
-        float:none;
-        display:inline-block;
-        margin-top:12px;
+/* MOBILE */
+@media (max-width: 900px) {
+    .homepage-container {
+        flex-direction: column;
     }
 }
 
@@ -143,74 +130,72 @@ body{
 
 <body>
 
-<div class="homepage-container">
+<div class="container">
 
-  <!-- LEFT COLUMN (main content) -->
-  <div class="left-column">
-    <h1>Welcome to JobsNZ</h1>
-    <p>Find jobs, post work, and connect with skilled workers nationwide.</p>
-
-    <!-- Main content blocks, e.g., Odd Jobs, Immediate Painters, etc. -->
-    <div class="industry-block">
-      <h2>Odd Jobs NZ</h2>
-      <p>Find “individuals legally entitled to work in New Zealand for everyday jobs NZ-wide.</p>
-      <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/odd-jobs/'">
-        Click Here To Get Started
-      </div>
+    <div class="main-title">
+        JobsNZ – Odd Jobs & Services
     </div>
 
-    <div class="industry-block">
-      <h2>Immediate Painters</h2>
-      <p>Connect with painters ready to work now.</p>
-      <div class="cta-box" onclick="window.location.href='ODD-JOBS-NZ/immediate-painters/'">
-        Click Here To Get Started
-      </div>
+    <div class="intro">
+        Explore job categories, find work, or request creative and professional support services.
     </div>
-  </div>
 
-  <!-- RIGHT COLUMN (side boxes) -->
-  <div class="right-column side-column">
+    <div class="homepage-container">
 
-      <div class="side-box">
-          <h3>CV Creation</h3>
-          <a href="/ODD-JOBS-NZ/cv-creation/" class="btn">Request a Quote</a>
-      </div>
+        <!-- LEFT COLUMN (main services) -->
+        <div class="left-column">
 
-      <div class="side-box">
-          <h3>Cover Letters</h3>
-          <a href="/ODD-JOBS-NZ/cover-letters/" class="btn">Request a Quote</a>
-      </div>
+            <!-- Odd Jobs -->
+            <div class="panel">
+                <h2>Odd Jobs NZ</h2>
+                <p>Connect with individuals ready to get everyday jobs done NZ‑wide.</p>
+                <a href="ODD-JOBS-NZ/odd-jobs/" class="btn">Get Started</a>
+            </div>
 
-      <div class="side-box">
-          <h3>Business Cards</h3>
-          <a href="/ODD-JOBS-NZ/business-cards-surveys/" class="btn">Request a Quote</a>
-      </div>
+            <!-- Immediate Painters -->
+            <div class="panel">
+                <h2>Immediate Painters</h2>
+                <p>Find painters ready to work now — apply or submit a quote.</p>
+                <a href="ODD-JOBS-NZ/immediate-painters/" class="btn">Get Started</a>
+            </div>
 
-      <div class="side-box">
-          <h3>Market / Survey</h3>
-          <a href="/ODD-JOBS-NZ/market-survey/" class="btn">Request a Quote</a>
-      </div>
+        </div>
 
-      <div class="side-box">
-          <h3>Climate / Sustainability Assist</h3>
-          <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">Request a Quote</a>
-      </div>
+        <!-- RIGHT COLUMN (side services) -->
+        <div class="right-column">
 
-  </div>
+            <div class="side-box">
+                <h3>CV Creation</h3>
+                <a href="/ODD-JOBS-NZ/cv-creation/" class="btn">Request a Quote</a>
+            </div>
 
-</div>
+            <div class="side-box">
+                <h3>Cover Letters</h3>
+                <a href="/ODD-JOBS-NZ/cover-letters/" class="btn">Request a Quote</a>
+            </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        JobsNZ is a job-matching and workforce coordination platform only, designed for NZ citizens and residents.<br><br>
+            <div class="side-box">
+                <h3>Business Cards</h3>
+                <a href="/ODD-JOBS-NZ/business-cards-surveys/" class="btn">Request a Quote</a>
+            </div>
 
-        It is not an employment recruitment agency. All services operate as a self-service workforce connection platform between users and industries.<br><br>
+            <div class="side-box">
+                <h3>Market / Survey</h3>
+                <a href="/ODD-JOBS-NZ/market-survey/" class="btn">Request a Quote</a>
+            </div>
 
-        <a href="#">Terms of Use</a> |
-        <a href="#">General Enquiries</a>
+            <div class="side-box">
+                <h3>Climate / Sustainability Assist</h3>
+                <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">Request a Quote</a>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
 
 </body>
 </html>
+
+
