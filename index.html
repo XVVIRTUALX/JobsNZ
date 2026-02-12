@@ -103,6 +103,55 @@ body{
 }
 
 </style>
+
+    /* ===== PAGE WIDTH ===== */
+body{
+    margin:0;
+    padding:0;
+}
+
+/* Optional site wrapper */
+.page-width{
+    width:100%;
+    max-width:1600px;
+    margin:auto;
+    padding:20px;
+}
+
+/* ===== JOBS LAYOUT ===== */
+.jobs-layout{
+    display:flex;
+    flex-wrap:nowrap;        /* Prevent drop */
+    gap:20px;
+    width:100%;
+    align-items:flex-start;
+}
+
+/* ===== LEFT COLUMN ===== */
+.left-column{
+    flex:3;
+    min-width:0;             /* Allows shrink */
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ===== RIGHT COLUMN ===== */
+.right-column{
+    flex:1;
+    min-width:320px;         /* Keeps visible */
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ===== CARD / BOX ===== */
+.card,
+.side-box{
+    width:100%;
+    box-sizing:border-box;   /* Stops overflow */
+}
+
 </head>
 
 <body>
