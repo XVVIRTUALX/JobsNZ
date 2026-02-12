@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 /* ===== GLOBAL ===== */
 body{
     margin:0;
@@ -15,14 +14,15 @@ body{
     color:#d9e1e8;
 }
 
-/* ===== MAIN WRAP ===== */
-.container{
-    max-width:1200px;
+/* ===== PAGE WIDTH ===== */
+.page-width{
+    width:100%;
+    max-width:1600px;
     margin:auto;
-    padding:40px 20px;
+    padding:20px;
 }
 
-/* ===== TITLE ===== */
+/* ===== MAIN TITLE ===== */
 .main-title{
     text-align:center;
     font-size:38px;
@@ -40,14 +40,33 @@ body{
     color:#c7d2db;
 }
 
-/* ===== GRID ===== */
-.grid{
-    display:grid;
-    grid-template-columns: 2fr 1fr;
-    gap:30px;
+/* ===== JOBS LAYOUT ===== */
+.jobs-layout{
+    display:flex;
+    flex-wrap:nowrap;        /* Prevent drop */
+    gap:20px;
+    align-items:flex-start;
 }
 
-/* ===== PANELS (LEFT SIDE) ===== */
+/* ===== LEFT COLUMN ===== */
+.left-column{
+    flex:3;
+    min-width:0;             /* Allows shrink */
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ===== RIGHT COLUMN ===== */
+.right-column{
+    flex:1;
+    min-width:320px;         /* Keeps visible */
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ===== PANELS ===== */
 .panel{
     background: linear-gradient(145deg,#0e141a,#0a0f14);
     border:1px solid #1e2a33;
@@ -86,7 +105,7 @@ body{
     background: linear-gradient(180deg,#6fff73,#35b63f);
 }
 
-/* ===== RIGHT BOX ===== */
+/* ===== SIDE BOX ===== */
 .side-box{
     background: linear-gradient(145deg,#0e141a,#0a0f14);
     border:1px solid #1e2a33;
@@ -102,61 +121,19 @@ body{
     color:#ffffff;
 }
 
+/* ===== MOBILE STACK ===== */
+@media (max-width:900px){
+    .jobs-layout{
+        flex-direction:column;
+    }
+}
 </style>
-
-    /* ===== PAGE WIDTH ===== */
-body{
-    margin:0;
-    padding:0;
-}
-
-/* Optional site wrapper */
-.page-width{
-    width:100%;
-    max-width:1600px;
-    margin:auto;
-    padding:20px;
-}
-
-/* ===== JOBS LAYOUT ===== */
-.jobs-layout{
-    display:flex;
-    flex-wrap:nowrap;        /* Prevent drop */
-    gap:20px;
-    width:100%;
-    align-items:flex-start;
-}
-
-/* ===== LEFT COLUMN ===== */
-.left-column{
-    flex:3;
-    min-width:0;             /* Allows shrink */
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-/* ===== RIGHT COLUMN ===== */
-.right-column{
-    flex:1;
-    min-width:320px;         /* Keeps visible */
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-/* ===== CARD / BOX ===== */
-.card,
-.side-box{
-    width:100%;
-    box-sizing:border-box;   /* Stops overflow */
-}
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="page-width">
 
     <div class="main-title">
         Odd Jobs NZ – Get Started
@@ -166,10 +143,10 @@ body{
         What would you like to do?
     </div>
 
-    <div class="grid">
+    <div class="jobs-layout">
 
         <!-- LEFT COLUMN -->
-        <div>
+        <div class="left-column">
 
             <div class="panel">
                 <h2>Search Jobs</h2>
@@ -189,32 +166,28 @@ body{
                 <a href="/odd-jobs/quote.html" class="btn">Submit a Quote</a>
             </div>
 
-            <!-- CLIMATE -->
-          <div class="panel">
-  <h2>Climate Jobs</h2>
-  <p>Search environmental, sustainability and resilience projects.</p>
-  <a href="/Climate-Resilience-Sustainability-Services/" class="btn">
-    Search Jobs
-  </a>
-</div>
+            <div class="panel">
+                <h2>Climate Jobs</h2>
+                <p>Search environmental, sustainability and resilience projects.</p>
+                <a href="/Climate-Resilience-Sustainability-Services/" class="btn">Search Jobs</a>
+            </div>
 
             <div class="panel">
-  <h2>Climate / Sustainability Assist</h2>
-  <p>Environmental workforce and sustainability services.</p>
-  <a href="/Climate-Resilience-Sustainability-Services/" class="btn">
-    View Jobs
-  </a>
-</div>
+                <h2>Climate / Sustainability Assist</h2>
+                <p>Environmental workforce and sustainability services.</p>
+                <a href="/Climate-Resilience-Sustainability-Services/" class="btn">View Jobs</a>
+            </div>
 
-            <!-- INDUSTRY -->
             <div class="panel">
-  <h2>Add Your Industry</h2>
-  <p>Explore specialised workforce sectors.</p>
-  <a href="/industry/" class="btn">View Jobs</a>
-</div>
+                <h2>Add Your Industry</h2>
+                <p>Explore specialised workforce sectors.</p>
+                <a href="/industry/" class="btn">View Jobs</a>
+            </div>
+
+        </div>
 
         <!-- RIGHT COLUMN -->
-        <div>
+        <div class="right-column">
 
             <div class="side-box">
                 <h3>CV Creation</h3>
@@ -244,4 +217,3 @@ body{
 
 </body>
 </html>
-
