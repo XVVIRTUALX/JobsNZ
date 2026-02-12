@@ -1,23 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Available Jobs – Odd Jobs NZ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+      color: #2c3e50;
+    }
+    .job-listing {
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .job-listing h3 {
+      margin-top: 0;
+      color: #27ae60;
+    }
+    .job-listing p {
+      font-size: 16px;
+    }
+    .contact-info {
+      color: #2980b9;
+    }
+    hr {
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
+
   <h2>Available Jobs</h2>
 
-  <div>
+  <div class="job-listing">
     <h3>Lawn Mowing – Hamilton</h3>
     <p>One-off job, tools provided.</p>
-    <p>Contact: example@email.com</p>
+    <p class="contact-info">Contact: <a href="mailto:example@email.com">example@email.com</a></p>
   </div>
 
   <hr>
 
-  <div>
+  <div class="job-listing">
     <h3>Fruit Picking – Waikato</h3>
     <p>Seasonal work, flexible hours.</p>
-    <p>Contact: 021 000 0000</p>
+    <p class="contact-info">Contact: <a href="tel:0210000000">021 000 0000</a></p>
   </div>
 
 </body>
