@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posted Odd Jobs</title>
+</head>
+<body>
+
+  <h2>Posted Odd Jobs</h2>
+
+  <div id="job-listings"></div>
+
+  <script>
+    window.onload = function() {
+      // Retrieve the stored job listings from localStorage
+      let jobListings = JSON.parse(localStorage.getItem('jobListings')) || [];
+
+      // Get the container element where the job listings will be displayed
+      const jobListContainer = document.getElementById('job-listings');
+
+      // Clear any previous listings
+      jobListContainer.innerHTML = '';
+
+      // Loop through the stored job listings and display them
+      jobListings.forEach(job => {
+        const jobDiv = document.createElement('div');
+        jobDiv.classList.add('job-listing');
+        jobDiv.innerHTML = `
+          <h3>${job.jobTitle}</h3>
+          <p>${job.jobDescription}</p>
+          <p class="contact-info">Contact: <a href="mailto:${job.contactEmail}">${job.contactEmail}</a></p>
+          <p><a href="mailto:${job.contactEmail}">Apply for this job</a></p>
+        `;
+        jobListContainer.appendChild(jobDiv);
+      });
+    };
+  </script>
+
+</body>
+</html>
