@@ -6,126 +6,129 @@
   <title>Odd Jobs NZ – Get Started</title>
 
   <style>
-    /* ===== GLOBAL ===== */
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #0a0f14, #05080c);
-      color: #d9e1e8;
-    }
+  /* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #0a0f14, #05080c);
+  color: #d9e1e8;
+}
 
-    /* ===== PAGE WIDTH ===== */
-    .page-width {
-      width: 100%;
-      max-width: 1600px;
-      margin: auto;
-      padding: 20px;
-    }
+/* ===== PAGE WIDTH ===== */
+.page-width {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+  padding: 20px;
+}
 
-    /* ===== MAIN TITLE ===== */
-    .main-title {
-      text-align: center;
-      font-size: 38px;
-      font-weight: bold;
-      color: #4CAF50;
-      margin-bottom: 25px;
-    }
+/* ===== MAIN TITLE ===== */
+.main-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-bottom: 25px;
+}
 
-    /* ===== INTRO ===== */
-    .intro {
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto 40px auto;
-      line-height: 1.6;
-      color: #c7d2db;
-    }
+/* ===== INTRO ===== */
+.intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+  color: #c7d2db;
+}
 
-    /* ===== JOBS LAYOUT ===== */
-    .jobs-layout {
-      display: flex;
-      flex-wrap: nowrap; /* Prevent drop */
-      gap: 20px;
-      align-items: flex-start;
-    }
+/* ===== JOBS LAYOUT ===== */
+.jobs-layout {
+  display: flex;
+  flex-wrap: wrap;   /* Allow wrapping to avoid overflow */
+  gap: 20px;
+  align-items: flex-start;
+}
 
-    /* ===== LEFT COLUMN ===== */
-    .left-column {
-      flex: 3;
-      min-width: 0; /* Allows shrink */
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+/* ===== LEFT COLUMN ===== */
+.left-column {
+  flex: 3;
+  min-width: 320px; /* Prevents the column from getting too small */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-    /* ===== RIGHT COLUMN ===== */
-    .right-column {
-      flex: 1;
-      min-width: 320px; /* Keeps visible */
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+/* ===== RIGHT COLUMN ===== */
+.right-column {
+  flex: 1;
+  min-width: 320px; /* Keeps visible */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px; /* Adjust this if you need to add more spacing */
+}
 
-    /* ===== PANELS ===== */
-    .panel {
-      background: linear-gradient(145deg, #0e141a, #0a0f14);
-      border: 1px solid #1e2a33;
-      border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-    }
+/* ===== PANELS ===== */
+.panel {
+  background: linear-gradient(145deg, #0e141a, #0a0f14);
+  border: 1px solid #1e2a33;
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
 
-    .panel h2 {
-      margin: 0 0 8px 0;
-      font-size: 22px;
-      color: #ffffff;
-    }
+.panel h2 {
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  color: #ffffff;
+}
 
-    .panel p {
-      margin: 0;
-      color: #b8c4cc;
-    }
+.panel p {
+  margin: 0;
+  color: #b8c4cc;
+}
 
-    /* ===== BUTTON ===== */
-    .btn {
-      display: inline-block;
-      margin-top: 12px;
-      background: linear-gradient(180deg, #5edb63, #2e9e36);
-      color: white;
-      padding: 10px 22px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-      transition: 0.2s;
-    }
+/* ===== BUTTON ===== */
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  background: linear-gradient(180deg, #5edb63, #2e9e36);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  transition: 0.2s;
+}
 
-    .btn:hover {
-      background: linear-gradient(180deg, #6fff73, #35b63f);
-    }
+.btn:hover {
+  background: linear-gradient(180deg, #6fff73, #35b63f);
+}
 
-    /* ===== SIDE BOX ===== */
-    .side-box {
-      background: linear-gradient(145deg, #0e141a, #0a0f14);
-      border: 1px solid #1e2a33;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 18px;
-      text-align: center;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-    }
+/* ===== SIDE BOX ===== */
+.side-box {
+  background: linear-gradient(145deg, #0e141a, #0a0f14);
+  border: 1px solid #1e2a33;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 18px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
 
-    .side-box h3 {
-      margin-top: 0;
-      color: #ffffff;
-    }
+.side-box h3 {
+  margin-top: 0;
+  color: #ffffff;
+}
 
-    /* ===== MOBILE STACK ===== */
-    @media (max-width: 900px) {
-      .jobs-layout {
-        flex-direction: column;
-      }
+/* ===== MOBILE STACK ===== */
+@media (max-width: 900px) {
+  .jobs-layout {
+    flex-direction: column;
+  }
+}
+
     }
   </style>
 </head>
