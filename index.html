@@ -1,381 +1,207 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Odd Jobs NZ – Get Started</title>
+<meta charset="UTF-8">
+<title>JobsNZ | Odd Jobs NZ & More</title>
+<title>JobsNZ – Odd Jobs Homepage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-  /* ===== GLOBAL ===== */
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, #0a0f14, #05080c);
-  color: #d9e1e8;
-}
-
-/* ===== PAGE WIDTH ===== */
-.page-width {
-  width: 100%;
-  max-width: 1600px;
-  margin: auto;
-  padding: 20px;
-}
-
-/* ===== MAIN TITLE ===== */
-.main-title {
-  text-align: center;
-  font-size: 38px;
-  font-weight: bold;
-  color: #4CAF50;
-  margin-bottom: 25px;
-}
-
-/* ===== INTRO ===== */
-.intro {
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto 40px auto;
-  line-height: 1.6;
-  color: #c7d2db;
-}
-
-/* ===== JOBS LAYOUT ===== */
-.jobs-layout {
-  display: flex;
-  flex-wrap: wrap;   /* Allow wrapping to avoid overflow */
-  gap: 20px;
-  align-items: flex-start;
-}
-
-/* ===== LEFT COLUMN ===== */
-.left-column {
-  flex: 3;
-  min-width: 320px; /* Prevents the column from getting too small */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ===== RIGHT COLUMN ===== */
-.right-column {
-  flex: 1;
-  min-width: 320px; /* Keeps visible */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 20px; /* Adjust this if you need to add more spacing */
-}
-<!-- DASHBOARD CONTAINER -->
-<div class="dashboard-container">
-
-  <!-- LEFT COLUMN PANELS -->
-  <div class="left-column">
-
-    <div class="panel">
-      <h2>Search Jobs</h2>
-      <p>Find work available in your area across multiple industries.</p>
-      <a href="/ODD-JOBS-NZ/worker-jobs.html" class="btn">Search Jobs</a>
-    </div>
-
-    <div class="panel">
-      <h2>Post a Job</h2>
-      <p>Advertise a job and receive quotes directly from contractors.</p>
-      <a href="/ODD-JOBS-NZ/post-job.html" class="btn">Post a Job</a>
-    </div>
-
-    <div class="panel">
-      <h2>Apply for a Quote</h2>
-      <p>If you want a service done, submit a request for a quote.</p>
-      <a href="/ODD-JOBS-NZ/quote.html" class="btn">Submit a Quote</a>
-    </div>
-
-    <div class="panel">
-      <h2>Climate Jobs</h2>
-      <p>Search environmental, sustainability and resilience projects.</p>
-      <a href="/ODD-JOBS-NZ/climate-jobs.html" class="btn">Search Jobs</a>
-    </div>
-
-    <div class="panel">
-      <h2>Add Your Industry</h2>
-      <p>Explore specialised workforce sectors.</p>
-      <a href="/ODD-JOBS-NZ/industry.html" class="btn">View Jobs</a>
-    </div>
-
-  </div>
-
-  <!-- RIGHT COLUMN SIDE BOXES -->
-  <div class="right-column">
-
-    <div class="side-box">
-      <h3>CV Creation</h3>
-      <a href="/ODD-JOBS-NZ/cv-creation.html" class="btn">Request a Quote</a>
-    </div>
-
-    <div class="side-box">
-      <h3>Cover Letters</h3>
-      <a href="/ODD-JOBS-NZ/cover-letters.html" class="btn">Request a Quote</a>
-    </div>
-
-    <div class="side-box">
-      <h3>Business Cards</h3>
-      <a href="/ODD-JOBS-NZ/business-cards-surveys.html" class="btn">Request a Quote</a>
-    </div>
-
-    <div class="side-box">
-      <h3>Market / Survey</h3>
-      <a href="/ODD-JOBS-NZ/market-survey.html" class="btn">Request a Quote</a>
-    </div>
-
-    <div class="panel">
-      <h2>Climate / Sustainability Assist</h2>
-      <p>Environmental workforce and sustainability services.</p>
-      <a href="/ODD-JOBS-NZ/climate-resilience-sustainability-services.html" class="btn">View Jobs</a>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- RESPONSIVE CSS -->
 <style>
-.dashboard-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  box-sizing: border-box;
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg, #0a0f14, #05080c);
+    background: linear-gradient(180deg,#0a1f0a,#061306); /* Original green/black feel */
+    color: #d9e1e8;
 }
 
-/* LEFT COLUMN */
-.left-column {
-  flex: 2;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+@@ -21,12 +20,12 @@
+    padding: 40px 20px;
 }
 
-/* RIGHT COLUMN */
-.right-column {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+/* ===== HEADER ===== */
+/* ===== TITLE ===== */
+.main-title {
+    text-align: center;
+    font-size: 38px;
+    font-weight: bold;
+    color: #4CAF50;
+    color: #16a34a; /* green for Odd Jobs */
+    margin-bottom: 25px;
 }
 
-/* PANEL & SIDE BOX STYLING */
-.panel, .side-box {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+@@ -46,9 +45,9 @@
+    gap: 30px;
 }
-
-.panel:hover, .side-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.panel h2, .side-box h3 {
-  margin-bottom: 12px;
-  font-size: 1.4rem;
-}
-
-.panel p, .side-box p {
-  margin-bottom: 16px;
-  font-size: 1rem;
-  color: #555;
-}
-
-/* BUTTON STYLING */
-.btn {
-  display: inline-block;
-  padding: 10px 18px;
-  background: #0a66c2;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: background 0.2s ease;
-}
-
-.btn:hover {
-  background: #084a8c;
-}
-
-/* RESPONSIVE MEDIA QUERIES */
-@media (max-width: 1024px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
-  .left-column, .right-column {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .panel h2, .side-box h3 {
-    font-size: 1.2rem;
-  }
-
-  .panel p, .side-box p {
-    font-size: 0.95rem;
-  }
-}
-</style>
 
 /* ===== PANELS ===== */
+/* ===== PANELS / LEFT COLUMN ===== */
 .panel {
-  background: linear-gradient(145deg, #0e141a, #0a0f14);
-  border: 1px solid #1e2a33;
-  border-radius: 10px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(145deg, #0e141a, #0a0f14);
+    background: linear-gradient(145deg,#0f1f0f,#061306);
+    border: 1px solid #1e2a33;
+    border-radius: 10px;
+    padding: 22px;
+@@ -67,24 +66,10 @@
+    color: #b8c4cc;
 }
 
-.panel h2 {
-  margin: 0 0 8px 0;
-  font-size: 22px;
-  color: #ffffff;
+/* ===== CLIMATE PANEL CUSTOM COLORS ===== */
+.panel-climate {
+    background: linear-gradient(145deg, #5C4033, #8B5E3C); /* brown gradient */
+    border: 1px solid #6B4C3A;
 }
 
-.panel p {
-  margin: 0;
-  color: #b8c4cc;
+.panel-climate h2 {
+    color: #D1E231; /* bright green text */
+}
+
+.panel-climate p {
+    color: #e2e6d0;
 }
 
 /* ===== BUTTON ===== */
 .btn {
-  display: inline-block;
-  margin-top: 12px;
-  background: linear-gradient(180deg, #5edb63, #2e9e36);
-  color: white;
-  padding: 10px 22px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  transition: 0.2s;
+    float: right;
+    background: linear-gradient(180deg, #5edb63, #2e9e36);
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+@@ -95,12 +80,12 @@
 }
 
 .btn:hover {
-  background: linear-gradient(180deg, #6fff73, #35b63f);
+    background: linear-gradient(180deg, #6fff73, #35b63f);
+    background: linear-gradient(180deg,#6fff73,#35b63f);
 }
 
-/* ===== SIDE BOX ===== */
+/* ===== RIGHT BOX ===== */
+/* ===== RIGHT COLUMN / SIDE BOXES ===== */
 .side-box {
-  background: linear-gradient(145deg, #0e141a, #0a0f14);
-  border: 1px solid #1e2a33;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 18px;
-  text-align: center;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(145deg, #0e141a, #0a0f14);
+    background: linear-gradient(145deg,#0f1f0f,#061306);
+    border: 1px solid #1e2a33;
+    border-radius: 10px;
+    padding: 20px;
+@@ -114,34 +99,102 @@
+    color: #ffffff;
 }
 
-.side-box h3 {
-  margin-top: 0;
-  color: #ffffff;
+/* ===== TWO‑COLUMN LAYOUT ===== */
+.homepage-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+/* ===== CLIMATE / INDUSTRY PANEL COLORS ===== */
+.panel-climate {
+    background: linear-gradient(145deg,#8B5E3C,#A67C52); /* brown tones */
 }
 
-/* ===== MOBILE STACK ===== */
+.left-column {
+    flex: 2;
+    min-width: 300px;
+.panel-climate h2 {
+    color: #D1E231; /* bright green text */
+}
+
+.right-column {
+    flex: 1;
+    min-width: 250px;
+.panel-climate p {
+    color: #f0f2d0;
+}
+
+/* MOBILE */
 @media (max-width: 900px) {
-  .jobs-layout {
-    flex-direction: column;
-  }
-}
-
+    .homepage-container {
+        flex-direction: column;
+@media(max-width: 800px) {
+    .grid {
+        grid-template-columns: 1fr;
     }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <div class="page-width">
+<div class="container">
 
     <div class="main-title">
-      Odd Jobs NZ – Get Started
-    </div>
-
+    <div class="main-title">Odd Jobs NZ – Get Started</div>
     <div class="intro">
-      What would you like to do?
+        What would you like to do? Choose a service or industry to connect with workers or post jobs.
     </div>
 
-    <div class="jobs-layout">
-      <!-- LEFT COLUMN -->
-      <div class="left-column">
+    <div class="grid">
 
-        <div class="panel">
-          <h2>Search Jobs</h2>
-          <p>Find work available in your area across multiple industries.</p>
-          <a href="/ODD-JOBS-NZ/worker-jobs.html" class="btn">Search Jobs</a>
+        <!-- LEFT COLUMN: MAIN PANELS -->
+        <div>
+            <div class="panel">
+                <h2>Search Jobs</h2>
+                <p>Find available jobs posted by individuals or organisations across NZ.</p>
+                <a href="/ODD-JOBS-NZ/worker-jobs.html" class="btn">Search Jobs</a>
+            </div>
+
+            <div class="panel">
+                <h2>Post a Job</h2>
+                <p>Advertise your job and receive direct responses from freelancers.</p>
+                <a href="/ODD-JOBS-NZ/post-job.html" class="btn">Post a Job</a>
+            </div>
+
+            <div class="panel">
+                <h2>Apply / Submit a Quote</h2>
+                <p>If you want to apply or provide a quote for a job, submit here.</p>
+                <a href="/ODD-JOBS-NZ/quote.html" class="btn">Submit a Quote</a>
+            </div>
+
+            <!-- Climate / Sustainability -->
+            <div class="panel panel-climate">
+                <h2>Climate / Sustainability Jobs</h2>
+                <p>Workforce and project services supporting environmental resilience, emissions reduction, and sustainable development.</p>
+                <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">View Jobs</a>
+            </div>
+
+            <!-- Industry Panel -->
+            <div class="panel panel-climate">
+                <h2>Add Your Industry</h2>
+                <p>Build your own sub-platform and connect your workforce nationwide.</p>
+                <a href="/ODD-JOBS-NZ/odd-jobs/" class="btn">Get Started</a>
+            </div>
         </div>
 
-        <div class="panel">
-          <h2>Post a Job</h2>
-          <p>Advertise a job and receive quotes directly from contractors.</p>
-          <a href="/ODD-JOBS-NZ/post-job.html" class="btn">Post a Job</a>
+        <!-- RIGHT COLUMN: SIDE BOXES -->
+        <div>
+            <div class="side-box">
+                <h3>CV Creation</h3>
+                <a href="/ODD-JOBS-NZ/cv-creation/" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Cover Letters</h3>
+                <a href="/ODD-JOBS-NZ/cover-letters/" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Business Cards</h3>
+                <a href="/ODD-JOBS-NZ/business-cards-surveys/" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Market / Survey</h3>
+                <a href="/ODD-JOBS-NZ/market-survey/" class="btn">Request a Quote</a>
+            </div>
+
+            <div class="side-box">
+                <h3>Climate / Sustainability Assist</h3>
+                <a href="/ODD-JOBS-NZ/climate-assist/" class="btn">View Jobs</a>
+            </div>
         </div>
-
-        <div class="panel">
-          <h2>Apply for a Quote</h2>
-          <p>If you want a service done, submit a request for a quote.</p>
-          <a href="/ODD-JOBS-NZ/quote.html" class="btn">Submit a Quote</a>
-        </div>
-
-        <div class="panel">
-          <h2>Climate Jobs</h2>
-          <p>Search environmental, sustainability and resilience projects.</p>
-          <a href="/climate-jobs.html" class="btn">Search Jobs</a>
-        </div>
-
-        <div class="panel">
-          <h2>Add Your Industry</h2>
-          <p>Explore specialised workforce sectors.</p>
-          <a href="/industry/" class="btn">View Jobs</a>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COLUMN -->
-      <div class="right-column">
-
-        <div class="side-box">
-          <h3>CV Creation</h3>
-          <a href="/ODD-JOBS-NZ/cv-creation/" class="btn">Request a Quote</a>
-        </div>
-
-        <div class="side-box">
-          <h3>Cover Letters</h3>
-          <a href="/ODD-JOBS-NZ/cover-letters/" class="btn">Request a Quote</a>
-        </div>
-
-        <div class="side-box">
-          <h3>Business Cards</h3>
-          <a href="/ODD-JOBS-NZ/business-cards-surveys/" class="btn">Request a Quote</a>
-        </div>
-
-        <div class="side-box">
-          <h3>Market / Survey</h3>
-          <a href="/ODD-JOBS-NZ/market-survey/" class="btn">Request a Quote</a>
-        </div>
-
-        <div class="panel">
-          <h2>Climate / Sustainability Assist</h2>
-          <p>Environmental workforce and sustainability services.</p>
-          <a href="/Climate-Resilience-Sustainability-Services/" class="btn">View Jobs</a>
-        </div>
-
-      </div>
 
     </div>
-
-  </div>
-
+</div>
 </body>
 </html>
-  
