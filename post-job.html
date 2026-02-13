@@ -44,6 +44,33 @@
     .submit-btn:hover {
       background-color: #2ecc71;
     }
+    document.getElementById('job-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const jobTitle = document.getElementById('job-title').value;
+  const jobDescription = document.getElementById('job-description').value;
+  const contactEmail = document.getElementById('contact-email').value;
+  const contactPhone = document.getElementById('contact-phone').value;
+
+  // Store job listing in localStorage
+  const jobListing = { jobTitle, jobDescription, contactEmail, contactPhone };
+
+  // Get existing jobs from localStorage or create an empty array
+  let jobListings = JSON.parse(localStorage.getItem('jobListings')) || [];
+
+  // Add the new job to the array
+  jobListings.push(jobListing);
+
+  // Save the updated job listings array back to localStorage
+  localStorage.setItem('jobListings', JSON.stringify(jobListings));
+
+  // Notify the user
+  alert('Your job listing has been submitted!');
+
+  // Reset the form
+  document.getElementById('job-form').reset();
+});
+
   </style>
 </head>
 <body>
