@@ -64,27 +64,52 @@
 <body>
 
   <form class="quote-form" action="send-quote.php" method="POST">
-    <h2>PutaiaoTech - Request a Quote</h2>
+  <h2>PutaiaoTech - Request a Quote</h2>
 
-    <label for="name">Full Name:</label>
-    <input type="text" id="name" name="name" required>
+  <label for="name">Full Name:</label>
+  <input type="text" id="name" name="name" required><br><br>
 
-    <label for="email">Email Address:</label>
-    <input type="email" id="email" name="email" required>
+  <label for="email">Email Address:</label>
+  <input type="email" id="email" name="email" required><br><br>
 
-    <label for="service">Select Service:</label>
-    <select id="service" name="service" required>
-      <option value="CV Basic - $55">CV Basic - $55</option>
-      <option value="Custom 5 Cover Letters - $85">Custom 5 Cover Letters - $85</option>
-      <option value="CV Premium - $120">CV Premium - $120</option>
-      <option value="Business Cards Starter - $90">Business Cards Starter - $90</option>
-      <option value="Branding Pack - $150">Branding Pack - $150</option>
-      <option value="Market Scan - $150">Market Scan - $150</option>
-      <option value="Feasibility Review - $300">Feasibility Review - $300</option>
-    </select>
+  <!-- Optional: Dropdown for CV / Cover Letter Services -->
+  <label for="service">Select CV/Design Service (optional):</label>
+  <select id="service" name="service">
+    <option value="">--Select a service--</option>
+    <option value="CV Basic - $55">CV Basic - $55</option>
+    <option value="Custom 5 Cover Letters - $85">Custom 5 Cover Letters - $85</option>
+    <option value="CV Premium - $120">CV Premium - $120</option>
+    <option value="Business Cards Starter - $90">Business Cards Starter - $90</option>
+    <option value="Branding Pack - $150">Branding Pack - $150</option>
+    <option value="Market Scan - $150">Market Scan - $150</option>
+    <option value="Feasibility Review - $300">Feasibility Review - $300</option>
+  </select><br><br>
 
-    <button type="submit">Submit Request</button>
-  </form>
+  <!-- PutaiaoTech Products -->
+  <label>Select PutaiaoTech Assist Products:</label><br>
+  <input type="checkbox" name="products[]" value="Climate / Sustainability Assist" id="product1">
+  <label for="product1">Climate / Sustainability Assist – $250</label>
+  <input type="checkbox" name="tablet1" value="yes"> Include Samsung Tablet +$450<br>
+
+  <input type="checkbox" name="products[]" value="Case Intake Assist" id="product2">
+  <label for="product2">Case Intake Assist – $300</label>
+  <input type="checkbox" name="tablet2" value="yes"> Include Samsung Tablet +$450<br>
+
+  <input type="checkbox" name="products[]" value="Health and Safety Assist" id="product3">
+  <label for="product3">Health and Safety Assist – $275</label>
+  <input type="checkbox" name="tablet3" value="yes"> Include Samsung Tablet +$450<br>
+
+  <input type="checkbox" name="products[]" value="Screening App" id="product4">
+  <label for="product4">Screening App – $225</label>
+  <input type="checkbox" name="tablet4" value="yes"> Include Samsung Tablet +$450<br><br>
+
+  <!-- Custom Product -->
+  <label for="custom">Custom Product Description:</label><br>
+  <textarea name="custom" id="custom" rows="3" placeholder="Describe your custom product"></textarea><br>
+  <input type="checkbox" name="customTablet" value="yes"> Include Samsung Tablet +$450<br><br>
+
+  <button type="submit">Request Quote</button>
+</form>
 
 </body>
 </html>
