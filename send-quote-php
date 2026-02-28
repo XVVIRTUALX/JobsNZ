@@ -1,40 +1,82 @@
 <?php
-// Get form data
 $name = $_POST['name'];
 $email = $_POST['email'];
-$service = $_POST['service'];
+$products = $_POST['products'] ?? [];
+$custom = $_POST['custom'] ?? '';
+$customTablet = $_POST['customTablet'] ?? '';
 
-// Set dates
+$total = 0;
+$details = "";
+
+$productPrices = [
+    "Climate / Sustainability Assist" => 250,
+    "Case Intake Assist" => 300,
+    "Health and Safety Assist" => 275,
+    "Screening App" => 225
+];
+
+$tabletPrice = 450;
+
+// Calculate selected products
+foreach($products as $index => $prod){
+    $price = $productPrices[$prod];
+    $details .= "$prod – $$price";
+    
+    // Check if tablet selected for this product
+    if(isset($_POST["tablet".($index+1)]) && $_POST["tablet".($index+1)] == "yes"){
+        $price += $tabletPrice;
+        $details .= " + Samsung Tablet $$tabletPrice";
+    }
+    $details .= "\n";
+    $total += $price;
+}
+
+// Apply multi-product discount
+$count = count($products);
+$discount = 0;
+if($count == 2) $discount = 0.05;
+elseif($count == 3) $discount = 0.10;
+elseif($count >= 4) $discount = 0.15;
+
+if($discount > 0){
+    $discountAmount = $total * $discount;
+    $total = $total - $discountAmount;
+    $details .= "\nMulti-product discount applied: ".($discount*100)."% (-$$discountAmount)\n";
+}
+
+// Handle custom product
+if(!empty($custom)){
+    $customFee = 500; // base dev fee
+    $total += $customFee;
+    $details .= "\nCustom Product: $custom – Development Fee $$customFee";
+    if($customTablet == "yes"){
+        $total += $tabletPrice;
+        $details .= " + Samsung Tablet $$tabletPrice";
+    }
+}
+
+// Dates
 $today = date("d/m/Y");
 $expiry = date("d/m/Y", strtotime("+1 month"));
 
 // Email content
 $subject = "Your PutaiaoTech Quote";
-$message = "
-Kia ora $name,
+$message = "Kia ora $name,\n\n";
+$message .= "Thank you for your enquiry with PutaiaoTech Assist Products.\n\n";
+$message .= "SERVICE DETAILS:\n$details\n";
+$message .= "\nQUOTE DATE: $today\nVALID UNTIL: $expiry\n";
+$message .= "\nTOTAL: $$total\n\n";
+$message .= "To accept this quote, please reply to this email within 30 days.\n\n";
+$message .= "Managed by Virtual Online Contact Centre – Email: virtualonlinenz@outlook.com\n\n";
+$message .= "Ngā mihi,\nPutaiaoTech Assist";
 
-Thank you for your enquiry with PutaiaoTech Assist Products.
+// Headers
+$headers = "From: virtualonlinenz@outlook.com";
 
-SERVICE REQUESTED:
-$service
-
-QUOTE DATE: $today
-VALID UNTIL: $expiry
-
-To accept this quote, please reply to this email within 30 days.
-
-Ngā mihi,
-PutaiaoTech Assist
-Email: info@putaiaotech.co.nz
-";
-
-// Email headers
-$headers = "From: info@putaiaotech.co.nz";
-
-// Send the email
-if(mail($email, $subject, $message, $headers)) {
+// Send email
+if(mail($email, $subject, $message, $headers)){
     echo "Quote sent successfully to $email.";
-} else {
+}else{
     echo "Sorry, there was a problem sending your quote.";
 }
 ?>
