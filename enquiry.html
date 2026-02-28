@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>PutaiaoTech - Request a Quote</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .quote-form {
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .quote-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0077cc;
+    }
+
+    .quote-form label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .quote-form input,
+    .quote-form select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .quote-form button {
+      width: 100%;
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .quote-form button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="quote-form" action="send-quote.php" method="POST">
+    <h2>PutaiaoTech - Request a Quote</h2>
+
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="service">Select Service:</label>
+    <select id="service" name="service" required>
+      <option value="CV Basic - $55">CV Basic - $55</option>
+      <option value="Custom 5 Cover Letters - $85">Custom 5 Cover Letters - $85</option>
+      <option value="CV Premium - $120">CV Premium - $120</option>
+      <option value="Business Cards Starter - $90">Business Cards Starter - $90</option>
+      <option value="Branding Pack - $150">Branding Pack - $150</option>
+      <option value="Market Scan - $150">Market Scan - $150</option>
+      <option value="Feasibility Review - $300">Feasibility Review - $300</option>
+    </select>
+
+    <button type="submit">Submit Request</button>
+  </form>
+
+</body>
+</html>
