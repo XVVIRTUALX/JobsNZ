@@ -1,0 +1,40 @@
+<?php
+// Get form data
+$name = $_POST['name'];
+$email = $_POST['email'];
+$service = $_POST['service'];
+
+// Set dates
+$today = date("d/m/Y");
+$expiry = date("d/m/Y", strtotime("+1 month"));
+
+// Email content
+$subject = "Your PutaiaoTech Quote";
+$message = "
+Kia ora $name,
+
+Thank you for your enquiry with PutaiaoTech Assist Products.
+
+SERVICE REQUESTED:
+$service
+
+QUOTE DATE: $today
+VALID UNTIL: $expiry
+
+To accept this quote, please reply to this email within 30 days.
+
+Ngā mihi,
+PutaiaoTech Assist
+Email: info@putaiaotech.co.nz
+";
+
+// Email headers
+$headers = "From: info@putaiaotech.co.nz";
+
+// Send the email
+if(mail($email, $subject, $message, $headers)) {
+    echo "Quote sent successfully to $email.";
+} else {
+    echo "Sorry, there was a problem sending your quote.";
+}
+?>
