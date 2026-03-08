@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobsNZ Online</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #1E73BE;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background-color: #0D47A1;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    margin: 0;
+  }
+  .container {
+    padding: 20px;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: none;
+  }
+  button.cta-box {
+    display: inline-block;
+    background-color: #FFD700;
+    color: #000;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  }
+  .job {
+    background-color: #0D47A1;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  .job h3 {
+    margin-top: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>JobsNZ Online</h1>
+  <p>Submit and pay for jobs securely via Hnry NZ</p>
+</header>
+
+<div class="container">
+
+  <!-- Job Submission Form -->
+  <h2>Submit a Job</h2>
+  <form id="jobForm">
+    <label>Client Name:</label>
+    <input type="text" id="clientName" required />
+
+    <label>Email:</label>
+    <input type="email" id="clientEmail" required />
+
+    <label>Job Title:</label>
+    <input type="text" id="jobTitle" required />
+
+    <label>Job Description:</label>
+    <textarea id="jobDesc" required></textarea>
+
+    <button type="submit" class="cta-box">Submit & Pay</button>
+  </form>
+
+  <!-- Payment Link Display -->
+  <div id="paymentLink" style="margin-top: 20px;"></div>
+
+  <hr style="margin: 40px 0; border-color: #fff;">
+
+  <!-- Jobs Display -->
+  <h2>Available Jobs</h2>
+  <div id="jobList">
+    <p>Loading jobs...</p>
+  </div>
+
+</div>
+
+<script>
+/* -------------------------
+   1. Job Submission Handler
+------------------------- */
+document.getElementById('jobForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = encodeURIComponent(document.getElementById('clientName').value);
+    const email = encodeURIComponent(document.getElementById('clientEmail').value);
+    const jobTitle = encodeURIComponent(document.getElementById('jobTitle').value);
+    const jobDesc = encodeURIComponent(document.getElementById('jobDesc').value);
+
+    // Hnry NZ signup/payment link
+    const hnryLink = `https://hnry.co/nz/signup?client_name=${name}&email=${email}&job_title=${jobTitle}&source=jobsnz.online`;
+
+    // Display payment link
+    document.getElementById('paymentLink').innerHTML = `
+      <a href="${hnryLink}" target="_blank" class="cta-box">
+        Click here to Pay via Hnry NZ
+      </a>
+    `;
+
+    // Optional: Clear form
+    document.getElementById('jobForm').reset();
+});
+
+
+/* -------------------------
+   2. Display Jobs from JSON
+   (Static JSON file: jobs.json)
+------------------------- */
+fetch('jobs.json')
+  .then(res => res.json())
+  .then(jobs => {
+    const jobList = document.getElementById('jobList');
+    jobList.innerHTML = ''; // Clear loading text
+    jobs.forEach(job => {
+      if(job.paid) {  // Only show paid jobs
+        jobList.innerHTML += `
+          <div class="job">
+            <h3>${job.jobTitle}</h3>
+            <p>${job.jobDesc}</p>
+            <small>Submitted by: ${job.clientName}</small>
+          </div>
+        `;
+      }
+    });
+
+    if(jobList.innerHTML === '') {
+      jobList.innerHTML = '<p>No jobs available at the moment.</p>';
+    }
+  })
+  .catch(err => {
+    document.getElementById('jobList').innerHTML = '<p>Error loading jobs.</p>';
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
