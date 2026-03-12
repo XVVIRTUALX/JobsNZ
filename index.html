@@ -266,15 +266,15 @@ window.location.href="purchase.html";
   </ul>
 </div>
    <!-- H-SAFETY APP Digital Ad Panel-->
-   <!-- ==================== ODD-JOBS Digital Ad Panel (with Fades) ==================== -->
+ <!-- ==================== ODD-JOBS Digital Ad Panel with Multi-Language Rotating Ads ==================== -->
 <div id="digitalAdPanel" class="panel" style="max-width:700px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
 
   <h2 style="text-align:center;">PutaiaoTech Digital Ads</h2>
   <p style="text-align:center;">Smart tools & job solutions for New Zealand industries.</p>
 
-  <!-- Language Selector for H-Safety -->
-  <label for="hsLang">Select Language:</label>
-  <select id="hsLang" style="margin-left:10px;">
+  <!-- Language Selector -->
+  <label for="adLang">Select Language:</label>
+  <select id="adLang" style="margin-left:10px;">
     <option value="en">English</option>
     <option value="mi">Te Reo Māori</option>
     <option value="zh">Chinese</option>
@@ -288,9 +288,7 @@ window.location.href="purchase.html";
     <source src="videos/hsafety-ad.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-
   <audio id="hsAudio"></audio>
-
   <br><br>
   <button onclick="playHS()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#0077cc;color:white;cursor:pointer;">
     ▶ Play H-Safety Advertisement
@@ -298,20 +296,25 @@ window.location.href="purchase.html";
 
   <hr style="margin:30px 0;">
 
-  <!-- Rotating Digital Billboard with Fade -->
+  <!-- Rotating Digital Billboard with Multi-Language Audio -->
   <div id="adCarousel" style="position:relative;height:300px;border-radius:8px;overflow:hidden;">
-    <!-- Two video layers for crossfade -->
     <video id="carouselVideo1" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1s;"></video>
     <video id="carouselVideo2" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s;"></video>
     <div id="adCaption" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:6px;font-weight:bold;">H-Safety App</div>
   </div>
+  <audio id="carouselAudio"></audio>
+
+  <br>
+  <button onclick="playCarouselAudio()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#28a745;color:white;cursor:pointer;">
+    🔊 Play Narration
+  </button>
 
 </div>
 
 <script>
 // ================= H-SAFETY MULTI-LANGUAGE PLAY =================
 function playHS(){
-  let lang = document.getElementById("hsLang").value;
+  let lang = document.getElementById("adLang").value;
   let audioFile = "";
 
   if(lang==="en") audioFile="audio/hs-en.mp3";
@@ -327,15 +330,26 @@ function playHS(){
   video.play();
   audio.play();
 
-  // Sync audio start with video
   video.onplay = () => { audio.play(); };
 }
 
-// ================= ROTATING DIGITAL BILLBOARD WITH FADE =================
+// ================= ROTATING DIGITAL BILLBOARD WITH MULTI-LANGUAGE AUDIO =================
 const ads = [
-  { video: "videos/hsafety-ad.mp4", caption: "H-Safety App" },
-  { video: "videos/oddjobs-ad.mp4", caption: "Odd-Jobs Platform" },
-  { video: "videos/job-products.mp4", caption: "Job Products" }
+  { 
+    video: "videos/hsafety-ad.mp4",
+    caption: "H-Safety App",
+    audio: { en:"audio/hs-en.mp3", mi:"audio/hs-mi.mp3", zh:"audio/hs-zh.mp3", hi:"audio/hs-hi.mp3" }
+  },
+  { 
+    video: "videos/oddjobs-ad.mp4",
+    caption: "Odd-Jobs Platform",
+    audio: { en:"audio/oj-en.mp3", mi:"audio/oj-mi.mp3", zh:"audio/oj-zh.mp3", hi:"audio/oj-hi.mp3" }
+  },
+  { 
+    video: "videos/job-products.mp4",
+    caption: "Job Products",
+    audio: { en:"audio/jp-en.mp3", mi:"audio/jp-mi.mp3", zh:"audio/jp-zh.mp3", hi:"audio/jp-hi.mp3" }
+  }
 ];
 
 let currentAd = 0;
@@ -344,14 +358,24 @@ let nextAd = 1;
 const video1 = document.getElementById("carouselVideo1");
 const video2 = document.getElementById("carouselVideo2");
 const adCaption = document.getElementById("adCaption");
+const carouselAudio = document.getElementById("carouselAudio");
+const langSelector = document.getElementById("adLang");
 
 // Initialize first video
 video1.src = ads[currentAd].video;
 video1.play();
 adCaption.textContent = ads[currentAd].caption;
 
+// Function to play carousel narration in selected language
+function playCarouselAudio(){
+  const lang = langSelector.value;
+  carouselAudio.src = ads[currentAd].audio[lang];
+  carouselAudio.currentTime = 0;
+  carouselAudio.play();
+}
+
+// Rotate videos with smooth fade
 setInterval(() => {
-  // Prepare next video
   const currentVideo = currentAd % 2 === 0 ? video1 : video2;
   const nextVideo = currentAd % 2 === 0 ? video2 : video1;
 
@@ -364,11 +388,10 @@ setInterval(() => {
     currentVideo.style.opacity = 0;
     nextVideo.style.opacity = 1;
     adCaption.textContent = ads[nextAd].caption;
-    // Update indices
     currentAd = nextAd;
     nextAd = (nextAd + 1) % ads.length;
-  }, 100); // tiny delay ensures video loads
-}, 10000); // rotate every 10 seconds
+  }, 100);
+}, 10000);
 
 </script>
     
