@@ -265,55 +265,112 @@ window.location.href="purchase.html";
     </li>
   </ul>
 </div>
-   <!-- H-SAFETY APP VIDEO -->
-    <div class="panel">
-        <h2>PutaiaoTech Health & Safety Assist</h2>
-        <p>Smart compliance tools for New Zealand workplaces.</p>
-        <label>Select Language:</label>
-        <select id="hsLang">
-            <option value="en">English</option>
-            <option value="mi">Te Reo Māori</option>
-            <option value="zh">Chinese</option>
-            <option value="hi">Hindi</option>
-        </select>
-        <br><br>
-        
-        <video id="hsVideo" width="100%" controls>
-            <source src="videos/hsafety-ad.mp4" type="video/mp4">
-        </video>
-        
-        <audio id="hsAudio"></audio>
-        
-        <br><br>
-        
-        <button onclick="playHS()">▶ Play Advertisement</button>
-    
-    </div>
-    
-    <script>
-        
-        function playHS()
-            
-        { let lang=document.getElementById("hsLang").value;
-         
-         let audioFile=""; 
-         
-         if(lang==="en") audioFile="audio/hs-en.mp3";
-         if(lang==="mi") audioFile="audio/hs-mi.mp3";
-         if(lang==="zh") audioFile="audio/hs-zh.mp3";
-         if(lang==="hi") audioFile="audio/hs-hi.mp3";
-         
-         let audio=document.getElementById("hsAudio");
-         let video=document.getElementById("hsVideo");
-         
-         audio.src=audioFile;
-         
-         video.play();
-         audio.play();
-        
-        } 
-    
-    </script>
+   <!-- H-SAFETY APP Digital Ad Panel-->
+   <!-- ==================== ODD-JOBS Digital Ad Panel (with Fades) ==================== -->
+<div id="digitalAdPanel" class="panel" style="max-width:700px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
+
+  <h2 style="text-align:center;">PutaiaoTech Digital Ads</h2>
+  <p style="text-align:center;">Smart tools & job solutions for New Zealand industries.</p>
+
+  <!-- Language Selector for H-Safety -->
+  <label for="hsLang">Select Language:</label>
+  <select id="hsLang" style="margin-left:10px;">
+    <option value="en">English</option>
+    <option value="mi">Te Reo Māori</option>
+    <option value="zh">Chinese</option>
+    <option value="hi">Hindi</option>
+  </select>
+
+  <br><br>
+
+  <!-- H-Safety Video -->
+  <video id="hsVideo" width="100%" controls style="border-radius:8px;">
+    <source src="videos/hsafety-ad.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <audio id="hsAudio"></audio>
+
+  <br><br>
+  <button onclick="playHS()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#0077cc;color:white;cursor:pointer;">
+    ▶ Play H-Safety Advertisement
+  </button>
+
+  <hr style="margin:30px 0;">
+
+  <!-- Rotating Digital Billboard with Fade -->
+  <div id="adCarousel" style="position:relative;height:300px;border-radius:8px;overflow:hidden;">
+    <!-- Two video layers for crossfade -->
+    <video id="carouselVideo1" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1s;"></video>
+    <video id="carouselVideo2" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s;"></video>
+    <div id="adCaption" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:6px;font-weight:bold;">H-Safety App</div>
+  </div>
+
+</div>
+
+<script>
+// ================= H-SAFETY MULTI-LANGUAGE PLAY =================
+function playHS(){
+  let lang = document.getElementById("hsLang").value;
+  let audioFile = "";
+
+  if(lang==="en") audioFile="audio/hs-en.mp3";
+  if(lang==="mi") audioFile="audio/hs-mi.mp3";
+  if(lang==="zh") audioFile="audio/hs-zh.mp3";
+  if(lang==="hi") audioFile="audio/hs-hi.mp3";
+
+  let audio = document.getElementById("hsAudio");
+  let video = document.getElementById("hsVideo");
+
+  video.currentTime = 0;
+  audio.currentTime = 0;
+  video.play();
+  audio.play();
+
+  // Sync audio start with video
+  video.onplay = () => { audio.play(); };
+}
+
+// ================= ROTATING DIGITAL BILLBOARD WITH FADE =================
+const ads = [
+  { video: "videos/hsafety-ad.mp4", caption: "H-Safety App" },
+  { video: "videos/oddjobs-ad.mp4", caption: "Odd-Jobs Platform" },
+  { video: "videos/job-products.mp4", caption: "Job Products" }
+];
+
+let currentAd = 0;
+let nextAd = 1;
+
+const video1 = document.getElementById("carouselVideo1");
+const video2 = document.getElementById("carouselVideo2");
+const adCaption = document.getElementById("adCaption");
+
+// Initialize first video
+video1.src = ads[currentAd].video;
+video1.play();
+adCaption.textContent = ads[currentAd].caption;
+
+setInterval(() => {
+  // Prepare next video
+  const currentVideo = currentAd % 2 === 0 ? video1 : video2;
+  const nextVideo = currentAd % 2 === 0 ? video2 : video1;
+
+  nextVideo.src = ads[nextAd].video;
+  nextVideo.style.opacity = 0;
+  nextVideo.play();
+
+  // Crossfade
+  setTimeout(() => {
+    currentVideo.style.opacity = 0;
+    nextVideo.style.opacity = 1;
+    adCaption.textContent = ads[nextAd].caption;
+    // Update indices
+    currentAd = nextAd;
+    nextAd = (nextAd + 1) % ads.length;
+  }, 100); // tiny delay ensures video loads
+}, 10000); // rotate every 10 seconds
+
+</script>
     
   <!-- FOOTER -->
     <div class="footer">
