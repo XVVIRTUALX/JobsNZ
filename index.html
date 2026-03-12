@@ -266,38 +266,56 @@ window.location.href="purchase.html";
   </ul>
 </div>
    <!-- H-SAFETY APP VIDEO -->
-<div class="panel">
-
-<h2>PutaiaoTech Health & Safety Assist</h2>
-
-<p>Industry compliance tools designed for New Zealand workplaces.</p>
-
-<label>Select Language:</label>
-<select id="hsLang">
-<option value="english">English</option>
-<option value="maori">Te Reo Māori</option>
-<option value="chinese">Chinese</option>
-<option value="hindi">Hindi</option>
-</select>
-
-<br><br>
-
-<video id="hsVideo" width="100%" controls>
-  <source src="videos/hsafety-overview.mp4" type="video/mp4">
-</video>
-
-<audio id="hsAudio"></audio>
-
-<br><br>
-
-<button onclick="playHS()">▶ Play Overview</ 
-    <a href="enquiry.html" class="btn">PAYMENT</a>
-    <p style="font-size: 0.85em; margin-top: 10px;">Managed by Virtual Online Contact Centre</p>
-</div>
-
+    <div class="panel">
+        <h2>PutaiaoTech Health & Safety Assist</h2>
+        <p>Smart compliance tools for New Zealand workplaces.</p>
+        <label>Select Language:</label>
+        <select id="hsLang">
+            <option value="en">English</option>
+            <option value="mi">Te Reo Māori</option>
+            <option value="zh">Chinese</option>
+            <option value="hi">Hindi</option>
+        </select>
+        <br><br>
+        
+        <video id="hsVideo" width="100%" controls>
+            <source src="videos/hsafety-ad.mp4" type="video/mp4">
+        </video>
+        
+        <audio id="hsAudio"></audio>
+        
+        <br><br>
+        
+        <button onclick="playHS()">▶ Play Advertisement</button>
+    
     </div>
-
-    <!-- FOOTER -->
+    
+    <script>
+        
+        function playHS()
+            
+        { let lang=document.getElementById("hsLang").value;
+         
+         let audioFile=""; 
+         
+         if(lang==="en") audioFile="audio/hs-en.mp3";
+         if(lang==="mi") audioFile="audio/hs-mi.mp3";
+         if(lang==="zh") audioFile="audio/hs-zh.mp3";
+         if(lang==="hi") audioFile="audio/hs-hi.mp3";
+         
+         let audio=document.getElementById("hsAudio");
+         let video=document.getElementById("hsVideo");
+         
+         audio.src=audioFile;
+         
+         video.play();
+         audio.play();
+        
+        } 
+    
+    </script>
+    
+  <!-- FOOTER -->
     <div class="footer">
         JobsNZ: THIS is a job-matching and workforce coordination platform only, designed for NZ citizens and current residents.<br><br>
 
