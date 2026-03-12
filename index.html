@@ -206,7 +206,21 @@ body{
     <div class="panel">
   <h2>JOBSNZ Products</h2>
   <p>Choose the service you need and request a quote instantly. All quotes are valid for 30 days.</p>
+function enterOddJobs(){
 
+let license = localStorage.getItem("OJ_LicenseActive");
+
+if(license){
+
+window.location.href="dashboard.html";
+
+}else{
+
+window.location.href="purchase.html";
+
+}
+
+}
   <ul>
     <li>
       📄 CV Basic
