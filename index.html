@@ -267,6 +267,81 @@ window.location.href="purchase.html";
 </div>
    <!-- H-SAFETY APP Digital Ad Panel-->
  <!-- ==================== ODD-JOBS Digital Ad Panel with Multi-Language Rotating Ads ==================== -->
+    /* Two-video section below Add Industry */
+.video-section {
+    display: flex;
+    flex-direction: row;       /* left / right */
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 40px auto;
+    max-width: 1100px;
+}
+
+/* Each panel */
+.video-panel {
+    flex: 1;
+    background-color: #001100; /* dark green / black */
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Video styling */
+.video-panel video {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Buttons */
+.video-panel .btn {
+    padding: 12px 28px;
+    background-color: #0078D4; /* blue button */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 12px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.video-panel .btn:hover {
+    background-color: #005EA6;
+    transform: translateY(-2px);
+}
+
+/* Responsive: stack videos on small screens */
+@media (max-width: 768px) {
+    .video-section {
+        flex-direction: column;
+    }
+}
+    <section class="video-section">
+
+<div class="video-panel">
+<h3>Health & Safety Assist</h3>
+
+<video controls>
+  <source src="videos/hsafety-workplace.mp4" type="video/mp4">
+</video>
+
+<a href="enquiry.html" class="btn">Pay & Connect</a>
+</div>
+
+<div class="video-panel">
+<h3>Climate Resilience & Sustainability</h3>
+
+<video controls>
+  <source src="videos/climate-environmental-services.mp4" type="video/mp4">
+</video>
+
+<a href="https://xvvirtualx.github.io/Climate-Resilience-Sustainability-Services/" class="btn">View Climate Services</a>
+</div>
+
+</section>
 <div id="digitalAdPanel" class="panel" style="max-width:700px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
 
   <h2 style="text-align:center;">PutaiaoTech Digital Ads</h2>
