@@ -390,16 +390,18 @@ const ads = [
 
 let currentAd = 0;
 let nextAd = 1;
-
 const video1 = document.getElementById("carouselVideo1");
 const video2 = document.getElementById("carouselVideo2");
 const adCaption = document.getElementById("adCaption");
 const carouselAudio = document.getElementById("carouselAudio");
 const langSelector = document.getElementById("adLang");
 
-// Initialize first video
-video1.src = ads[currentAd].video;
-video1.play();
+// ads array
+const ads = [
+  { video: "videos/hsafety-workplace.mp4", caption: "Health & Safety App", audio: {en:"audio/hs-en.mp3"} },
+  { video: "videos/virtual-contact.mp4", caption: "Virtual Online Contact Centre", audio: {en:"audio/voc-en.mp3"} },
+  { video: "videos/monitoring-data-services.mp4", caption: "Monitoring & Data Services", audio: {en:"audio/mds-en.mp3"} }
+];
 adCaption.textContent = ads[currentAd].caption;
 
 // Function to play carousel narration in selected language
