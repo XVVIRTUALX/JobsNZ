@@ -390,49 +390,83 @@ const ads = [
   }
 ];
 
+<script>
+
 let currentAd = 0;
 let nextAd = 1;
+
 const video1 = document.getElementById("carouselVideo1");
 const video2 = document.getElementById("carouselVideo2");
 const adCaption = document.getElementById("adCaption");
 const carouselAudio = document.getElementById("carouselAudio");
 const langSelector = document.getElementById("adLang");
 
-// ads array
 const ads = [
-  { video: "https://github.com/user-attachments/assets/11587037-86cc-48aa-9a82-c38e80aadda7.mp4", caption: "Health & Safety App", audio: {en:"audio/hs-en.mp3"} },
-  { video: "https://github.com/user-attachments/assets/7edc705e-92ab-48b6-954d-0bae7ebef995.mp4", caption: "Virtual Online Contact Centre", audio: {en:"audio/voc-en.mp3"} },
-  { video: "https://github.com/user-attachments/assets/477dc003-44b7-4af9-9dc1-d8d3bb5d8f7b", caption: "Te Putaiao Trust", audio: {en:"audio/tpt-en.mp3"} },
-  { video: "https://github.com/user-attachments/assets/7edc705e-92ab-48b6-954d-0bae7ebef995.mp4", caption: "Monitoring & Data Services", audio: {en:"audio/mds-en.mp3"} }
-];
-adCaption.textContent = ads[currentAd].caption;
 
-// Function to play carousel narration in selected language
-function playCarouselAudio(){
-  const lang = langSelector.value;
-  carouselAudio.src = ads[currentAd].audio[lang];
-  carouselAudio.currentTime = 0;
-  carouselAudio.play();
+{
+video:"https://github.com/user-attachments/assets/11587037-86cc-48aa-9a82-c38e80aadda7.mp4",
+caption:"Health & Safety App",
+audio:{en:"audio/hs-en.mp3",mi:"audio/hs-mi.mp3",zh:"audio/hs-zh.mp3",hi:"audio/hs-hi.mp3"}
+},
+
+{
+video:"https://github.com/user-attachments/assets/7edc705e-92ab-48b6-954d-0bae7ebef995.mp4",
+caption:"Virtual Online Contact Centre",
+audio:{en:"audio/voc-en.mp3",mi:"audio/voc-mi.mp3",zh:"audio/voc-zh.mp3",hi:"audio/voc-hi.mp3"}
+},
+
+{
+video:"https://github.com/user-attachments/assets/477dc003-44b7-4af9-9dc1-d8d3bb5d8f7b.mp4",
+caption:"Te Putaiao Trust",
+audio:{en:"audio/tpt-en.mp3",mi:"audio/tpt-mi.mp3",zh:"audio/tpt-zh.mp3",hi:"audio/tpt-hi.mp3"}
+},
+
+{
+video:"https://github.com/user-attachments/assets/7edc705e-92ab-48b6-954d-0bae7ebef995.mp4",
+caption:"Monitoring & Data Services",
+audio:{en:"audio/mds-en.mp3",mi:"audio/mds-mi.mp3",zh:"audio/mds-zh.mp3",hi:"audio/mds-hi.mp3"}
 }
 
-// Rotate videos with smooth fade
+];
+
+adCaption.textContent = ads[currentAd].caption;
+
+function playCarouselAudio(){
+
+const lang = langSelector.value;
+
+const audioSrc = ads[currentAd].audio[lang] || ads[currentAd].audio["en"];
+
+carouselAudio.src = audioSrc;
+carouselAudio.currentTime = 0;
+carouselAudio.play();
+
+}
+
 setInterval(() => {
-  const currentVideo = currentAd % 2 === 0 ? video1 : video2;
-  const nextVideo = currentAd % 2 === 0 ? video2 : video1;
 
-  nextVideo.src = ads[nextAd].video;
-  nextVideo.style.opacity = 0;
-  nextVideo.play();
+const currentVideo = currentAd % 2 === 0 ? video1 : video2;
+const nextVideo = currentAd % 2 === 0 ? video2 : video1;
 
-  // Crossfade
-  setTimeout(() => {
-    currentVideo.style.opacity = 0;
-    nextVideo.style.opacity = 1;
-    adCaption.textContent = ads[nextAd].caption;
-    currentAd = nextAd;
-    nextAd = (nextAd + 1) % ads.length;
-  }, 100);
-}, 10000);
+nextVideo.src = ads[nextAd].video;
+nextVideo.style.opacity = 0;
+nextVideo.play();
+
+setTimeout(()=>{
+
+currentVideo.style.opacity = 0;
+nextVideo.style.opacity = 1;
+
+adCaption.textContent = ads[nextAd].caption;
+
+currentAd = nextAd;
+nextAd = (nextAd + 1) % ads.length;
+
+},100);
+
+},10000);
+
+</script>
 
 </script>   
   <!-- FOOTER -->
