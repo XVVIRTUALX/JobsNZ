@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Odd-Jobs Request Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:40px;
+background:#f4f6f8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#1f3c6d;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Odd-Jobs Job Requests</h1>
+
+<table>
+
+<tr>
+<th>Date</th>
+<th>Name</th>
+<th>Email</th>
+<th>Service</th>
+<th>Details</th>
+</tr>
+
+<tbody id="requestTable"></tbody>
+
+</table>
+
+<script>
+
+let requests=JSON.parse(localStorage.getItem("OJ_requests")||"[]");
+
+let table=document.getElementById("requestTable");
+
+requests.forEach(r=>{
+
+let row=`
+<tr>
+<td>${r.date}</td>
+<td>${r.name}</td>
+<td>${r.email}</td>
+<td>${r.service}</td>
+<td>${r.details}</td>
+</tr>
+`;
+
+table.innerHTML+=row;
+
+});
+
+</script>
+
+</body>
+</html>
