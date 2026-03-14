@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odd-Jobs NZ Payment</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f8;
+margin:0;
+padding:40px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#1f3c6d;
+}
+
+button{
+background:#1f3c6d;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#163055;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:6px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Odd-Jobs NZ Service Request</h1>
+
+<h2>Payment Instructions</h2>
+
+<p>Please make payment to:</p>
+
+<p>
+Bank: [Your Bank Name]<br>
+Account Name: <strong>PutaiaoTech</strong><br>
+Account Number: <strong>XX-XXXX-XXXXXXX-XX</strong><br>
+Reference: Your Name
+</p>
+
+<p>
+After payment is made, submit your job details and upload any files below.
+</p>
+
+<hr>
+
+<h2>Upload Your Documents</h2>
+
+<form action="https://formsubmit.co/YOUR-EMAIL@example.com" method="POST" enctype="multipart/form-data">
+
+<label>Your Name</label>
+<input type="text" name="name" required>
+
+<label>Email Address</label>
+<input type="email" name="email" required>
+
+<label>Service Requested</label>
+<select name="service">
+<option>Business Cards</option>
+<option>CV Writing</option>
+<option>Logo Design</option>
+<option>Website Help</option>
+<option>Other</option>
+</select>
+
+<label>Business Name</label>
+<input type="text" name="business_name">
+
+<label>Phone Number</label>
+<input type="text" name="phone">
+
+<label>Details for the job</label>
+<textarea name="details" rows="5" placeholder="Enter the information you want on the business card, CV, etc"></textarea>
+
+<label>Upload Files (logo, documents, images)</label>
+<input type="file" name="attachment">
+
+<button type="submit">Submit Job Details</button>
+
+</form>
+
+<footer style="margin-top:40px; font-size:0.9em;">
+© 2026 PutaiaoTech. All Rights Reserved.
+</footer>
+
+</div>
+
+</body>
+</html>
