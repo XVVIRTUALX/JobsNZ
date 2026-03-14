@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odd-Jobs Service Request</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+padding:40px;
+}
+
+.container{
+max-width:750px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1{color:#1f3c6d;}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:6px;
+margin-bottom:16px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+background:#1f3c6d;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#14284a;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Odd-Jobs NZ Service Request</h1>
+
+<h2>Payment Instructions</h2>
+
+<p>Please make payment to:</p>
+
+<p>
+Bank: [Your Bank]<br>
+Account Name: <b>PutaiaoTech</b><br>
+Account Number: XX-XXXX-XXXXXXX-XX<br>
+Reference: Your Name
+</p>
+
+<p>
+Once payment is made, complete the form below.
+</p>
+
+<hr>
+
+<h2>Submit Job Details</h2>
+
+<form id="jobForm"
+action="https://formsubmit.co/virtualonlinenz@outlook.com"
+method="POST"
+enctype="multipart/form-data">
+
+<input type="hidden" name="_subject" value="Odd-Jobs Service Request">
+<input type="hidden" name="_next" value="https://xvvirtualx.github.io/ODD-JOBS-NZ/thankyou.html">
+
+<label>Your Name</label>
+<input type="text" name="name" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Service Requested</label>
+<select name="service" id="service">
+
+<option>Business Cards</option>
+<option>CV Writing</option>
+<option>Logo Design</option>
+<option>Website Help</option>
+<option>General Job Request</option>
+
+</select>
+
+<label>Business Name</label>
+<input type="text" name="business">
+
+<label>Phone</label>
+<input type="text" name="phone">
+
+<label>Details</label>
+<textarea name="details" rows="5"></textarea>
+
+<label>Upload Files (logo, documents etc)</label>
+<input type="file" name="attachment">
+
+<button type="submit">Submit Request</button>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("jobForm").addEventListener("submit",function(){
+
+let request={
+
+name:document.querySelector('[name="name"]').value,
+email:document.querySelector('[name="email"]').value,
+service:document.querySelector('[name="service"]').value,
+details:document.querySelector('[name="details"]').value,
+date:new Date().toLocaleDateString()
+
+};
+
+let requests=JSON.parse(localStorage.getItem("OJ_requests")||"[]");
+
+requests.push(request);
+
+localStorage.setItem("OJ_requests",JSON.stringify(requests));
+
+});
+
+</script>
+
+</body>
+</html>
