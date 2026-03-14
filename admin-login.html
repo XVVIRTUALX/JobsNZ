@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PutaiaoTech Admin Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:8px;
+box-shadow:0 6px 18px rgba(0,0,0,0.1);
+width:320px;
+text-align:center;
+}
+
+h1{
+color:#1f3c6d;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#1f3c6d;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#14284a;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h1>Admin Login</h1>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<script>
+
+function login(){
+
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+if(user==="admin" && pass==="PutaiaoTech2026"){
+
+localStorage.setItem("OJ_Admin","true");
+
+window.location.href="admin-dashboard.html";
+
+}else{
+
+alert("Incorrect login");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
