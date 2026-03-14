@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ODD-JOBS.NZ | Workforce Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg,#0a0f14,#05080c);
+    color:#d9e1e8;
+}
+
+/* ===== MAIN WRAP ===== */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* ===== TITLE ===== */
+.main-title{
+    text-align:center;
+    font-size:38px;
+    font-weight:bold;
+    color:#4CAF50;
+    margin-bottom:25px;
+}
+
+/* ===== INTRO ===== */
+.intro{
+    text-align:center;
+    max-width:900px;
+    margin:0 auto 40px auto;
+    line-height:1.6;
+    color:#c7d2db;
+}
+
+/* ===== GRID ===== */
+.grid{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:30px;
+}
+
+/* ===== PANELS ===== */
+.panel{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.panel h2{
+    margin:0 0 8px 0;
+    font-size:22px;
+    color:#ffffff;
+}
+
+.panel p{
+    margin:0;
+    color:#b8c4cc;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    float:right;
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color:white;
+    padding:10px 22px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 8px rgba(0,0,0,0.5);
+    transition:0.2s;
+}
+
+.btn:hover{
+    background: linear-gradient(180deg,#6fff73,#35b63f);
+}
+
+/* ===== RIGHT BOX ===== */
+.side-box{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+    text-align:center;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.side-box h3{
+    margin-top:0;
+    color:#ffffff;
+}
+ /* ===== SCAN TO PAY BUTTON ===== */   
+.paygo-btn{
+    display:inline-block;
+  background:#34A853;
+  color:white;
+  padding:6px 12px;
+  border-radius:5px;
+  font-weight:bold;
+  text-decoration:none;
+  margin-left:6px;
+}
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:50px;
+    padding-top:25px;
+    border-top:1px solid #1e2a33;
+    text-align:center;
+    color:#9fb0bd;
+    font-size:14px;
+}
+
+.footer a{
+    color:#c7d2db;
+    text-decoration:none;
+    margin:0 10px;
+}
+
+.footer a:hover{
+    text-decoration:underline;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .btn{
+        float:none;
+        display:inline-block;
+        margin-top:12px;
+    }
+    /* give space above videos so the list is visible */
+.video-section {
+    margin-top: 40px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TITLE -->
+    <div class="main-title">
+        One Platform. Multiple Workforce Solutions.
+    </div>
+
+    <!-- INTRO -->
+    <div class="intro">
+        JobsNZ is a modular platform hosting multiple job and workforce applications, starting with Odd Jobs NZ and Immediate Painters.<br><br>
+        Each application operates independently while sharing a common platform vision.<br><br>
+        Industries are welcome to join and create their own workforce tools.
+    </div>
+
+    <div class="grid">
+
+
+
+</div>
+        <!-- LEFT COLUMN -->
+        <div>
+
+            <!-- 1 ODD JOBS -->
+            <div class="panel">
+                <a href="odd-jobs/index.html" class="btn">Get Started</a>
+                <h2>Odd-Jobs NZ</h2>
+                <p>Find workers for everyday jobs NZ-wide.</p>
+            </div>
+
+            <!-- 2 IMMEDIATE PAINTERS -->
+            <div class="panel">
+                <a href="immediate-painters/index.html" class="btn">Get Started</a>
+                <h2>Immediate Painters</h2>
+                <p>Connect with painters ready to work now.</p>
+            </div>
+
+            <!-- 3 CLIMATE RSS -->
+            <div class="panel">
+                <a href="climate-jobs.html" class="btn">Get Started</a>
+                <h2>Climate-Resilience-Sustainability-Services</h2>
+                <p>
+                    Workforce solutions across carbon audits, renewable energy,
+                    urban farming, climate resilience and waste reduction services.
+                </p>
+            </div>
+
+            <!-- 4 ADD INDUSTRY -->
+            <div class="panel">
+                <a href="contact.html" class="btn">Get Started</a>
+                <h2>Add Your Industry</h2>
+                <p>Build your own sub-platform on JobsNZ.</p>
+            </div>
+            
+            <!-- PutaiaoTech Assist Products Panel -->
+    <div class="panel">
+  <h2>JOBSNZ Products</h2>
+  <p>Choose the service you need and request a quote instantly. All quotes are valid for 30 days.</p>
+function enterOddJobs(){
+
+let license = localStorage.getItem("OJ_LicenseActive");
+
+if(license){
+
+window.location.href="dashboard.html";
+
+}else{
+
+window.location.href="purchase.html";
+
+}
+
+}
+  <ul>
+    <li>
+      📄 CV Basic
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$55 – Purchase</a>
+    </li>
+
+    <li>
+      ✉️ Custom 5 Cover Letters
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$85 – Purchase</a>
+    </li>
+
+    <li>
+      📄 CV Premium
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$120 – Purchase</a>
+    </li>
+
+    <li>
+      💳 Business Cards Starter
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$90 – Purchase</a>
+    </li>
+
+    <li>
+      🎨 Branding Pack
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$150 – Purchase</a>
+    </li>
+
+    <li>
+      🔍 Market Scan
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$150 – Purchase</a>
+    </li>
+
+    <li>
+      📊 Feasibility Review
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$300 – Purchase</a>
+    </li>
+  </ul>
+</div>
+            
+<li>
+     
+<!-- Add Industry List -->
+<div class="industry-list">
+  <ul>
+    <li>
+      📊 HEALTH AND SAFETY APP 
+      <a class="purchase-btn" href="https://hnry.co.nz/product/payments/" target="_blank">$39 PER MONTH – Purchase</a>
+    </li>
+    <!-- other industries here -->
+  </ul>
+</div>
+
+<!-- Two Video Panels -->
+<section class="video-section">
+
+  <div class="video-panel">
+    <h3>Health & Safety Assist</h3>
+    <video controls>
+      <source src="videos/hsafety-workplace.mp4" type="video/mp4">
+    </video>
+    <a href="enquiry.html" class="btn">Pay & Connect</a>
+  </div>
+
+  <div class="video-panel">
+    <h3>Climate Resilience & Sustainability</h3>
+    <video controls>
+      <source src="videos/climate-environmental-services.mp4" type="video/mp4">
+    </video>
+    <a href="https://xvvirtualx.github.io/Climate-Resilience-Sustainability-Services/" class="btn">View Climate Services</a>
+  </div>
+
+</section>
+
+</section>
+<div id="digitalAdPanel" class="panel" style="max-width:700px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
+
+  <h2 style="text-align:center;">PutaiaoTech Digital Ads</h2>
+  <p style="text-align:center;">Smart tools & job solutions for New Zealand industries.</p>
+
+  <!-- Language Selector -->
+  <label for="adLang">Select Language:</label>
+  <select id="adLang" style="margin-left:10px;">
+    <option value="en">English</option>
+    <option value="mi">Te Reo Māori</option>
+    <option value="zh">Chinese</option>
+    <option value="hi">Hindi</option>
+  </select>
+
+  <br><br>
+
+  <!-- H-Safety Video -->
+  <video id="hsVideo" width="100%" controls style="border-radius:8px;">
+    <source src="videos/hsafety-ad.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <audio id="hsAudio"></audio>
+  <br><br>
+  <button onclick="playHS()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#0077cc;color:white;cursor:pointer;">
+    ▶ Play H-Safety Advertisement
+  </button>
+
+  <hr style="margin:30px 0;">
+
+  <!-- Rotating Digital Billboard with Multi-Language Audio -->
+  <div id="adCarousel" style="position:relative;height:300px;border-radius:8px;overflow:hidden;">
+    <video id="carouselVideo1" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1s;"></video>
+    <video id="carouselVideo2" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s;"></video>
+    <div id="adCaption" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:6px;font-weight:bold;">H-Safety App</div>
+  </div>
+  <audio id="carouselAudio"></audio>
+
+  <br>
+  <button onclick="playCarouselAudio()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#28a745;color:white;cursor:pointer;">
+    🔊 Play Narration
+  </button>
+
+</div>
+
+<script>
+// ================= H-SAFETY MULTI-LANGUAGE PLAY =================
+function playHS(){
+  let lang = document.getElementById("adLang").value;
+  let audioFile = "";
+
+  if(lang==="en") audioFile="audio/hs-en.mp3";
+  if(lang==="mi") audioFile="audio/hs-mi.mp3";
+  if(lang==="zh") audioFile="audio/hs-zh.mp3";
+  if(lang==="hi") audioFile="audio/hs-hi.mp3";
+
+  let audio = document.getElementById("hsAudio");
+  let video = document.getElementById("hsVideo");
+6
+  video.currentTime = 0;
+  audio.currentTime = 0;
+  video.play();
+  audio.play();
+
+  video.onplay = () => { audio.play(); };
+}
+
+// ================= ROTATING DIGITAL BILLBOARD WITH MULTI-LANGUAGE AUDIO =================
+const ads = [
+  { 
+    video: "videos/hsafety-ad.mp4",
+    caption: "Health & Safety App",
+    audio: { en:"audio/hs-en.mp3", mi:"audio/hs-mi.mp3", zh:"audio/hs-zh.mp3", hi:"audio/hs-hi.mp3" }
+  },
+  { 
+    video: "videos/virtual-contact.mp4",
+    caption: "Virtual Online Contact Centre",
+    audio: { en:"audio/voc-en.mp3", mi:"audio/voc-mi.mp3", zh:"audio/voc-zh.mp3", hi:"audio/voc-hi.mp3" }
+  },
+  { 
+    video: "videos/te-putaaio-trust.mp4",
+    caption: "Te Putaiao Trust",
+    audio: { en:"audio/tpt-en.mp3", mi:"audio/tpt-mi.mp3", zh:"audio/tpt-zh.mp3", hi:"audio/tpt-hi.mp3" }
+  },
+  { 
+    video: "videos/monitoring-data-services.mp4",
+    caption: "Monitoring & Data Services",
+    audio: { en:"audio/mds-en.mp3", mi:"audio/mds-mi.mp3", zh:"audio/mds-zh.mp3", hi:"audio/mds-hi.mp3" }
+  }
+];
+
+let currentAd = 0;
+let nextAd = 1;
+const video1 = document.getElementById("carouselVideo1");
+const video2 = document.getElementById("carouselVideo2");
+const adCaption = document.getElementById("adCaption");
+const carouselAudio = document.getElementById("carouselAudio");
+const langSelector = document.getElementById("adLang");
+
+// ads array
+const ads = [
+  { video: "videos/hsafety-workplace.mp4", caption: "Health & Safety App", audio: {en:"audio/hs-en.mp3"} },
+  { video: "videos/virtual-contact.mp4", caption: "Virtual Online Contact Centre", audio: {en:"audio/voc-en.mp3"} },
+  { video: "videos/te-putaaio-trust.mp4", caption: "Te Putaiao Trust", audio: {en:"audio/tpt-en.mp3"} },
+  { video: "videos/monitoring-data-services.mp4", caption: "Monitoring & Data Services", audio: {en:"audio/mds-en.mp3"} }
+];
+adCaption.textContent = ads[currentAd].caption;
+
+// Function to play carousel narration in selected language
+function playCarouselAudio(){
+  const lang = langSelector.value;
+  carouselAudio.src = ads[currentAd].audio[lang];
+  carouselAudio.currentTime = 0;
+  carouselAudio.play();
+}
+
+// Rotate videos with smooth fade
+setInterval(() => {
+  const currentVideo = currentAd % 2 === 0 ? video1 : video2;
+  const nextVideo = currentAd % 2 === 0 ? video2 : video1;
+
+  nextVideo.src = ads[nextAd].video;
+  nextVideo.style.opacity = 0;
+  nextVideo.play();
+
+  // Crossfade
+  setTimeout(() => {
+    currentVideo.style.opacity = 0;
+    nextVideo.style.opacity = 1;
+    adCaption.textContent = ads[nextAd].caption;
+    currentAd = nextAd;
+    nextAd = (nextAd + 1) % ads.length;
+  }, 100);
+}, 10000);
+
+</script>   
+  <!-- FOOTER -->
+    <div class="footer">
+        JobsNZ: THIS is a job-matching and workforce coordination platform only, designed for NZ citizens and current residents.<br><br>
+
+      JOB work arrangements are made directly between users who are responsible for complying with New Zealand laws and workplace regulations.
+        
+        <a href="ODD-JOBS-NZ/terms.html">Terms of Use</a> |
+        <a href="ODD-JOBS-NZ/contact.html
+">General Enquiries</a>
+    </div>
+
+</div>
+
+</body>
+</html>
