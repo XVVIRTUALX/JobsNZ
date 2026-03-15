@@ -152,6 +152,21 @@ body{
 </head>
 
 <body>
+<p>By logging in, you agree to the <a href="https://xvvirtualx.github.io/PutaiaoTech/terms.html" target="_blank">Terms & Conditions</a>.</p>
+<label>
+  <input type="checkbox" id="ojAgree">
+  I have read and agree to the Terms & Conditions.
+</label>
+<button id="ojLoginBtn" disabled>Enter Dashboard</button>
+
+<script>
+document.getElementById("ojAgree").addEventListener("change", function(){
+  document.getElementById("ojLoginBtn").disabled = !this.checked;
+});
+document.getElementById("ojLoginBtn").addEventListener("click", function(){
+  window.location.href="dashboard.html";
+});
+</script>
 
 <div class="container">
 
