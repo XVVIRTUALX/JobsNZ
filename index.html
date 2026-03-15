@@ -291,7 +291,27 @@ window.location.href="purchase.html";
   </ul>
 </div>
 
-<!-- Two Video Panels -->
+<!-- Two Video Panels --><style>
+.video-container {
+  display: flex;
+  flex-wrap: wrap;        /* allows wrapping on smaller screens */
+  gap: 20px;              /* space between videos */
+  justify-content: center; /* center all videos */
+  margin-top: 20px;
+}
+
+.video-panel {
+  flex: 1 1 30%;          /* each video takes ~30% of container */
+  min-width: 250px;       /* prevents panels from being too small */
+  max-width: 400px;       /* optional max size */
+}
+
+.video-panel video {
+  width: 100%;            /* video fills the panel */
+  height: auto;
+}
+</style>
+    
 <section class="video-section">
 <div class="video-container">
   <div class="video-panel">
