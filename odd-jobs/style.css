@@ -3,3 +3,6 @@
     font-size: 2em;      /* doubles text size */
     line-height: 1.5;    /* easier to read */
 }
+.terms-page {
+    padding: 20px;
+}
