@@ -194,15 +194,11 @@ body{
 </div>
 
 
-<script>
-
 const chk = document.getElementById("acceptTerms");
-const btn = document.getElementById("continueBtn");
-
-// 🔒 GET ALL APP BUTTONS
+const industry = document.getElementById("oddJobsIndustry");
 const appButtons = document.querySelectorAll(".app-btn");
 
-// 🔒 LOCK ALL BUTTONS BY DEFAULT
+// lock buttons by default
 function lockApps(){
   appButtons.forEach(btn => {
     btn.style.pointerEvents = "none";
@@ -210,7 +206,7 @@ function lockApps(){
   });
 }
 
-// 🔓 UNLOCK ALL BUTTONS
+// unlock if checkbox ticked and industry selected
 function unlockApps(){
   appButtons.forEach(btn => {
     btn.style.pointerEvents = "auto";
@@ -218,48 +214,42 @@ function unlockApps(){
   });
 }
 
-// Run lock initially
+// check conditions
+function checkReady(){
+  return chk.checked && industry.value !== "";
+}
+
+// on load
 lockApps();
+if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
+  chk.checked = true;
+  industry.value = localStorage.getItem("jobsnz_industry") || "";
+  if(checkReady()) unlockApps();
+}
 
-// Enable Continue when checkbox is ticked
+// checkbox change
 chk.addEventListener("change", () => {
-  btn.disabled = !chk.checked;
-  btn.style.cursor = chk.checked ? "pointer" : "not-allowed";
-});
-
-// When user clicks Continue
-btn.addEventListener("click", () => {
-
-  localStorage.setItem("jobsnz_termsAccepted","true");
-
-  btn.disabled = true;
-  btn.style.cursor = "default";
-  chk.disabled = true;
-
-  unlockApps();
-
-  alert("Thank you! You can now access all apps.");
-});
-
-// Auto-check on return visits
-document.addEventListener("DOMContentLoaded", () => {
-
-  if(localStorage.getItem("jobsnz_termsAccepted") === "true") {
-    
-    chk.checked = true;
-    btn.disabled = true;
-    chk.disabled = true;
-    btn.style.cursor = "default";
-
-    unlockApps(); // 🔓 IMPORTANT
-
+  if(checkReady()){
+    localStorage.setItem("jobsnz_termsAccepted","true");
+    localStorage.setItem("jobsnz_industry", industry.value);
+    unlockApps();
   } else {
-    lockApps(); // 🔒 enforce lock
+    localStorage.removeItem("jobsnz_termsAccepted");
+    lockApps();
   }
-
 });
 
-</script>
+// industry change
+industry.addEventListener("change", () => {
+  if(checkReady()){
+    localStorage.setItem("jobsnz_termsAccepted","true");
+    localStorage.setItem("jobsnz_industry", industry.value);
+    unlockApps();
+  } else {
+    localStorage.removeItem("jobsnz_termsAccepted");
+    lockApps();
+  }
+});
 
 </body>
     <!-- TITLE -->
