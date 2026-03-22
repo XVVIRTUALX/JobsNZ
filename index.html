@@ -193,7 +193,11 @@ body{
     localStorage.setItem('termsAccepted', 'true'); // remember acceptance
     window.location.href = 'index.html';   // replace with your main app landing page
   });
-
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('termsAccepted') === 'true') {
+    window.location.href = 'index.html';
+  }
+});
   // Auto-redirect if terms already accepted
   if (localStorage.getItem('termsAccepted') === 'true') {
     window.location.href = 'index.html';
