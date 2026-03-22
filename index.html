@@ -191,12 +191,12 @@ body{
   // Redirect to main platform landing page on Continue
   button.addEventListener('click', () => {
     localStorage.setItem('termsAccepted', 'true'); // remember acceptance
-    window.location.href = 'ODD-JOBS/index.html';   // replace with your main app landing page
+    window.location.href = 'index.html';   // replace with your main app landing page
   });
 
   // Auto-redirect if terms already accepted
   if (localStorage.getItem('termsAccepted') === 'true') {
-    window.location.href = 'ODD-JOBS/index.html';
+    window.location.href = 'index.html';
   }
 </script>
 
