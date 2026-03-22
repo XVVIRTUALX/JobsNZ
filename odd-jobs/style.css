@@ -1,6 +1,5 @@
-/* Add this to style.css */
-body.terms-page {
-    font-size: 2em;
-    line-height: 1.5;
-    padding: 20px;
+/* Only for Terms page */
+.terms-page .terms-text {
+    font-size: 2em;      /* doubles text size */
+    line-height: 1.5;    /* easier to read */
 }
