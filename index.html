@@ -152,21 +152,50 @@ body{
 </head>
 
 <body>
-<div id="termsBox">
-  <p>By using Odd-Jobs NZ you agree to the 
-  <a href="https://xvvirtualx.github.io/PutaiaoTech/terms.html" target="_blank">
-  Terms & Conditions</a>.</p>
+<!-- TERMS & CONDITIONS OVERLAY -->
+<div id="termsBox" style="position: fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.9); color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; z-index:9999;">
+  <h1 style="font-size:2.5em; margin-bottom:20px;">Welcome to JobsNZ</h1>
 
-  <label>
-    <input type="checkbox" id="ojAgree">
-    I have read and agree to the Terms & Conditions.
+  <p style="font-size:1.5em; margin-bottom:20px;">
+    By using JobsNZ you agree to the 
+    <a href="terms.html" target="_blank" style="background-color:#007bff; color:#fff; padding:8px 12px; border-radius:5px; text-decoration:none;">Terms & Conditions</a>.
+  </p>
+
+  <label style="display:block; font-size:1.5em; margin-top:25px; font-weight:bold; cursor:pointer;">
+    <input type="checkbox" id="ojAgree" style="transform: scale(1.8); margin-right:10px; vertical-align:middle; cursor:pointer;">
+    I have read and agree to the Terms & Conditions
   </label>
 
-  <br><br>
-  <button id="ojLoginBtn" disabled>Continue</button>
+  <button id="ojLoginBtn" disabled style="font-size:1.6em; padding:15px; margin-top:30px; width:100%; max-width:400px; background-color:#28a745; color:#fff; border:none; border-radius:8px; cursor:not-allowed; transition:background-color 0.3s;">
+    Continue
+  </button>
 </div>
-<div class="container">
- </div>   
+
+<script>
+  const checkbox = document.getElementById('ojAgree');
+  const button = document.getElementById('ojLoginBtn');
+  const termsBox = document.getElementById('termsBox');
+
+  // Enable Continue button when checkbox is clicked
+  checkbox.addEventListener('change', () => {
+    button.disabled = !checkbox.checked;
+    button.style.cursor = checkbox.checked ? 'pointer' : 'not-allowed';
+  });
+
+  // Show original homepage content when Continue clicked
+  button.addEventListener('click', () => {
+    localStorage.setItem('termsAccepted', 'true'); // remember acceptance
+    termsBox.style.display = 'none';               // hide overlay
+    // original homepage content below terms will now be visible
+  });
+
+  // Auto-hide overlay if already accepted
+  document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('termsAccepted') === 'true') {
+      termsBox.style.display = 'none';
+    }
+  });
+</script> 
 
 </body>
 
