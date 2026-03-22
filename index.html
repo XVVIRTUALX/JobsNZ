@@ -153,19 +153,52 @@ body{
 
 <body>
 <div id="termsBox">
-  <p>By using Odd-Jobs NZ you agree to the 
-<a href="terms.html" target="_blank">Terms & Conditions</a>.
+  <h1>Welcome to JobsNZ</h1>
+
+  <p style="font-size:1.5em; font-weight:bold; margin-bottom:20px;">
+    By using JobsNZ you agree to the <a href="terms.html" target="_blank" 
+      style="background-color:#007bff; color:#fff; padding:5px 10px; border-radius:5px; text-decoration:none;">
+      Terms & Conditions
+    </a>.
   </p>
-  <label>
-    <input type="checkbox" id="ojAgree">
-    I have read and agree to the Terms & Conditions.
+
+  <label style="display:block; font-size:1.5em; margin-top:25px; font-weight:bold; cursor:pointer;">
+    <input type="checkbox" id="ojAgree" style="transform: scale(1.8); margin-right:10px; vertical-align:middle; cursor:pointer;">
+    I have read and agree to the Terms & Conditions
   </label>
 
-  <br><br>
-  <button id="ojLoginBtn" disabled>Continue</button>
+  <button id="ojLoginBtn" disabled
+          style="font-size:1.6em; padding:15px; margin-top:30px; width:100%; background-color:#28a745; color:#fff; border:none; border-radius:8px; cursor:not-allowed; transition:background-color 0.3s;">
+    Continue
+  </button>
 </div>
-<div class="container">
- </div>   
+
+<script>
+  const checkbox = document.getElementById('ojAgree');
+  const button = document.getElementById('ojLoginBtn');
+
+  // Enable Continue button when checkbox is clicked
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      button.disabled = false;
+      button.style.cursor = 'pointer';
+    } else {
+      button.disabled = true;
+      button.style.cursor = 'not-allowed';
+    }
+  });
+
+  // Redirect to main platform landing page on Continue
+  button.addEventListener('click', () => {
+    localStorage.setItem('termsAccepted', 'true'); // remember acceptance
+    window.location.href = 'odd-jobs/home.html';   // replace with your main app landing page
+  });
+
+  // Auto-redirect if terms already accepted
+  if (localStorage.getItem('termsAccepted') === 'true') {
+    window.location.href = 'odd-jobs/home.html';
+  }
+</script>
 
 </body>
 
