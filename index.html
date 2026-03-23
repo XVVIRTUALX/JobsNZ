@@ -190,29 +190,27 @@ body{
                 <p>Build your own sub-platform on JobsNZ.</p>
             </div>
 </div>
-
-<!-- SCRIPT: TERMS & BUTTON LOCK -->
 <script>
 const chk = document.getElementById("acceptTerms");
 const appButtons = document.querySelectorAll(".app-btn");
 
-// lock all app buttons by default
+// Lock all app buttons by default
 function lockApps(){
   appButtons.forEach(btn => {
     btn.style.pointerEvents = "none";
-    btn.style.opacity = "0.5";
+    btn.style.opacity = "0.5"; // shaded out
   });
 }
 
-// unlock all app buttons
+// Unlock all app buttons
 function unlockApps(){
   appButtons.forEach(btn => {
     btn.style.pointerEvents = "auto";
-    btn.style.opacity = "1";
+    btn.style.opacity = "1"; // fully clickable
   });
 }
 
-// on load: check if user already accepted terms
+// On page load: check if user already accepted terms
 if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
   chk.checked = true;
   unlockApps();
@@ -220,7 +218,7 @@ if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
   lockApps();
 }
 
-// when checkbox changes
+// When checkbox changes
 chk.addEventListener("change", () => {
   if(chk.checked){
     localStorage.setItem("jobsnz_termsAccepted","true");
