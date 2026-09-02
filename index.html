@@ -197,47 +197,6 @@ body{
 
 
 
-<!-- SCRIPT: TERMS & BUTTON LOCK -->
-<script>
-const chk = document.getElementById("acceptTerms");
-const appButtons = document.querySelectorAll(".app-btn");
-
-// Lock all app buttons by default
-function lockApps(){
-  appButtons.forEach(btn => {
-    btn.style.pointerEvents = "none";
-    btn.style.opacity = "0.5";
-  });
-}
-
-// Unlock all app buttons
-function unlockApps(){
-  appButtons.forEach(btn => {
-    btn.style.pointerEvents = "auto";
-    btn.style.opacity = "1";
-  });
-}
-
-// On page load: check if user already accepted terms
-if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
-  chk.checked = true;
-  unlockApps();
-} else {
-  lockApps();
-}
-
-// When checkbox changes
-chk.addEventListener("change", () => {
-  if(chk.checked){
-    localStorage.setItem("jobsnz_termsAccepted","true");
-    unlockApps();
-  } else {
-    localStorage.removeItem("jobsnz_termsAccepted");
-    lockApps();
-  }
-});
-</script>
-
 </body>
 
 <!-- PAGE CONTENT -->
@@ -251,45 +210,7 @@ chk.addEventListener("change", () => {
                 <p>Build your own sub-platform on JobsNZ.</p>
             </div>
 </div>
-<script>
-const chk = document.getElementById("acceptTerms");
-const appButtons = document.querySelectorAll(".app-btn");
 
-// Lock all app buttons by default
-function lockApps(){
-  appButtons.forEach(btn => {
-    btn.style.pointerEvents = "none";
-    btn.style.opacity = "0.5"; // shaded out
-  });
-}
-
-// Unlock all app buttons
-function unlockApps(){
-  appButtons.forEach(btn => {
-    btn.style.pointerEvents = "auto";
-    btn.style.opacity = "1"; // fully clickable
-  });
-}
-
-// On page load: check if user already accepted terms
-if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
-  chk.checked = true;
-  unlockApps();
-} else {
-  lockApps();
-}
-
-// When checkbox changes
-chk.addEventListener("change", () => {
-  if(chk.checked){
-    localStorage.setItem("jobsnz_termsAccepted","true");
-    unlockApps();
-  } else {
-    localStorage.removeItem("jobsnz_termsAccepted");
-    lockApps();
-  }
-});
-</script>
 
 </body>
     </div>
@@ -545,6 +466,46 @@ chk.addEventListener("change", () => {
     </div>
 
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const chk = document.getElementById("acceptTerms");
+    const appButtons = document.querySelectorAll(".app-btn");
 
+    function updateAccess() {
+        const accepted = chk.checked;
+
+        appButtons.forEach(btn => {
+            btn.style.opacity = accepted ? "1" : "0.5";
+            btn.style.cursor = accepted ? "pointer" : "not-allowed";
+            btn.setAttribute("aria-disabled", accepted ? "false" : "true");
+        });
+    }
+
+    if (localStorage.getItem("jobsnz_termsAccepted") === "true") {
+        chk.checked = true;
+    }
+
+    updateAccess();
+
+    chk.addEventListener("change", function () {
+        if (chk.checked) {
+            localStorage.setItem("jobsnz_termsAccepted", "true");
+        } else {
+            localStorage.removeItem("jobsnz_termsAccepted");
+        }
+
+        updateAccess();
+    });
+
+    appButtons.forEach(btn => {
+        btn.addEventListener("click", function (event) {
+            if (!chk.checked) {
+                event.preventDefault();
+                alert("Please read and agree to the JobsNZ Terms & Conditions before continuing.");
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
