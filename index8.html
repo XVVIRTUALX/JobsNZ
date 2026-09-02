@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ODD-JOBS.NZ | Workforce Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== GLOBAL ===== */
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg,#0a0f14,#05080c);
+    color:#d9e1e8;
+}
+
+/* ===== MAIN WRAP ===== */
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+/* ===== TITLE ===== */
+.main-title{
+    text-align:center;
+    font-size:38px;
+    font-weight:bold;
+    color:#4CAF50;
+    margin-bottom:25px;
+}
+
+/* ===== INTRO ===== */
+.intro{
+    text-align:center;
+    max-width:700px;   /* controls width */
+    margin:0 auto 30px auto;  /* centers it */
+    line-height:1.6;
+    color:#c7d2db;
+    font-size:0.95em;
+}
+
+/* ===== GRID ===== */
+.grid{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:30px;
+}
+
+/* ===== PANELS ===== */
+.panel{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.panel h2{
+    margin:0 0 8px 0;
+    font-size:22px;
+    color:#ffffff;
+}
+
+.panel p{
+    margin:0;
+    color:#b8c4cc;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    float:right;
+    background: linear-gradient(180deg,#5edb63,#2e9e36);
+    color:white;
+    padding:10px 22px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 8px rgba(0,0,0,0.5);
+    transition:0.2s;
+}
+
+.btn:hover{
+    background: linear-gradient(180deg,#6fff73,#35b63f);
+}
+
+/* ===== RIGHT BOX ===== */
+.side-box{
+    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+    text-align:center;
+    box-shadow:0 0 12px rgba(0,0,0,0.6);
+}
+
+.side-box h3{
+    margin-top:0;
+    color:#ffffff;
+}
+ /* ===== SCAN TO PAY BUTTON ===== */   
+.paygo-btn{
+    display:inline-block;
+  background:#34A853;
+  color:white;
+  padding:6px 12px;
+  border-radius:5px;
+  font-weight:bold;
+  text-decoration:none;
+  margin-left:6px;
+}
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:50px;
+    padding-top:25px;
+    border-top:1px solid #1e2a33;
+    text-align:center;
+    color:#9fb0bd;
+    font-size:14px;
+}
+
+.footer a{
+    color:#c7d2db;
+    text-decoration:none;
+    margin:0 10px;
+}
+
+.footer a:hover{
+    text-decoration:underline;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .btn{
+        float:none;
+        display:inline-block;
+        margin-top:12px;
+    }
+    /* give space above videos so the list is visible */
+.video-section {
+    margin-top: 40px;
+}
+}
+
+</style>
+</head>
+
+<!-- PAGE CONTENT -->
+<div class="container">
+
+  <!-- Main Title -->
+  <h1 class="main-title;style="font-size:1.15em;>Select a service to get started. You must agree to Terms & Conditions before accessing any apps.</p>
+    </div>
+
+  <!-- Additional Description -->
+  <p style="font-size:1.15em; font-weight:bold; margin-bottom:30px;">
+    JobsNZ is a modular platform hosting multiple job and workforce applications.
+  </p>
+ <div class="center-text">
+  <h1>JobsNZ</h1>
+  <p class="subtitle">
+    Select a service to get started. You must agree to Terms & Conditions before accessing any apps.
+  </p>
+</div>
+ 
+   <body>
+
+<!-- TERMS & CONDITIONS BANNER -->
+<div id="termsBanner" style="
+  position: sticky;
+  top: 10px;
+  max-width: 700px;
+  margin: 10px auto;
+  background: #f0f8ff;
+  color: #000;
+  padding: 12px 18px;
+  font-size: 1em;
+  z-index: 9999;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  text-align: center;
+">
+  <label style="font-weight:bold;">
+    <input type="checkbox" id="acceptTerms" style="transform: scale(1.2); margin-right:8px;">
+    I have read and agree to the 
+    <a href="terms.html" target="_blank" style="color:#007bff;">Terms & Conditions</a>
+  </label>
+</div>
+
+
+
+
+<!-- SCRIPT: TERMS & BUTTON LOCK -->
+<script>
+const chk = document.getElementById("acceptTerms");
+const appButtons = document.querySelectorAll(".app-btn");
+
+// Lock all app buttons by default
+function lockApps(){
+  appButtons.forEach(btn => {
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.5";
+  });
+}
+
+// Unlock all app buttons
+function unlockApps(){
+  appButtons.forEach(btn => {
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1";
+  });
+}
+
+// On page load: check if user already accepted terms
+if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
+  chk.checked = true;
+  unlockApps();
+} else {
+  lockApps();
+}
+
+// When checkbox changes
+chk.addEventListener("change", () => {
+  if(chk.checked){
+    localStorage.setItem("jobsnz_termsAccepted","true");
+    unlockApps();
+  } else {
+    localStorage.removeItem("jobsnz_termsAccepted");
+    lockApps();
+  }
+});
+</script>
+
+</body>
+
+<!-- PAGE CONTENT -->
+       
+    <!-- Add more panels here for other apps -->
+  </div>
+<!-- 3 ADD INDUSTRY -->
+            <div class="panel">
+                <a href="contact.html" class="btn app-btn">Get Started</a>
+                <h2>Add Your Industry (only $9.95 a month)</h2>
+                <p>Build your own sub-platform on JobsNZ.</p>
+            </div>
+</div>
+<script>
+const chk = document.getElementById("acceptTerms");
+const appButtons = document.querySelectorAll(".app-btn");
+
+// Lock all app buttons by default
+function lockApps(){
+  appButtons.forEach(btn => {
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = "0.5"; // shaded out
+  });
+}
+
+// Unlock all app buttons
+function unlockApps(){
+  appButtons.forEach(btn => {
+    btn.style.pointerEvents = "auto";
+    btn.style.opacity = "1"; // fully clickable
+  });
+}
+
+// On page load: check if user already accepted terms
+if(localStorage.getItem("jobsnz_termsAccepted") === "true"){
+  chk.checked = true;
+  unlockApps();
+} else {
+  lockApps();
+}
+
+// When checkbox changes
+chk.addEventListener("change", () => {
+  if(chk.checked){
+    localStorage.setItem("jobsnz_termsAccepted","true");
+    unlockApps();
+  } else {
+    localStorage.removeItem("jobsnz_termsAccepted");
+    lockApps();
+  }
+});
+</script>
+
+</body>
+    </div>
+
+    
+        <!-- LEFT COLUMN -->
+        <div>
+<!-- INTRO PANEL -->
+   <div class="center-text">
+  <h1>JobsNZ</h1>
+  <p class="subtitle">
+    Select a service to get started. You must agree to Terms & Conditions before accessing any apps.
+  </p>
+</div>
+            <!-- 1 ODD JOBS -->
+            <div class="panel">
+                <a href="odd-jobs/index.html" class="btn app-btn">Get Started</a>
+                        <h2>Odd-Jobs NZ</h2>
+                <p>Find workers for everyday jobs NZ-wide.</p>
+            </div>
+
+         <!-- 2 IMMEDIATE PAINTERS -->
+            <div class="panel">
+                <a href="immediate-painters/index.html" class="btn app-btn">Get Started</a>
+                <h2>Immediate Painters</h2>
+                <p>Connect with painters ready to work now.</p>
+            </div>
+
+                        
+            <!-- PutaiaoTech Assist Products Panel -->
+   <!-- INTRO PANEL -->
+    <div class="panel">
+      <h2>JOBSNZ Platform</h2>
+      <p>
+        JOBSNZ is a modular workforce platform providing access to multiple job,
+        contracting, and service-based applications across New Zealand.
+      </p>
+      <p>
+        Select a service below to get started. Some services may require payment
+        or additional details before access is granted.
+      </p>
+    </div>
+
+  <ul>
+    <li>
+      📄 CV Basic
+      <a class="purchase-btn" href="payment.html" target="_blank">$55 – Purchase</a>
+    </li>
+
+    <li>
+      ✉️ Custom 5 Cover Letters
+      <a class="purchase-btn" href="payment.html" target="_blank">$85 – Purchase</a>
+    </li>
+
+    <li>
+      📄 CV Premium
+      <a class="purchase-btn" href="payment.html" target="_blank">$120 – Purchase</a>
+    </li>
+
+    <li>
+      💳 Business Cards Starter
+      <a class="purchase-btn" href="payment.html" target="_blank">$90 – Purchase</a>
+    </li>
+
+    <li>
+      🎨 Branding Pack
+      <a class="purchase-btn" href="payment.html" target="_blank">$150 – Purchase</a>
+    </li>
+
+    <li>
+      🔍 Market Scan
+      <a class="purchase-btn" href="payment.html" target="_blank">$150 – Purchase</a>
+    </li>
+
+    <li>
+      📊 Feasibility Review
+      <a class="purchase-btn" href="payment.html" target="_blank">$300 – Purchase</a>
+    </li>
+  </ul>
+</div>
+            
+<li>
+     
+<!-- Add Industry List -->
+<div class="industry-list">
+  <ul>
+    <li>
+      📊 HEALTH AND SAFETY APP 
+      <a class="purchase-btn" href="payment.html" target="_blank">$39 PER MONTH – Purchase</a>
+    </li>
+    <!-- other industries here -->
+  </ul>
+</div>
+ <!-- CLIMATE RSS -->
+            <div class="panel">
+                <a href="climate-jobs.html" class="btn app-btn">Get Started</a>
+                <h2>Climate-Resilience-Sustainability-Services</h2>
+                <p>
+                    Workforce solutions across carbon audits, renewable energy,
+                    urban farming, climate resilience and waste reduction services.
+                </p>
+            </div>
+<!-- Two Video Panels --><style>
+.video-container {
+  display: flex;
+  flex-wrap: wrap;        /* allows wrapping on smaller screens */
+  gap: 20px;              /* space between videos */
+  justify-content: center; /* center all videos */
+  margin-top: 20px;
+}
+
+.video-panel {
+  flex: 1 1 30%;          /* each video takes ~30% of container */
+  min-width: 250px;       /* prevents panels from being too small */
+  max-width: 400px;       /* optional max size */
+}
+
+.video-panel video {
+  width: 100%;            /* video fills the panel */
+  height: auto;
+}
+</style>
+    
+<section class="video-section">
+<div class="video-container">
+  <div class="video-panel">
+    <h3>Health and Safety apps</h3>
+    <video controls>
+      <source src="videos/video1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="video-panel">
+    <h3>Monitoring Data Services app</h3>
+    <video controls>
+      <source src="videos/video2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="video-panel">
+    <h3>Climate Resilience & Sustainability Service apps </h3>
+    <video controls>
+      <source src="videos/video3.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+ 
+
+
+  <a href="https://xvvirtualx.github.io/Climate-Resilience-Sustainability-Services/" 
+     class="btn" target="_blank">
+     Access Climate Services
+  </a>
+
+  <p style="font-size:0.8em; margin-top:10px;">
+  Climate services are a PutaiaoTech product managed through the Virtual Online Contact Centre (VOCC).
+  </p>
+
+</div>
+
+</section>
+
+</section>
+<div id="digitalAdPanel" class="panel" style="max-width:700px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
+
+  <h2 style="text-align:center;">PutaiaoTech Digital Ads</h2>
+  <p style="text-align:center;">Smart tools & job solutions for New Zealand industries.</p>
+
+  <!-- Language Selector -->
+  <label for="adLang">Select Language:</label>
+  <select id="adLang" style="margin-left:10px;">
+    <option value="en">English</option>
+    <option value="mi">Te Reo Māori</option>
+    <option value="zh">Chinese</option>
+    <option value="hi">Hindi</option>
+  </select>
+
+  <br><br>
+
+  <!-- H-Safety Video -->
+  <video autoplay muted loop controls width="100%">
+  <source src="https://github.com/user-attachments/assets/33b2192c-8d87-4c3b-b810-637da7c4294a" type="video/mp4">
+</video>
+  <audio id="hsAudio"></audio>
+  <br><br>
+  <button onclick="playHS()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#0077cc;color:white;cursor:pointer;">
+    ▶ Play H-Safety Advertisement
+  </button>
+
+  <hr style="margin:30px 0;">
+
+  <!-- Rotating Digital Billboard with Multi-Language Audio -->
+  <div id="adCarousel" style="position:relative;height:300px;border-radius:8px;overflow:hidden;">
+    <video id="carouselVideo1" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1s;"></video>
+    <video id="carouselVideo2" width="100%" autoplay muted loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s;"></video>
+    <div id="adCaption" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:6px;font-weight:bold;">H-Safety App</div>
+  </div>
+  <audio id="carouselAudio"></audio>
+
+  <br>
+  <button onclick="playCarouselAudio()" style="padding:10px 20px;font-size:16px;border:none;border-radius:6px;background:#28a745;color:white;cursor:pointer;">
+    🔊 Play Narration
+  </button>
+
+</div>
+<style>
+#termsBanner {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: #f0f8ff;   /* light blue background */
+    color: #000;           /* black text for readability */
+    padding: 15px;
+    font-size: 1.2em;
+    z-index: 9999;         /* ensure on top */
+    border-bottom: 2px solid #007bff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Make the label text fully visible */
+#termsBanner label {
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Checkbox styling for visibility */
+#acceptTerms {
+    transform: scale(1.3);
+    cursor: pointer;
+    z-index: 10000; /* always on top */
+}
+
+/* Link color */
+#termsBanner a {
+    color: #007bff;
+    text-decoration: underline;
+}
+</style>  
+  <!-- FOOTER -->
+    <div class="footer">
+      @ Putaiaotech  JobsNZ: THIS is a job-matching and workforce coordination platform only, designed for NZ citizens and current residents.<br><br>
+
+      JOB work arrangements are made directly between users who are responsible for complying with New Zealand laws and workplace regulations.
+        
+        <a href="ODD-JOBS-NZ/terms.html">Terms of Use</a> |
+        <a href="ODD-JOBS-NZ/contact.html
+">General Enquiries</a>
+    </div>
+
+</div>
+
+</body>
+</html>
