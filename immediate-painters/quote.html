@@ -48,26 +48,7 @@
 
 <div id="message" style="margin-top:20px;"></div>
 
-<script>
-document.getElementById('quoteForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
 
-  // Pre-fill job ID from URL if present
-  const urlParams = new URLSearchParams(window.location.search);
-  if(urlParams.has('jobid')) formData.set('jobid', urlParams.get('jobid'));
-
-  try {
-    const res = await fetch('send-quote.php', { method: 'POST', body: formData });
-    const result = await res.text();
-    document.getElementById('message').innerHTML = result;
-    this.reset();
-  } catch(err) {
-    document.getElementById('message').innerHTML = "Error submitting quote.";
-    console.error(err);
-  }
-});
-</script>
 
 <footer>
   <a href="index.html">Back to Immediate Painters Home</a> |
