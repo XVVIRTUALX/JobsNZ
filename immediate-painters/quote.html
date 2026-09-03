@@ -46,9 +46,12 @@
   <button type="submit">Submit Quote</button>
 </form>
 
-<div id="message" style="margin-top:20px;"></div>
-
-
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('jobid')) {
+  document.getElementById('jobid').value = urlParams.get('jobid');
+}
+</script>
 
 <footer>
   <a href="index.html">Back to Immediate Painters Home</a> |
