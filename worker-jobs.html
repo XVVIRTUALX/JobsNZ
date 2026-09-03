@@ -35,19 +35,66 @@
 
   <h2>Search Available Jobs</h2>
 
-  <div class="job-listing">
-    <h3>Lawn Mowing – Hamilton</h3>
-    <p>One-off job, tools provided.</p>
-    <p class="contact-info">Contact: <a href="mailto:example@email.com">example@email.com</a></p>
-    <p><a href="mailto:example@email.com">Apply for this job</a></p>
-  </div>
+<div id="approvedJobs"></div>
 
-  <div class="job-listing">
-    <h3>Fruit Picking – Waikato</h3>
-    <p>Seasonal work, flexible hours.</p>
-    <p class="contact-info">Contact: <a href="mailto:example@email.com">example@email.com</a></p>
-    <p><a href="mailto:example@email.com">Apply for this job</a></p>
-  </div>
+<script>
+function escapeHTML(value) {
+  if (!value) return "";
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function loadApprovedJobs() {
+  const container = document.getElementById("approvedJobs");
+
+  const jobs =
+    JSON.parse(localStorage.getItem("jobListings")) || [];
+
+  const approvedJobs =
+    jobs.filter(job => job.status === "APPROVED");
+
+  container.innerHTML = "";
+
+  if (approvedJobs.length === 0) {
+    container.innerHTML =
+      "<p>No approved jobs are currently available.</p>";
+    return;
+  }
+
+  approvedJobs.forEach(job => {
+    const listing = document.createElement("div");
+    listing.className = "job-listing";
+
+    listing.innerHTML = `
+      <h3>${escapeHTML(job.jobTitle)} – ${escapeHTML(job.jobLocation || "")}</h3>
+
+      <p>${escapeHTML(job.jobDescription)}</p>
+
+      <p class="contact-info">
+        Contact:
+        <a href="mailto:${escapeHTML(job.contactEmail)}">
+          ${escapeHTML(job.contactEmail)}
+        </a>
+      </p>
+
+      <p>
+        <a href="mailto:${escapeHTML(job.contactEmail)}?subject=JobsNZ application - ${encodeURIComponent(job.jobTitle)}">
+          Apply for this job
+        </a>
+      </p>
+    `;
+
+    container.appendChild(listing);
+  });
+}
+
+loadApprovedJobs();
+</script>
 
 </body>
 </html>
