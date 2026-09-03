@@ -67,37 +67,42 @@
       <button type="submit" class="submit-btn">Submit Job</button>
     </form>
   </div>
+<script>
+document.getElementById('job-form').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  <script>
-    // JavaScript to handle form submission
-    document.getElementById('job-form').addEventListener('submit', function(event) {
-      event.preventDefault();
+  const jobTitle = document.getElementById('job-title').value;
+  const jobDescription = document.getElementById('job-description').value;
+  const contactEmail = document.getElementById('contact-email').value;
+  const contactPhone = document.getElementById('contact-phone').value;
 
-      // Collect form values
-      const jobTitle = document.getElementById('job-title').value;
-      const jobDescription = document.getElementById('job-description').value;
-      const contactEmail = document.getElementById('contact-email').value;
-      const contactPhone = document.getElementById('contact-phone').value;
+  const jobListing = {
+    id: Date.now(),
+    jobTitle,
+    jobDescription,
+    contactEmail,
+    contactPhone,
+    submittedAt: new Date().toISOString(),
+    status: "PENDING_REVIEW",
+    reviewNotes: "",
+    reviewedBy: "",
+    approvedAt: null
+  };
 
-      // Create a job listing object
-      const jobListing = { jobTitle, jobDescription, contactEmail, contactPhone };
+  let jobListings = JSON.parse(localStorage.getItem('jobListings')) || [];
 
-      // Get existing jobs from localStorage or create an empty array
-      let jobListings = JSON.parse(localStorage.getItem('jobListings')) || [];
+  jobListings.push(jobListing);
 
-      // Add the new job to the array
-      jobListings.push(jobListing);
+  localStorage.setItem('jobListings', JSON.stringify(jobListings));
 
-      // Save the updated job listings array back to localStorage
-      localStorage.setItem('jobListings', JSON.stringify(jobListings));
+  alert(
+    'Your job listing has been submitted for review. ' +
+    'It will not appear publicly until it has been approved by JobsNZ.'
+  );
 
-      // Notify the user that the job listing was submitted
-      alert('Your job listing has been submitted!');
-
-      // Optionally, reset the form
-      document.getElementById('job-form').reset();
-    });
-  </script>
+  document.getElementById('job-form').reset();
+});
+</script>
 
 </body>
 </html>
