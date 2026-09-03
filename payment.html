@@ -75,7 +75,7 @@ Work will commence once payment has been confirmed.
 <h2>Submit Service Details</h2>
 
 <form id="jobForm"
-action="https://formsubmit.co/virtualonlinenz@outlook.com"
+action="https://formsubmit.co/virtualonlinenz@gmail.com"
 method="POST"
 enctype="multipart/form-data">
 
@@ -123,29 +123,7 @@ enctype="multipart/form-data">
 
 </div>
 
-<script>
 
-document.getElementById("jobForm").addEventListener("submit",function(){
-
-let request={
-
-name:document.querySelector('[name="name"]').value,
-email:document.querySelector('[name="email"]').value,
-service:document.querySelector('[name="service"]').value,
-details:document.querySelector('[name="details"]').value,
-date:new Date().toLocaleDateString()
-
-};
-
-let requests=JSON.parse(localStorage.getItem("OJ_requests")||"[]");
-
-requests.push(request);
-
-localStorage.setItem("OJ_requests",JSON.stringify(requests));
-
-});
-
-</script>
 
 </body>
 </html>
