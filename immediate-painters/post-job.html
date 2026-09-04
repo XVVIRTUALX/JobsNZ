@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+FUTURE JOB EXPIRY AUTOMATION
+
+Target behaviour:
+- Approved jobs go live for 14 days.
+- After 14 days, status changes automatically to EXPIRED.
+- EXPIRED jobs no longer appear in public Search Jobs.
+- Records remain in the database/archive.
+- Employers may Close Early or Renew for another 14 days.
+- AI Maintenance Specialist later checks expiry processing and flags failures.
+
+Backend fields required:
+publishedAt
+expiresAt
+status
+renewedAt
+closedAt
+
+Public search rule:
+show only jobs where:
+status = APPROVED
+AND expiresAt > current date
+-->
   <meta charset="UTF-8">
   <title>Post a Painting Job | Immediate Painters</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
