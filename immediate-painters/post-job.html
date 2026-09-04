@@ -74,44 +74,104 @@ AND expiresAt > current date
 
   <button type="submit">Submit Job for Review</button>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-document.getElementById('jobForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
 
-  const paintingJob = {
-    id: Date.now(),
-    marketplace: "IMMEDIATE_PAINTERS",
-    jobTitle: document.getElementById('title').value,
-    jobLocation: document.getElementById('location').value,
-    budget: document.getElementById('budget').value,
-    jobDescription: document.getElementById('description').value,
-    contactEmail: document.getElementById('contactEmail').value,
-    contactPhone: document.getElementById('contactPhone').value,
-    submittedAt: new Date().toISOString(),
-    status: "PENDING_REVIEW",
-    reviewNotes: "",
-    reviewedBy: "",
-    approvedAt: null
-  };
+const SUPABASE_PUBLISHABLE_KEY =
+  "PASTE_YOUR_sb_publishable_KEY_HERE";
 
-  let jobs =
-    JSON.parse(localStorage.getItem('paintingJobListings')) || [];
-
-  jobs.push(paintingJob);
-
-  localStorage.setItem(
-    'paintingJobListings',
-    JSON.stringify(jobs)
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
   );
 
-  alert(
-    'Your painting job has been submitted for review. ' +
-    'It will not appear publicly until it has been approved by JobsNZ.'
-  );
 
-  document.getElementById('jobForm').reset();
-});
+document.getElementById('jobForm')
+  .addEventListener('submit', async function(e) {
+
+    e.preventDefault();
+
+    const submitButton =
+      this.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+
+    const jobTitle =
+      document.getElementById('title').value.trim();
+
+    const jobLocation =
+      document.getElementById('location').value.trim();
+
+    const budget =
+      document.getElementById('budget').value;
+
+    const jobDescription =
+      document.getElementById('description').value.trim();
+
+    const contactEmail =
+      document.getElementById('contactEmail').value.trim();
+
+    const contactPhone =
+      document.getElementById('contactPhone').value.trim();
+
+
+    const { error } =
+      await jobsNZSupabase
+        .from('jobs')
+        .insert({
+
+          marketplace: 'IMMEDIATE_PAINTERS',
+
+          job_title: jobTitle,
+          job_location: jobLocation,
+          budget: budget ? Number(budget) : null,
+          job_description: jobDescription,
+
+          contact_email: contactEmail,
+          contact_phone: contactPhone,
+
+          status: 'PENDING_REVIEW'
+
+        });
+
+
+    if (error) {
+
+      console.error(
+        "Immediate Painters submission error:",
+        error
+      );
+
+      alert(
+        "Your painting job could not be submitted. " +
+        "Please try again."
+      );
+
+    } else {
+
+      alert(
+        "Your painting job has been submitted for review. " +
+        "It will not appear publicly until it has been approved by JobsNZ."
+      );
+
+      document
+        .getElementById('jobForm')
+        .reset();
+
+    }
+
+
+    submitButton.disabled = false;
+    submitButton.textContent =
+      "Submit Job for Review";
+
+  });
 </script>
 
 <footer>
