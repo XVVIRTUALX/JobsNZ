@@ -1,236 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>JobsNZ | Job Moderation</title>
+<title>JobsNZ | Job Moderation</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0a0f14;
-      color: #ffffff;
-      margin: 0;
-      padding: 30px;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#0a0f14;
+  color:white;
+  margin:0;
+  padding:30px;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-    }
+.container {
+  max-width:1000px;
+  margin:auto;
+}
 
-    h1 {
-      color: #4CAF50;
-      text-align: center;
-    }
+h1 {
+  color:#4CAF50;
+  text-align:center;
+}
 
-    .notice {
-      background: #151b21;
-      border: 1px solid #39434c;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 25px;
-    }
+.panel,
+.job-card {
+  background:#111820;
+  border:1px solid #27333d;
+  border-radius:10px;
+  padding:20px;
+  margin-bottom:20px;
+}
 
-    .job-card {
-      background: #111820;
-      border: 1px solid #27333d;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+.status {
+  display:inline-block;
+  background:#d97706;
+  padding:5px 10px;
+  border-radius:5px;
+  font-weight:bold;
+}
 
-    .job-card h2 {
-      margin-top: 0;
-      color: #ffffff;
-    }
+input,
+textarea {
+  width:100%;
+  box-sizing:border-box;
+  padding:10px;
+  margin:8px 0 15px;
+}
 
-    .status {
-      display: inline-block;
-      background: #d97706;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+button {
+  padding:10px 15px;
+  margin:5px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-    textarea {
-      width: 100%;
-      box-sizing: border-box;
-      min-height: 70px;
-      margin-top: 8px;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #444;
-    }
+.approve {
+  background:#2e9e36;
+  color:white;
+}
 
-    button {
-      padding: 10px 15px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.changes {
+  background:#d97706;
+  color:white;
+}
 
-    .approve {
-      background: #2e9e36;
-      color: white;
-    }
+.reject {
+  background:#b91c1c;
+  color:white;
+}
 
-    .changes {
-      background: #d97706;
-      color: white;
-    }
+.login {
+  background:#2e9e36;
+  color:white;
+}
 
-    .reject {
-      background: #b91c1c;
-      color: white;
-    }
+.logout {
+  background:#555;
+  color:white;
+}
 
-    .empty {
-      text-align: center;
-      padding: 30px;
-      background: #111820;
-      border-radius: 8px;
-    }
+a {
+  color:#4CAF50;
+}
 
-    a {
-      color: #4CAF50;
-    }
-  </style>
+.hidden {
+  display:none;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <h1>JobsNZ Job Moderation</h1>
+<h1>JobsNZ Job Moderation</h1>
 
-  <div class="notice">
+<!-- ADMIN LOGIN -->
+<div id="loginPanel" class="panel">
+
+  <h2>Admin Login</h2>
+
+  <p>
+    Sign in to access the JobsNZ moderation queue.
+  </p>
+
+  <label>Email</label>
+  <input
+    type="email"
+    id="adminEmail"
+    value="virtualonlinenz@gmail.com"
+  >
+
+  <label>Password</label>
+  <input
+    type="password"
+    id="adminPassword"
+  >
+
+  <button
+    class="login"
+    onclick="adminLogin()">
+    Sign In
+  </button>
+
+  <p id="loginMessage"></p>
+
+</div>
+
+
+<!-- MODERATION DASHBOARD -->
+<div id="moderationPanel" class="hidden">
+
+  <div class="panel">
+
     <strong>Moderation Queue</strong>
+
     <p>
-      Job listings remain unpublished until they have been reviewed
-      and approved by JobsNZ.
+      Submitted listings remain unpublished until
+      approved by JobsNZ.
     </p>
+
+    <button
+      class="logout"
+      onclick="adminLogout()">
+      Sign Out
+    </button>
+
   </div>
 
   <div id="pendingJobs"></div>
 
-  <p style="text-align:center;">
-    <a href="../index.html">Return to JobsNZ</a>
-  </p>
+</div>
+
+
+<p style="text-align:center;">
+<a href="../index.html">Return to JobsNZ</a>
+</p>
 
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-function loadPendingJobs() {
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
 
-  const container = document.getElementById("pendingJobs");
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
 
-  // ===== ODD-JOBS =====
-  const oddJobs =
-    JSON.parse(localStorage.getItem("jobListings")) || [];
-
-  const pendingOddJobs =
-    oddJobs
-      .filter(job => job.status === "PENDING_REVIEW")
-      .map(job => ({
-        ...job,
-        storageKey: "jobListings",
-        marketplaceName: "Odd-Jobs NZ"
-      }));
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-  // ===== IMMEDIATE PAINTERS =====
-  const paintingJobs =
-    JSON.parse(localStorage.getItem("paintingJobListings")) || [];
+async function adminLogin() {
 
-  const pendingPaintingJobs =
-    paintingJobs
-      .filter(job => job.status === "PENDING_REVIEW")
-      .map(job => ({
-        ...job,
-        storageKey: "paintingJobListings",
-        marketplaceName: "Immediate Painters"
-      }));
+  const email =
+    document.getElementById("adminEmail").value.trim();
+
+  const password =
+    document.getElementById("adminPassword").value;
+
+  const { error } =
+    await jobsNZSupabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if (error) {
+
+    document.getElementById("loginMessage")
+      .textContent =
+      "Login failed. Check your email and password.";
+
+    console.error(error);
+
+    return;
+  }
+
+  document.getElementById("loginMessage")
+    .textContent = "";
+
+  showModerationDashboard();
+
+}
 
 
-  // Combine both moderation queues
-  const pendingJobs = [
-    ...pendingOddJobs,
-    ...pendingPaintingJobs
-  ];
+async function adminLogout() {
 
-  container.innerHTML = "";
+  await jobsNZSupabase.auth.signOut();
+
+  document
+    .getElementById("moderationPanel")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPanel")
+    .classList.remove("hidden");
+
+}
 
 
-  // Nothing waiting for review
-  if (pendingJobs.length === 0) {
+async function showModerationDashboard() {
+
+  document
+    .getElementById("loginPanel")
+    .classList.add("hidden");
+
+  document
+    .getElementById("moderationPanel")
+    .classList.remove("hidden");
+
+  await loadPendingJobs();
+
+}
+
+
+async function loadPendingJobs() {
+
+  const container =
+    document.getElementById("pendingJobs");
+
+  container.innerHTML =
+    "<p>Loading moderation queue...</p>";
+
+  const { data: jobs, error } =
+    await jobsNZSupabase
+      .from("jobs")
+      .select("*")
+      .eq("status", "PENDING_REVIEW")
+      .order("submitted_at", {
+        ascending: true
+      });
+
+
+  if (error) {
+
+    console.error(
+      "Moderation loading error:",
+      error
+    );
 
     container.innerHTML =
-      '<div class="empty">No job listings are currently awaiting review.</div>';
+      "<p>Unable to load moderation queue.</p>";
 
     return;
   }
 
 
-  // Display each pending listing
-  pendingJobs.forEach(job => {
+  container.innerHTML = "";
 
-    const card = document.createElement("div");
+
+  if (!jobs || jobs.length === 0) {
+
+    container.innerHTML =
+      '<div class="panel">No job listings are currently awaiting review.</div>';
+
+    return;
+  }
+
+
+  jobs.forEach(job => {
+
+    const card =
+      document.createElement("div");
+
     card.className = "job-card";
 
-    let budgetDisplay = "";
 
-    if (job.budget) {
-      budgetDisplay = `
-        <p>
-          <strong>Budget:</strong>
-          NZ$${escapeHTML(job.budget)}
-        </p>
-      `;
-    }
+    const marketplaceName =
+      job.marketplace === "IMMEDIATE_PAINTERS"
+        ? "Immediate Painters"
+        : "Odd-Jobs NZ";
+
+
+    const budgetDisplay =
+      job.budget
+        ? `<p><strong>Budget:</strong>
+           NZ$${escapeHTML(job.budget)}</p>`
+        : "";
+
 
     card.innerHTML = `
 
-      <div class="status">PENDING REVIEW</div>
+      <div class="status">
+        PENDING REVIEW
+      </div>
 
       <p>
         <strong>Marketplace:</strong>
-        ${escapeHTML(job.marketplaceName)}
+        ${escapeHTML(marketplaceName)}
       </p>
 
-      <h2>${escapeHTML(job.jobTitle)}</h2>
+      <h2>
+        ${escapeHTML(job.job_title)}
+      </h2>
 
       <p>
         <strong>Description:</strong><br>
-        ${escapeHTML(job.jobDescription)}
+        ${escapeHTML(job.job_description)}
       </p>
 
       <p>
         <strong>Location:</strong>
-        ${escapeHTML(job.jobLocation || "Not supplied")}
+        ${escapeHTML(job.job_location)}
       </p>
 
       ${budgetDisplay}
 
       <p>
         <strong>Contact Email:</strong>
-        ${escapeHTML(job.contactEmail || "Not supplied")}
+        ${escapeHTML(job.contact_email)}
       </p>
 
       <p>
         <strong>Contact Phone:</strong>
-        ${escapeHTML(job.contactPhone || "Not supplied")}
+        ${escapeHTML(job.contact_phone || "Not supplied")}
       </p>
 
       <p>
         <strong>Submitted:</strong>
-        ${formatDate(job.submittedAt)}
+        ${formatDate(job.submitted_at)}
       </p>
 
       <label>
@@ -238,15 +357,14 @@ function loadPendingJobs() {
       </label>
 
       <textarea
-        id="notes-${job.storageKey}-${job.id}"
+        id="notes-${job.id}"
         placeholder="Add moderation notes if required..."
       ></textarea>
 
       <button
         class="approve"
         onclick="reviewJob(
-          '${job.storageKey}',
-          ${job.id},
+          '${job.id}',
           'APPROVED'
         )">
         ✓ Approve
@@ -255,8 +373,7 @@ function loadPendingJobs() {
       <button
         class="changes"
         onclick="reviewJob(
-          '${job.storageKey}',
-          ${job.id},
+          '${job.id}',
           'NEEDS_CHANGES'
         )">
         Needs Changes
@@ -265,8 +382,7 @@ function loadPendingJobs() {
       <button
         class="reject"
         onclick="reviewJob(
-          '${job.storageKey}',
-          ${job.id},
+          '${job.id}',
           'REJECTED'
         )">
         ✗ Reject
@@ -276,80 +392,88 @@ function loadPendingJobs() {
     container.appendChild(card);
 
   });
+
 }
 
 
+async function reviewJob(id, decision) {
 
-// ===== REVIEW / MODERATION ACTION =====
+  const notes =
+    document
+      .getElementById(`notes-${id}`)
+      .value;
 
-function reviewJob(storageKey, id, decision) {
 
-  const jobs =
-    JSON.parse(localStorage.getItem(storageKey)) || [];
+  const { error } =
+    await jobsNZSupabase
+      .from("jobs")
+      .update({
 
-  const jobIndex =
-    jobs.findIndex(job => job.id === id);
+        status: decision,
 
-  if (jobIndex === -1) {
-    alert("Job listing could not be found.");
+        review_notes: notes,
+
+        reviewed_by:
+          "JobsNZ Admin",
+
+        reviewed_at:
+          new Date().toISOString()
+
+      })
+      .eq("id", id);
+
+
+  if (error) {
+
+    console.error(
+      "Moderation update error:",
+      error
+    );
+
+    alert(
+      "Unable to update this job listing."
+    );
+
     return;
   }
 
 
-  const notesField =
-    document.getElementById(
-      `notes-${storageKey}-${id}`
+  if (decision === "APPROVED") {
+
+    alert(
+      "Job approved for publication."
     );
 
-  const notes =
-    notesField ? notesField.value : "";
-
-
-  jobs[jobIndex].status = decision;
-  jobs[jobIndex].reviewNotes = notes;
-  jobs[jobIndex].reviewedBy = "JobsNZ Admin";
-  jobs[jobIndex].reviewedAt =
-    new Date().toISOString();
-
-
-  if (decision === "APPROVED") {
-
-    jobs[jobIndex].approvedAt =
-      new Date().toISOString();
-
-  }
-
-
-  localStorage.setItem(
-    storageKey,
-    JSON.stringify(jobs)
-  );
-
-
-  if (decision === "APPROVED") {
-    alert("Job approved for publication.");
   }
 
   if (decision === "NEEDS_CHANGES") {
-    alert("Job marked as needing changes.");
+
+    alert(
+      "Job marked as needing changes."
+    );
+
   }
 
   if (decision === "REJECTED") {
-    alert("Job listing rejected.");
+
+    alert(
+      "Job listing rejected."
+    );
+
   }
 
 
-  // Refresh moderation queue
-  loadPendingJobs();
+  await loadPendingJobs();
+
 }
 
 
-
-// ===== SECURITY: DISPLAY USER CONTENT SAFELY =====
-
 function escapeHTML(value) {
 
-  if (!value) return "";
+  if (value === null ||
+      value === undefined) {
+    return "";
+  }
 
   return String(value)
     .replaceAll("&", "&amp;")
@@ -357,24 +481,41 @@ function escapeHTML(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+
 }
 
-
-
-// ===== FORMAT SUBMISSION DATE =====
 
 function formatDate(value) {
 
-  if (!value) return "Unknown";
+  if (!value) {
+    return "Unknown";
+  }
 
-  return new Date(value).toLocaleString();
+  return new Date(value)
+    .toLocaleString();
 
 }
 
 
+async function checkExistingSession() {
 
-// Load moderation queue when page opens
-loadPendingJobs();
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth
+      .getSession();
+
+
+  if (session) {
+
+    showModerationDashboard();
+
+  }
+
+}
+
+
+checkExistingSession();
 
 </script>
 
