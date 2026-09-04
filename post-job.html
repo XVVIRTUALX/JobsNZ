@@ -99,43 +99,104 @@ AND expiresAt > current date
       <button type="submit" class="submit-btn">Submit Job for Review</button>
     </form>
   </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-document.getElementById('job-form').addEventListener('submit', function(event) {
-  event.preventDefault();
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
 
-  const jobTitle = document.getElementById('job-title').value;
-  const jobDescription = document.getElementById('job-description').value;
-  const contactEmail = document.getElementById('contact-email').value;
-  const contactPhone = document.getElementById('contact-phone').value;
-  const jobLocation = document.getElementById('job-location').value;
+/*
+  Browser-safe JobsNZ publishable key.
+  IMPORTANT:
+  Use ONLY the key beginning sb_publishable_
+  NEVER place an sb_secret_ key here.
+*/
+const SUPABASE_PUBLISHABLE_KEY =
+  "d_kjdfrklblknzdj101010";
 
- const jobListing = {
-  id: Date.now(),
-  jobTitle,
-  jobDescription,
-  jobLocation,
-  contactEmail,
-  contactPhone,
-  submittedAt: new Date().toISOString(),
-  status: "PENDING_REVIEW",
-  reviewNotes: "",
-  reviewedBy: "",
-  approvedAt: null
-};
-
-  let jobListings = JSON.parse(localStorage.getItem('jobListings')) || [];
-
-  jobListings.push(jobListing);
-
-  localStorage.setItem('jobListings', JSON.stringify(jobListings));
-
-  alert(
-    'Your job listing has been submitted for review. ' +
-    'It will not appear publicly until it has been approved by JobsNZ.'
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
   );
 
-  document.getElementById('job-form').reset();
-});
+
+document.getElementById('job-form')
+  .addEventListener('submit', async function(event) {
+
+    event.preventDefault();
+
+    const submitButton =
+      this.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    const jobTitle =
+      document.getElementById('job-title').value.trim();
+
+    const jobDescription =
+      document.getElementById('job-description').value.trim();
+
+    const jobLocation =
+      document.getElementById('job-location').value.trim();
+
+    const contactEmail =
+      document.getElementById('contact-email').value.trim();
+
+    const contactPhone =
+      document.getElementById('contact-phone').value.trim();
+
+
+    const { error } =
+      await jobsNZSupabase
+        .from('jobs')
+        .insert({
+
+          marketplace: 'ODD_JOBS',
+
+          job_title: jobTitle,
+          job_description: jobDescription,
+          job_location: jobLocation,
+
+          contact_email: contactEmail,
+          contact_phone: contactPhone,
+
+          status: 'PENDING_REVIEW'
+
+        });
+
+
+    if (error) {
+
+      console.error(
+        "JobsNZ submission error:",
+        error
+      );
+
+      alert(
+        "Your job could not be submitted. " +
+        "Please try again."
+      );
+
+    } else {
+
+      alert(
+        "Your job listing has been submitted for review. " +
+        "It will not appear publicly until it has been approved by JobsNZ."
+      );
+
+      document
+        .getElementById('job-form')
+        .reset();
+    }
+
+
+    submitButton.disabled = false;
+    submitButton.textContent =
+      "Submit Job for Review";
+
+  });
 </script>
 
 </body>
