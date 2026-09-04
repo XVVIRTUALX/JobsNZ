@@ -131,14 +131,44 @@ function loadPendingJobs() {
 
   const container = document.getElementById("pendingJobs");
 
-  const jobs =
+  // ===== ODD-JOBS =====
+  const oddJobs =
     JSON.parse(localStorage.getItem("jobListings")) || [];
 
-  const pendingJobs =
-    jobs.filter(job => job.status === "PENDING_REVIEW");
+  const pendingOddJobs =
+    oddJobs
+      .filter(job => job.status === "PENDING_REVIEW")
+      .map(job => ({
+        ...job,
+        storageKey: "jobListings",
+        marketplaceName: "Odd-Jobs NZ"
+      }));
+
+
+  // ===== IMMEDIATE PAINTERS =====
+  const paintingJobs =
+    JSON.parse(localStorage.getItem("paintingJobListings")) || [];
+
+  const pendingPaintingJobs =
+    paintingJobs
+      .filter(job => job.status === "PENDING_REVIEW")
+      .map(job => ({
+        ...job,
+        storageKey: "paintingJobListings",
+        marketplaceName: "Immediate Painters"
+      }));
+
+
+  // Combine both moderation queues
+  const pendingJobs = [
+    ...pendingOddJobs,
+    ...pendingPaintingJobs
+  ];
 
   container.innerHTML = "";
 
+
+  // Nothing waiting for review
   if (pendingJobs.length === 0) {
 
     container.innerHTML =
@@ -147,55 +177,98 @@ function loadPendingJobs() {
     return;
   }
 
+
+  // Display each pending listing
   pendingJobs.forEach(job => {
 
     const card = document.createElement("div");
     card.className = "job-card";
 
+    let budgetDisplay = "";
+
+    if (job.budget) {
+      budgetDisplay = `
+        <p>
+          <strong>Budget:</strong>
+          NZ$${escapeHTML(job.budget)}
+        </p>
+      `;
+    }
+
     card.innerHTML = `
+
       <div class="status">PENDING REVIEW</div>
+
+      <p>
+        <strong>Marketplace:</strong>
+        ${escapeHTML(job.marketplaceName)}
+      </p>
 
       <h2>${escapeHTML(job.jobTitle)}</h2>
 
-      <p><strong>Description:</strong><br>
-      ${escapeHTML(job.jobDescription)}</p>
+      <p>
+        <strong>Description:</strong><br>
+        ${escapeHTML(job.jobDescription)}
+      </p>
 
-      <p><strong>Location:</strong>
-      ${escapeHTML(job.jobLocation || "Not supplied")}</p>
+      <p>
+        <strong>Location:</strong>
+        ${escapeHTML(job.jobLocation || "Not supplied")}
+      </p>
 
-      <p><strong>Contact Email:</strong>
-      ${escapeHTML(job.contactEmail)}</p>
+      ${budgetDisplay}
 
-      <p><strong>Contact Phone:</strong>
-      ${escapeHTML(job.contactPhone)}</p>
+      <p>
+        <strong>Contact Email:</strong>
+        ${escapeHTML(job.contactEmail || "Not supplied")}
+      </p>
 
-      <p><strong>Submitted:</strong>
-      ${formatDate(job.submittedAt)}</p>
+      <p>
+        <strong>Contact Phone:</strong>
+        ${escapeHTML(job.contactPhone || "Not supplied")}
+      </p>
+
+      <p>
+        <strong>Submitted:</strong>
+        ${formatDate(job.submittedAt)}
+      </p>
 
       <label>
         <strong>Review Notes</strong>
       </label>
 
       <textarea
-        id="notes-${job.id}"
+        id="notes-${job.storageKey}-${job.id}"
         placeholder="Add moderation notes if required..."
       ></textarea>
 
       <button
         class="approve"
-        onclick="reviewJob(${job.id}, 'APPROVED')">
+        onclick="reviewJob(
+          '${job.storageKey}',
+          ${job.id},
+          'APPROVED'
+        )">
         ✓ Approve
       </button>
 
       <button
         class="changes"
-        onclick="reviewJob(${job.id}, 'NEEDS_CHANGES')">
+        onclick="reviewJob(
+          '${job.storageKey}',
+          ${job.id},
+          'NEEDS_CHANGES'
+        )">
         Needs Changes
       </button>
 
       <button
         class="reject"
-        onclick="reviewJob(${job.id}, 'REJECTED')">
+        onclick="reviewJob(
+          '${job.storageKey}',
+          ${job.id},
+          'REJECTED'
+        )">
         ✗ Reject
       </button>
     `;
@@ -206,10 +279,13 @@ function loadPendingJobs() {
 }
 
 
-function reviewJob(id, decision) {
+
+// ===== REVIEW / MODERATION ACTION =====
+
+function reviewJob(storageKey, id, decision) {
 
   const jobs =
-    JSON.parse(localStorage.getItem("jobListings")) || [];
+    JSON.parse(localStorage.getItem(storageKey)) || [];
 
   const jobIndex =
     jobs.findIndex(job => job.id === id);
@@ -219,23 +295,36 @@ function reviewJob(id, decision) {
     return;
   }
 
+
+  const notesField =
+    document.getElementById(
+      `notes-${storageKey}-${id}`
+    );
+
   const notes =
-    document.getElementById(`notes-${id}`).value;
+    notesField ? notesField.value : "";
+
 
   jobs[jobIndex].status = decision;
   jobs[jobIndex].reviewNotes = notes;
   jobs[jobIndex].reviewedBy = "JobsNZ Admin";
-  jobs[jobIndex].reviewedAt = new Date().toISOString();
+  jobs[jobIndex].reviewedAt =
+    new Date().toISOString();
+
 
   if (decision === "APPROVED") {
+
     jobs[jobIndex].approvedAt =
       new Date().toISOString();
+
   }
 
+
   localStorage.setItem(
-    "jobListings",
+    storageKey,
     JSON.stringify(jobs)
   );
+
 
   if (decision === "APPROVED") {
     alert("Job approved for publication.");
@@ -249,9 +338,14 @@ function reviewJob(id, decision) {
     alert("Job listing rejected.");
   }
 
+
+  // Refresh moderation queue
   loadPendingJobs();
 }
 
+
+
+// ===== SECURITY: DISPLAY USER CONTENT SAFELY =====
 
 function escapeHTML(value) {
 
@@ -266,14 +360,20 @@ function escapeHTML(value) {
 }
 
 
+
+// ===== FORMAT SUBMISSION DATE =====
+
 function formatDate(value) {
 
   if (!value) return "Unknown";
 
   return new Date(value).toLocaleString();
+
 }
 
 
+
+// Load moderation queue when page opens
 loadPendingJobs();
 
 </script>
