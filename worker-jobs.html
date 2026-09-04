@@ -80,18 +80,133 @@ function loadApprovedJobs() {
         <a href="mailto:${escapeHTML(job.contactEmail)}">
           ${escapeHTML(job.contactEmail)}
         </a>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "PASTE_YOUR_sb_publishable_KEY_HERE";
+
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+function escapeHTML(value) {
+  if (!value) return "";
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+async function loadApprovedJobs() {
+
+  const container =
+    document.getElementById("approvedJobs");
+
+  container.innerHTML =
+    "<p style='text-align:center;'>Loading available jobs...</p>";
+
+
+  const { data: jobs, error } =
+    await jobsNZSupabase
+      .from("jobs")
+      .select(`
+        id,
+        job_title,
+        job_description,
+        job_location,
+        contact_email,
+        published_at,
+        expires_at
+      `)
+      .eq("marketplace", "ODD_JOBS")
+      .eq("status", "APPROVED")
+      .gt("expires_at", new Date().toISOString())
+      .order("published_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(
+      "JobsNZ job loading error:",
+      error
+    );
+
+    container.innerHTML =
+      "<p style='text-align:center;'>Unable to load available jobs at this time.</p>";
+
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  if (!jobs || jobs.length === 0) {
+
+    container.innerHTML =
+      "<p style='text-align:center;'>No approved jobs are currently available.</p>";
+
+    return;
+  }
+
+
+  jobs.forEach(job => {
+
+    const listing =
+      document.createElement("div");
+
+    listing.className =
+      "job-listing";
+
+
+    listing.innerHTML = `
+
+      <h3>
+        ${escapeHTML(job.job_title)}
+        –
+        ${escapeHTML(job.job_location)}
+      </h3>
+
+      <p>
+        ${escapeHTML(job.job_description)}
+      </p>
+
+      <p class="contact-info">
+        Contact:
+        <a href="mailto:${escapeHTML(job.contact_email)}">
+          ${escapeHTML(job.contact_email)}
+        </a>
       </p>
 
       <p>
-        <a href="mailto:${escapeHTML(job.contactEmail)}?subject=JobsNZ application - ${encodeURIComponent(job.jobTitle)}">
+        <a href="mailto:${escapeHTML(job.contact_email)}?subject=${encodeURIComponent(
+          "JobsNZ application - " + job.job_title
+        )}">
           Apply for this job
         </a>
       </p>
+
     `;
 
     container.appendChild(listing);
+
   });
+
 }
+
 
 loadApprovedJobs();
 </script>
