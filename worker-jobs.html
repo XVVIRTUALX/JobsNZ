@@ -87,7 +87,7 @@ const SUPABASE_URL =
   "https://rfukmsuhbetdeudqtsxo.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+  "hidden";
 
 const jobsNZSupabase =
   window.supabase.createClient(
@@ -208,7 +208,12 @@ async function loadApprovedJobs() {
 }
 
 
-loadApprovedJobs();
+<div id="approvedJobs"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // complete Supabase Search Jobs code
 </script>
 
 </body>
