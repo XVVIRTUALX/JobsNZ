@@ -39,25 +39,76 @@
 
 <div id="message" style="margin-top:20px;"></div>
 
+<h1>Post a Painting Job</h1>
+
+<form id="jobForm">
+
+  <label for="title">Job Title*</label>
+  <input type="text" name="title" id="title" required>
+
+  <label for="location">Location*</label>
+  <input type="text" name="location" id="location" required>
+
+  <label for="budget">Budget (NZD)*</label>
+  <input type="number" name="budget" id="budget" required>
+
+  <label for="description">Description*</label>
+  <textarea name="description" id="description" required></textarea>
+
+  <label for="contactEmail">Your Contact Email*</label>
+  <input type="email" name="contactEmail" id="contactEmail" required>
+
+  <label for="contactPhone">Your Contact Phone*</label>
+  <input type="text" name="contactPhone" id="contactPhone" required>
+
+  <p style="font-size:0.9em; opacity:0.85; margin-top:18px;">
+    <strong>Listing Review:</strong>
+    All painting job listings are reviewed before publication.
+    Submitting a listing does not guarantee that it will be published.
+    JobsNZ may reject, request changes to, or remove listings that appear
+    unlawful, misleading, unsafe, inappropriate, or inconsistent with the
+    JobsNZ Terms of Use.
+  </p>
+
+  <button type="submit">Submit Job for Review</button>
+</form>
+
 <script>
-document.getElementById('jobForm').addEventListener('submit', async function(e) {
+document.getElementById('jobForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  const formData = new FormData(this);
 
-  try {
-    const res = await fetch('send-quote.php', {
-      method: 'POST',
-      body: formData
-    });
+  const paintingJob = {
+    id: Date.now(),
+    marketplace: "IMMEDIATE_PAINTERS",
+    jobTitle: document.getElementById('title').value,
+    jobLocation: document.getElementById('location').value,
+    budget: document.getElementById('budget').value,
+    jobDescription: document.getElementById('description').value,
+    contactEmail: document.getElementById('contactEmail').value,
+    contactPhone: document.getElementById('contactPhone').value,
+    submittedAt: new Date().toISOString(),
+    status: "PENDING_REVIEW",
+    reviewNotes: "",
+    reviewedBy: "",
+    approvedAt: null
+  };
 
-    const result = await res.text();
-    document.getElementById('message').innerHTML = result;
-    this.reset();
+  let jobs =
+    JSON.parse(localStorage.getItem('paintingJobListings')) || [];
 
-  } catch(err) {
-    document.getElementById('message').innerHTML = "Error submitting job.";
-    console.error(err);
-  }
+  jobs.push(paintingJob);
+
+  localStorage.setItem(
+    'paintingJobListings',
+    JSON.stringify(jobs)
+  );
+
+  alert(
+    'Your painting job has been submitted for review. ' +
+    'It will not appear publicly until it has been approved by JobsNZ.'
+  );
+
+  document.getElementById('jobForm').reset();
 });
 </script>
 
