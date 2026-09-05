@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobsNZ Industry Membership Review</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .subtext {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .login-box,
+    .membership-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin: 6px 0 12px;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+
+    .approve-btn {
+      background: #198754;
+      color: white;
+    }
+
+    .reject-btn {
+      background: #dc3545;
+      color: white;
+    }
+
+    .logout-btn {
+      background: #333;
+      color: white;
+      float: right;
+    }
+
+    .refresh-btn {
+      background: #6f42c1;
+      color: white;
+    }
+
+    .field {
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: #fff3cd;
+      margin-bottom: 12px;
+    }
+
+    .message {
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    a {
+      color: #6f42c1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>JobsNZ Industry Membership Review</h1>
+  <p class="subtext">PūtaiaoTech / VOCC - JobsNZ Administration</p>
+
+  <div id="loginBox" class="login-box">
+    <h2>Admin Login</h2>
+
+    <label>Email</label>
+    <input type="email" id="email">
+
+    <label>Password</label>
+    <input type="password" id="password">
+
+    <button onclick="adminLogin()">Login</button>
+
+    <div id="loginMessage" class="message"></div>
+  </div>
+
+  <div id="adminPanel" style="display:none;">
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <h2>Pending Industry Membership Applications</h2>
+
+    <button class="refresh-btn" onclick="loadMemberships()">
+      Refresh Applications
+    </button>
+
+    <div id="adminMessage" class="message"></div>
+
+    <div id="membershipList"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+const SUPABASE_KEY =
+  "PASTE_THE_SAME_WORKING_sb_publishable_KEY_HERE";
+
+const jobsNZSupabase =
+  supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const ADMIN_EMAIL = "virtualonlinenz@gmail.com";
+
+
+async function adminLogin() {
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const loginMessage =
+    document.getElementById("loginMessage");
+
+  loginMessage.textContent = "Logging in...";
+
+  const { data, error } =
+    await jobsNZSupabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+  if (error) {
+    console.error(error);
+    loginMessage.textContent =
+      "Login failed. Please check your details.";
+    return;
+  }
+
+  if (
+    !data.user ||
+    data.user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
+  ) {
+    await jobsNZSupabase.auth.signOut();
+
+    loginMessage.textContent =
+      "This account is not authorised for JobsNZ administration.";
+
+    return;
+  }
+
+  loginMessage.textContent = "";
+
+  showAdminPanel();
+
+  await loadMemberships();
+}
+
+
+async function checkExistingSession() {
+
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth.getSession();
+
+  if (
+    session &&
+    session.user &&
+    session.user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+  ) {
+
+    showAdminPanel();
+
+    await loadMemberships();
+  }
+}
+
+
+function showAdminPanel() {
+
+  document.getElementById("loginBox").style.display =
+    "none";
+
+  document.getElementById("adminPanel").style.display =
+    "block";
+}
+
+
+async function loadMemberships() {
+
+  const membershipList =
+    document.getElementById("membershipList");
+
+  const adminMessage =
+    document.getElementById("adminMessage");
+
+  membershipList.innerHTML = "";
+
+  adminMessage.textContent =
+    "Loading pending applications...";
+
+  const { data, error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .select("*")
+      .eq("status", "PENDING_REVIEW")
+      .order("submitted_at", { ascending: true });
+
+  if (error) {
+
+    console.error(
+      "Industry membership load error:",
+      error
+    );
+
+    adminMessage.textContent =
+      "Could not load Industry Membership applications.";
+
+    return;
+  }
+
+  adminMessage.textContent = "";
+
+  if (!data || data.length === 0) {
+
+    membershipList.innerHTML =
+      "<p>No Industry Membership applications are currently pending review.</p>";
+
+    return;
+  }
+
+  data.forEach(membership => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "membership-card";
+
+    const submittedDate =
+      membership.submitted_at
+        ? new Date(
+            membership.submitted_at
+          ).toLocaleString("en-NZ")
+        : "Not recorded";
+
+    const termsDate =
+      membership.terms_accepted_at
+        ? new Date(
+            membership.terms_accepted_at
+          ).toLocaleString("en-NZ")
+        : "Not recorded";
+
+    card.innerHTML = `
+
+      <div class="status">
+        ${escapeHtml(membership.status)}
+      </div>
+
+      <div class="field">
+        <span class="label">Business:</span>
+        ${escapeHtml(membership.business_name)}
+      </div>
+
+      <div class="field">
+        <span class="label">Contact:</span>
+        ${escapeHtml(membership.contact_name)}
+      </div>
+
+      <div class="field">
+        <span class="label">Email:</span>
+        ${escapeHtml(membership.contact_email)}
+      </div>
+
+      <div class="field">
+        <span class="label">Phone:</span>
+        ${escapeHtml(membership.contact_phone)}
+      </div>
+
+      <div class="field">
+        <span class="label">Industry:</span>
+        ${escapeHtml(membership.industry)}
+      </div>
+
+      <div class="field">
+        <span class="label">Region:</span>
+        ${escapeHtml(membership.region)}
+      </div>
+
+      <div class="field">
+        <span class="label">NZBN:</span>
+        ${escapeHtml(membership.nzbn || "Not supplied")}
+      </div>
+
+      <div class="field">
+        <span class="label">Website:</span>
+        ${
+          membership.website
+            ? `<a href="${escapeAttribute(membership.website)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                 ${escapeHtml(membership.website)}
+               </a>`
+            : "Not supplied"
+        }
+      </div>
+
+      <div class="field">
+        <span class="label">Business Description:</span><br>
+        ${escapeHtml(membership.business_description)}
+      </div>
+
+      <hr>
+
+      <div class="field">
+        <span class="label">Legitimate Business Confirmed:</span>
+        ${membership.legitimate_business_confirmed ? "Yes" : "No"}
+      </div>
+
+      <div class="field">
+        <span class="label">Listing Review Acknowledged:</span>
+        ${membership.listing_review_acknowledged ? "Yes" : "No"}
+      </div>
+
+      <div class="field">
+        <span class="label">Terms Accepted:</span>
+        ${membership.terms_accepted ? "Yes" : "No"}
+      </div>
+
+      <div class="field">
+        <span class="label">Terms Accepted At:</span>
+        ${termsDate}
+      </div>
+
+      <div class="field">
+        <span class="label">Submitted:</span>
+        ${submittedDate}
+      </div>
+
+      <div class="field">
+        <span class="label">Membership Fee:</span>
+        $${Number(membership.membership_fee).toFixed(2)}
+      </div>
+
+      <div class="field">
+        <span class="label">Included Job Listings:</span>
+        ${membership.included_job_listings}
+      </div>
+
+      <div class="field">
+        <span class="label">Additional Listing Fee:</span>
+        $${Number(membership.additional_listing_fee).toFixed(2)}
+      </div>
+
+      <button
+        class="approve-btn"
+        onclick="approveMembership('${membership.id}')">
+        Approve
+      </button>
+
+      <button
+        class="reject-btn"
+        onclick="rejectMembership('${membership.id}')">
+        Reject
+      </button>
+    `;
+
+    membershipList.appendChild(card);
+  });
+}
+
+
+async function approveMembership(id) {
+
+  const confirmed =
+    confirm(
+      "Approve this Industry Membership application?\n\n" +
+      "The applicant will move to APPROVED_AWAITING_PAYMENT."
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth.getSession();
+
+  if (!session) {
+    alert("Your admin session has expired.");
+    return;
+  }
+
+  const { error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .update({
+        status: "APPROVED_AWAITING_PAYMENT",
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: session.user.email
+      })
+      .eq("id", id);
+
+  if (error) {
+
+    console.error(
+      "Industry membership approval error:",
+      error
+    );
+
+    alert(
+      "The Industry Membership application could not be approved."
+    );
+
+    return;
+  }
+
+  alert(
+    "Industry Membership approved.\n\n" +
+    "Status: APPROVED_AWAITING_PAYMENT\n\n" +
+    "The Member Code is NOT issued until payment is confirmed."
+  );
+
+  await loadMemberships();
+}
+
+
+async function rejectMembership(id) {
+
+  const confirmed =
+    confirm(
+      "Reject this Industry Membership application?"
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth.getSession();
+
+  if (!session) {
+    alert("Your admin session has expired.");
+    return;
+  }
+
+  const { error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .update({
+        status: "REJECTED",
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: session.user.email
+      })
+      .eq("id", id);
+
+  if (error) {
+
+    console.error(
+      "Industry membership rejection error:",
+      error
+    );
+
+    alert(
+      "The Industry Membership application could not be rejected."
+    );
+
+    return;
+  }
+
+  alert("Industry Membership application rejected.");
+
+  await loadMemberships();
+}
+
+
+async function logout() {
+
+  await jobsNZSupabase.auth.signOut();
+
+  document.getElementById("adminPanel").style.display =
+    "none";
+
+  document.getElementById("loginBox").style.display =
+    "block";
+
+  document.getElementById("membershipList").innerHTML =
+    "";
+}
+
+
+function escapeHtml(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHtml(value);
+}
+
+
+checkExistingSession();
+
+</script>
+
+</body>
+</html>
