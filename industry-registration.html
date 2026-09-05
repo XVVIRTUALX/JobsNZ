@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>JobsNZ Industry Membership</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+    }
+
+    header {
+      background: #000;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+    }
+
+    header p {
+      margin: 0;
+      color: #ddd;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 35px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+    }
+
+    .membership-box {
+      background: #f2fff5;
+      border-left: 5px solid #16863c;
+      padding: 18px;
+      margin-bottom: 30px;
+      border-radius: 6px;
+    }
+
+    .membership-box h2 {
+      margin-top: 0;
+      color: #12652f;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin-top: 4px;
+    }
+
+    .checkbox-row label {
+      margin: 0;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .terms-link {
+      color: #12652f;
+      font-weight: bold;
+    }
+
+    .notice {
+      margin-top: 25px;
+      padding: 15px;
+      background: #fff8df;
+      border-left: 4px solid #d69b00;
+      border-radius: 5px;
+      line-height: 1.5;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      padding: 14px;
+      background: #16863c;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #116b30;
+    }
+
+    button:disabled {
+      background: #888;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 22px;
+      padding: 15px;
+      border-radius: 6px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .success {
+      display: block !important;
+      background: #e7f8eb;
+      border: 1px solid #4ca866;
+      color: #155d29;
+    }
+
+    .error {
+      display: block !important;
+      background: #ffeaea;
+      border: 1px solid #d35c5c;
+      color: #8b1d1d;
+    }
+
+    .home-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .home-link a {
+      color: #12652f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 22px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Bot trap - genuine users will not see this field */
+    .website-field {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>JobsNZ Industry Membership</h1>
+  <p>PūtaiaoTech / VOCC - JobsNZ</p>
+</header>
+
+<main class="container">
+
+  <div class="membership-box">
+    <h2>Join JobsNZ</h2>
+
+    <p>
+      Join JobsNZ during our startup phase for just
+      <strong>$9 per year</strong>.
+    </p>
+
+    <p>
+      Your membership includes
+      <strong>1 job listing</strong>.
+      Additional approved job listings are
+      <strong>$9 each</strong>.
+    </p>
+
+    <p>
+      All Industry Membership applications and job listings
+      are reviewed before approval.
+    </p>
+  </div>
+
+
+  <form id="industryMembershipForm">
+
+    <h2>Business / Employer Application</h2>
+
+
+    <label for="businessName">
+      Business / Trading Name *
+    </label>
+
+    <input
+      type="text"
+      id="businessName"
+      required
+      maxlength="150"
+    >
+
+
+    <label for="contactName">
+      Contact Person *
+    </label>
+
+    <input
+      type="text"
+      id="contactName"
+      required
+      maxlength="120"
+    >
+
+
+    <label for="email">
+      Business / Contact Email *
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      required
+      maxlength="180"
+    >
+
+
+    <label for="phone">
+      Contact Phone *
+    </label>
+
+    <input
+      type="tel"
+      id="phone"
+      required
+      maxlength="40"
+    >
+
+
+    <label for="industry">
+      Industry *
+    </label>
+
+    <input
+      type="text"
+      id="industry"
+      placeholder="Example: Construction, Hospitality, Agriculture"
+      required
+      maxlength="120"
+    >
+
+
+    <label for="region">
+      New Zealand Region / Location *
+    </label>
+
+    <input
+      type="text"
+      id="region"
+      placeholder="Example: Waikato"
+      required
+      maxlength="120"
+    >
+
+
+    <label for="nzbn">
+      NZBN
+    </label>
+
+    <input
+      type="text"
+      id="nzbn"
+      placeholder="If applicable"
+      maxlength="30"
+    >
+
+
+    <label for="website">
+      Business Website
+    </label>
+
+    <input
+      type="url"
+      id="website"
+      placeholder="https://"
+      maxlength="250"
+    >
+
+
+    <label for="businessDescription">
+      Briefly describe your business and the type of work
+      opportunities you may advertise on JobsNZ *
+    </label>
+
+    <textarea
+      id="businessDescription"
+      required
+      maxlength="1500"
+    ></textarea>
+
+
+    <!-- Hidden bot trap -->
+    <div class="website-field">
+      <label for="companyWebsiteCheck">
+        Leave this field empty
+      </label>
+
+      <input
+        type="text"
+        id="companyWebsiteCheck"
+        autocomplete="off"
+        tabindex="-1"
+      >
+    </div>
+
+
+    <div class="checkbox-row">
+      <input
+        type="checkbox"
+        id="legitimateBusiness"
+        required
+      >
+
+      <label for="legitimateBusiness">
+        I confirm that this application relates to a genuine
+        business, organisation or service intending to offer
+        legitimate work opportunities in New Zealand.
+      </label>
+    </div>
+
+
+    <div class="checkbox-row">
+      <input
+        type="checkbox"
+        id="listingApproval"
+        required
+      >
+
+      <label for="listingApproval">
+        I understand that JobsNZ Industry Membership does not
+        guarantee approval or publication of any individual
+        job listing. JobsNZ may review listings before publication.
+      </label>
+    </div>
+
+
+    <div class="checkbox-row">
+      <input
+        type="checkbox"
+        id="termsAccepted"
+        required
+      >
+
+      <label for="termsAccepted">
+        I have read and agree to the
+        <a
+          href="terms.html"
+          target="_blank"
+          class="terms-link"
+        >
+          JobsNZ Terms &amp; Conditions
+        </a>.
+      </label>
+    </div>
+
+
+    <div class="notice">
+      <strong>No payment is required at this stage.</strong>
+      Your Industry Membership application will first be
+      reviewed by JobsNZ. If approved, you will receive
+      instructions for the $9 membership payment.
+    </div>
+
+
+    <button
+      type="submit"
+      id="submitButton"
+    >
+      Submit Industry Membership Application
+    </button>
+
+
+    <div id="message"></div>
+
+  </form>
+
+
+  <div class="home-link">
+    <a href="/">
+      ← Return to JobsNZ
+    </a>
+  </div>
+
+</main>
+
+
+<footer>
+
+  <strong>PūtaiaoTech / VOCC - JobsNZ</strong>
+
+  <br><br>
+
+  JobsNZ provides a platform for connecting people
+  with work opportunities and service providers.
+
+  <br><br>
+
+  Industry Membership applications and job listings
+  remain subject to JobsNZ review and approval.
+
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  const SUPABASE_URL =
+    "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+
+  /*
+    Use the SAME browser-safe sb_publishable_ key
+    already working on your JobsNZ Odd-Jobs pages.
+
+    NEVER place a Supabase secret key or service-role
+    key in this webpage.
+  */
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "PASTE_YOUR_sb_publishable_KEY_HERE";
+
+
+  const jobsNZSupabase =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  const form =
+    document.getElementById(
+      "industryMembershipForm"
+    );
+
+
+  const submitButton =
+    document.getElementById(
+      "submitButton"
+    );
+
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+
+  form.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      /*
+        Basic bot trap.
+        If this invisible field contains anything,
+        silently stop the submission.
+      */
+
+      const botField =
+        document
+          .getElementById(
+            "companyWebsiteCheck"
+          )
+          .value
+          .trim();
+
+
+      if (botField !== "") {
+        return;
+      }
+
+
+      const businessName =
+        document
+          .getElementById(
+            "businessName"
+          )
+          .value
+          .trim();
+
+
+      const contactName =
+        document
+          .getElementById(
+            "contactName"
+          )
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById(
+            "email"
+          )
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      const phone =
+        document
+          .getElementById(
+            "phone"
+          )
+          .value
+          .trim();
+
+
+      const industry =
+        document
+          .getElementById(
+            "industry"
+          )
+          .value
+          .trim();
+
+
+      const region =
+        document
+          .getElementById(
+            "region"
+          )
+          .value
+          .trim();
+
+
+      const nzbn =
+        document
+          .getElementById(
+            "nzbn"
+          )
+          .value
+          .trim();
+
+
+      const website =
+        document
+          .getElementById(
+            "website"
+          )
+          .value
+          .trim();
+
+
+      const businessDescription =
+        document
+          .getElementById(
+            "businessDescription"
+          )
+          .value
+          .trim();
+
+
+      const legitimateBusiness =
+        document
+          .getElementById(
+            "legitimateBusiness"
+          )
+          .checked;
+
+
+      const listingApproval =
+        document
+          .getElementById(
+            "listingApproval"
+          )
+          .checked;
+
+
+      const termsAccepted =
+        document
+          .getElementById(
+            "termsAccepted"
+          )
+          .checked;
+
+
+
+      if (
+        !legitimateBusiness ||
+        !listingApproval ||
+        !termsAccepted
+      ) {
+
+        message.className = "error";
+
+        message.textContent =
+          "Please complete all required declarations before submitting your application.";
+
+        return;
+      }
+
+
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        "Submitting Application...";
+
+
+      message.className = "";
+
+      message.style.display = "none";
+
+
+
+      const {
+        data,
+        error
+      } =
+        await jobsNZSupabase
+          .from(
+            "industry_memberships"
+          )
+          .insert({
+
+            business_name:
+              businessName,
+
+            contact_name:
+              contactName,
+
+            contact_email:
+              email,
+
+            contact_phone:
+              phone,
+
+            industry:
+              industry,
+
+            region:
+              region,
+
+            nzbn:
+              nzbn || null,
+
+            website:
+              website || null,
+
+            business_description:
+              businessDescription,
+
+            legitimate_business_confirmed:
+              legitimateBusiness,
+
+            listing_review_acknowledged:
+              listingApproval,
+
+            terms_accepted:
+              termsAccepted,
+
+            terms_accepted_at:
+              new Date().toISOString(),
+
+            membership_fee:
+              9.00,
+
+            included_job_listings:
+              1,
+
+            additional_listing_fee:
+              9.00,
+
+            status:
+              "PENDING_REVIEW"
+
+          });
+
+
+
+      if (error) {
+
+        console.error(
+          "JobsNZ Industry Membership submission error:",
+          error
+        );
+
+
+        message.className =
+          "error";
+
+
+        message.innerHTML =
+          "<strong>Application not submitted.</strong><br>" +
+          "Please try again or contact JobsNZ through General Enquiries.";
+
+      }
+
+      else {
+
+        message.className =
+          "success";
+
+
+        message.innerHTML = `
+          <strong>
+            Thank you.
+            Your JobsNZ Industry Membership application
+            has been received.
+          </strong>
+
+          <br><br>
+
+          Your application is now
+          <strong>Pending Review</strong>.
+
+          <br><br>
+
+          No payment is required until your application
+          has been approved by JobsNZ.
+
+          <br><br>
+
+          If approved, you will receive instructions
+          for completing the $9 annual membership payment.
+        `;
+
+
+        form.reset();
+
+
+        window.scrollTo({
+          top:
+            message.offsetTop - 150,
+          behavior:
+            "smooth"
+        });
+
+      }
+
+
+
+      submitButton.disabled =
+        false;
+
+
+      submitButton.textContent =
+        "Submit Industry Membership Application";
+
+    }
+  );
+
+</script>
+
+
+</body>
+</html>
