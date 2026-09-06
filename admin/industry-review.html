@@ -617,13 +617,11 @@ function createPaymentReference(membershipId) {
 
 async function approveMembership(id) {
 
-  const confirmed =
-    confirm(
-      "Approve this Industry Membership application?\n\n" +
-      "JobsNZ will create a payment reference and move " +
-      "the application to APPROVED_AWAITING_PAYMENT.\n\n" +
-      "The Member Code will NOT be issued yet."
-    );
+  const confirmed = confirm(
+    "Approve this Industry Membership application?\n\n" +
+    "JobsNZ will create the applicant's Industry Member Code.\n\n" +
+    "The membership will remain inactive until payment is confirmed."
+  );
 
   if (!confirmed) {
     return;
@@ -631,40 +629,31 @@ async function approveMembership(id) {
 
   const {
     data: { session }
-  } =
-    await jobsNZSupabase.auth.getSession();
+  } = await jobsNZSupabase.auth.getSession();
 
   if (!session) {
-
-    alert(
-      "Your admin session has expired."
-    );
-
+    alert("Your admin session has expired.");
     return;
   }
 
-  const paymentReference =
-    createPaymentReference(id);
+  // Create ONE permanent JobsNZ Industry Member Code
+  const cleanId = String(id)
+    .replace(/[^a-zA-Z0-9]/g, "")
+    .toUpperCase();
 
-  const { error } =
-    await jobsNZSupabase
-      .from("industry_memberships")
-      .update({
+  const memberCode =
+    "JNZ-IND-" + cleanId.slice(-10);
 
-        status:
-          "APPROVED_AWAITING_PAYMENT",
-
-        reviewed_at:
-          new Date().toISOString(),
-
-        reviewed_by:
-          session.user.email,
-
-        payment_reference:
-          paymentReference
-      })
-      .eq("id", id)
-      .eq("status", "PENDING_REVIEW");
+  const { error } = await jobsNZSupabase
+    .from("industry_memberships")
+    .update({
+      status: "APPROVED_AWAITING_PAYMENT",
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: session.user.email,
+      member_code: memberCode
+    })
+    .eq("id", id)
+    .eq("status", "PENDING_REVIEW");
 
   if (error) {
 
@@ -674,8 +663,8 @@ async function approveMembership(id) {
     );
 
     alert(
-      "The Industry Membership application " +
-      "could not be approved."
+      "The Industry Membership application could not be approved.\n\n" +
+      error.message
     );
 
     return;
@@ -683,90 +672,13 @@ async function approveMembership(id) {
 
   alert(
     "Industry Membership approved.\n\n" +
-
-    "Payment Reference:\n" +
-    paymentReference +
-
-    "\n\nStatus: APPROVED_AWAITING_PAYMENT" +
-
-    "\n\nThe Member Code is NOT issued " +
-    "until payment is confirmed."
+    "Industry Member Code: " + memberCode + "\n\n" +
+    "Status: APPROVED_AWAITING_PAYMENT\n\n" +
+    "Use this same code as the Hnry payment reference."
   );
 
   await loadAllMemberships();
 }
-
-
-/* =========================================================
-   REJECT APPLICATION
-========================================================= */
-
-async function rejectMembership(id) {
-
-  const confirmed =
-    confirm(
-      "Reject this Industry Membership application?"
-    );
-
-  if (!confirmed) {
-    return;
-  }
-
-  const {
-    data: { session }
-  } =
-    await jobsNZSupabase.auth.getSession();
-
-  if (!session) {
-
-    alert(
-      "Your admin session has expired."
-    );
-
-    return;
-  }
-
-  const { error } =
-    await jobsNZSupabase
-      .from("industry_memberships")
-      .update({
-
-        status:
-          "REJECTED",
-
-        reviewed_at:
-          new Date().toISOString(),
-
-        reviewed_by:
-          session.user.email
-
-      })
-      .eq("id", id)
-      .eq("status", "PENDING_REVIEW");
-
-  if (error) {
-
-    console.error(
-      "Industry membership rejection error:",
-      error
-    );
-
-    alert(
-      "The Industry Membership application " +
-      "could not be rejected."
-    );
-
-    return;
-  }
-
-  alert(
-    "Industry Membership application rejected."
-  );
-
-  await loadAllMemberships();
-}
-
-
 /* =========================================================
    APPROVED — AWAITING PAYMENT
 ========================================================= */
