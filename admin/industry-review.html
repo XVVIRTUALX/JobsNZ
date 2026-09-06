@@ -113,7 +113,7 @@
       margin-bottom: 12px;
     }
 
-    .payment-reference {
+    .member-code {
       display: inline-block;
       background: #f1e9ff;
       border: 1px solid #6f42c1;
@@ -164,6 +164,7 @@
 <div class="container">
 
   <h1>JobsNZ Industry Membership Review</h1>
+
   <p class="subtext">
     PūtaiaoTech / VOCC - JobsNZ Administration
   </p>
@@ -209,7 +210,7 @@
     <h2>Approved — Awaiting Hnry Payment</h2>
 
     <p class="subtext">
-      Confirm payment only after matching the JobsNZ Payment Reference
+      Confirm payment only after matching the JobsNZ Industry Member Code
       against the payment details shown in Hnry.
     </p>
 
@@ -334,9 +335,10 @@ function showAdminPanel() {
 
 async function loadAllMemberships() {
 
-  await loadMemberships();
-
-  await loadAwaitingPayments();
+  await Promise.all([
+    loadMemberships(),
+    loadAwaitingPayments()
+  ]);
 }
 
 
@@ -581,32 +583,19 @@ async function loadMemberships() {
 
 
 /* =========================================================
-   JOBSNZ PAYMENT REFERENCE
+   CREATE PERMANENT INDUSTRY MEMBER CODE
 ========================================================= */
 
-function createPaymentReference(membershipId) {
-
-  const year =
-    new Date().getFullYear();
+function createMemberCode(membershipId) {
 
   const safeId =
     String(membershipId)
       .replace(/[^a-zA-Z0-9]/g, "")
       .toUpperCase();
 
-  /*
-    Reference belongs to JobsNZ.
-
-    Hnry is the current payment channel,
-    but the reference remains a JobsNZ
-    business reference.
-  */
-
   return (
     "JNZ-IND-" +
-    year +
-    "-" +
-    safeId.substring(0, 10)
+    safeId.slice(-10)
   );
 }
 
@@ -619,7 +608,7 @@ async function approveMembership(id) {
 
   const confirmed = confirm(
     "Approve this Industry Membership application?\n\n" +
-    "JobsNZ will create the applicant's Industry Member Code.\n\n" +
+    "JobsNZ will create the applicant's permanent Industry Member Code.\n\n" +
     "The membership will remain inactive until payment is confirmed."
   );
 
@@ -629,31 +618,46 @@ async function approveMembership(id) {
 
   const {
     data: { session }
-  } = await jobsNZSupabase.auth.getSession();
+  } =
+    await jobsNZSupabase.auth.getSession();
 
   if (!session) {
-    alert("Your admin session has expired.");
+
+    alert(
+      "Your admin session has expired."
+    );
+
     return;
   }
 
-  // Create ONE permanent JobsNZ Industry Member Code
-  const cleanId = String(id)
-    .replace(/[^a-zA-Z0-9]/g, "")
-    .toUpperCase();
-
   const memberCode =
-    "JNZ-IND-" + cleanId.slice(-10);
+    createMemberCode(id);
 
-  const { error } = await jobsNZSupabase
-    .from("industry_memberships")
-    .update({
-      status: "APPROVED_AWAITING_PAYMENT",
-      reviewed_at: new Date().toISOString(),
-      reviewed_by: session.user.email,
-      member_code: memberCode
-    })
-    .eq("id", id)
-    .eq("status", "PENDING_REVIEW");
+  const {
+    data: updatedMembership,
+    error
+  } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .update({
+
+        status:
+          "APPROVED_AWAITING_PAYMENT",
+
+        reviewed_at:
+          new Date().toISOString(),
+
+        reviewed_by:
+          session.user.email,
+
+        member_code:
+          memberCode
+
+      })
+      .eq("id", id)
+      .eq("status", "PENDING_REVIEW")
+      .select("id, status, member_code")
+      .single();
 
   if (error) {
 
@@ -670,15 +674,107 @@ async function approveMembership(id) {
     return;
   }
 
+  if (
+    !updatedMembership ||
+    updatedMembership.member_code !== memberCode
+  ) {
+
+    alert(
+      "STOP: The application status may have changed, but the Industry Member Code was not confirmed.\n\n" +
+      "Do not request payment until this has been checked."
+    );
+
+    await loadAllMemberships();
+
+    return;
+  }
+
   alert(
-    "Industry Membership approved.\n\n" +
-    "Industry Member Code: " + memberCode + "\n\n" +
-    "Status: APPROVED_AWAITING_PAYMENT\n\n" +
-    "Use this same code as the Hnry payment reference."
+    "INDUSTRY MEMBERSHIP APPROVED ✔\n\n" +
+
+    "Industry Member Code:\n" +
+    memberCode +
+
+    "\n\nStatus: APPROVED_AWAITING_PAYMENT\n\n" +
+
+    "This is the member's permanent JobsNZ Industry Member Code.\n\n" +
+
+    "Use the same code as the Hnry payment reference."
   );
 
   await loadAllMemberships();
 }
+
+
+/* =========================================================
+   REJECT APPLICATION
+========================================================= */
+
+async function rejectMembership(id) {
+
+  const confirmed =
+    confirm(
+      "Reject this Industry Membership application?"
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth.getSession();
+
+  if (!session) {
+
+    alert(
+      "Your admin session has expired."
+    );
+
+    return;
+  }
+
+  const { error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .update({
+
+        status:
+          "REJECTED",
+
+        reviewed_at:
+          new Date().toISOString(),
+
+        reviewed_by:
+          session.user.email
+
+      })
+      .eq("id", id)
+      .eq("status", "PENDING_REVIEW");
+
+  if (error) {
+
+    console.error(
+      "Industry membership rejection error:",
+      error
+    );
+
+    alert(
+      "The Industry Membership application could not be rejected."
+    );
+
+    return;
+  }
+
+  alert(
+    "Industry Membership application rejected."
+  );
+
+  await loadAllMemberships();
+}
+
+
 /* =========================================================
    APPROVED — AWAITING PAYMENT
 ========================================================= */
@@ -744,6 +840,10 @@ async function loadAwaitingPayments() {
     card.className =
       "membership-card awaiting-card";
 
+    const memberCode =
+      membership.member_code ||
+      "MEMBER CODE NOT RECORDED";
+
     const paymentInstructions =
 `Subject: JobsNZ Industry Membership Approved – Payment Required
 
@@ -753,12 +853,14 @@ Your application for JobsNZ Industry Membership for ${membership.business_name} 
 
 Membership fee: $${Number(membership.membership_fee).toFixed(2)} NZD
 
-JobsNZ Payment Reference:
-membership.member_code
+JobsNZ Industry Member Code:
+${memberCode}
 
 When making payment, please use your JobsNZ Industry Member Code exactly as shown above.
 
-Once payment has been received and confirmed, JobsNZ will activate your membership and issue your Industry Member Code.
+Your Industry Member Code is your permanent JobsNZ membership reference. Please keep it for future job listings and membership renewals.
+
+Once payment has been received and confirmed, JobsNZ will activate your membership.
 
 Your membership includes ${membership.included_job_listings} approved job listing. Additional approved job listings are $${Number(membership.additional_listing_fee).toFixed(2)} each.
 
@@ -798,16 +900,15 @@ PūtaiaoTech`;
       </div>
 
       <div class="field">
+
         <span class="label">
-          JobsNZ Payment Reference:
+          JobsNZ Industry Member Code:
         </span><br>
 
-        <div class="payment-reference">
-          ${escapeHtml(
-            membership.payment_reference ||
-            "REFERENCE NOT RECORDED"
-          )}
+        <div class="member-code">
+          ${escapeHtml(memberCode)}
         </div>
+
       </div>
 
       <div class="payment-box">${escapeHtml(
@@ -828,7 +929,7 @@ PūtaiaoTech`;
 
         Open the Hnry Pay Summary and confirm
         that the payment belongs to this business
-        and matches this JobsNZ Payment Reference.
+        and matches this JobsNZ Industry Member Code.
 
       </div>
 
@@ -901,24 +1002,6 @@ async function copyPaymentInstructions(id) {
 
 
 /* =========================================================
-   MEMBER CODE
-========================================================= */
-
-function createMemberCode(membershipId) {
-
-  const safeId =
-    String(membershipId)
-      .replace(/[^a-zA-Z0-9]/g, "")
-      .toUpperCase();
-
-  return (
-    "JNZ-IND-" +
-    safeId.slice(-10)
-  );
-}
-
-
-/* =========================================================
    CONFIRM PAYMENT AND ACTIVATE
 ========================================================= */
 
@@ -939,8 +1022,9 @@ async function confirmPaymentAndActivate(id) {
   }
 
   /*
-    Read the membership again immediately
-    before activation.
+    Re-read the membership immediately before
+    activation so the current database state
+    is checked.
   */
 
   const {
@@ -975,11 +1059,18 @@ async function confirmPaymentAndActivate(id) {
     return;
   }
 
-  if (!membership.payment_reference) {
+  /*
+    IMPORTANT:
+    No membership can be activated without
+    its permanent Industry Member Code.
+  */
+
+  if (!membership.member_code) {
 
     alert(
       "STOP: This membership does not have " +
-      "a JobsNZ Payment Reference."
+      "a JobsNZ Industry Member Code.\n\n" +
+      "Do not activate it."
     );
 
     return;
@@ -997,12 +1088,12 @@ async function confirmPaymentAndActivate(id) {
         membership.membership_fee
       ).toFixed(2) +
 
-      "\n\nJobsNZ Payment Reference:\n" +
-      membership.payment_reference +
+      "\n\nJobsNZ Industry Member Code:\n" +
+      membership.member_code +
 
       "\n\nHave you checked the Hnry Pay Summary " +
       "and confirmed that this payment matches " +
-      "the business and JobsNZ Payment Reference?"
+      "the business and Industry Member Code?"
     );
 
   if (!confirmed) {
@@ -1012,8 +1103,12 @@ async function confirmPaymentAndActivate(id) {
   const secondConfirmation =
     confirm(
       "Activate this Industry Membership now?\n\n" +
-      "This will issue the Industry Member Code " +
-      "and set the membership to ACTIVE."
+
+      "Industry Member Code:\n" +
+      membership.member_code +
+
+      "\n\nThe SAME Member Code will remain attached " +
+      "to this membership after activation."
     );
 
   if (!secondConfirmation) {
@@ -1035,9 +1130,6 @@ async function confirmPaymentAndActivate(id) {
     expiry.getFullYear() + 1
   );
 
-  const memberCode =
-    createMemberCode(id);
-
   const { error } =
     await jobsNZSupabase
       .from("industry_memberships")
@@ -1055,17 +1147,26 @@ async function confirmPaymentAndActivate(id) {
         expires_at:
           expiry.toISOString(),
 
-        member_code:
-          memberCode,
-
         status:
           "ACTIVE"
+
+        /*
+          member_code is deliberately NOT
+          regenerated here.
+
+          The code created at approval remains
+          the permanent Industry Member Code.
+        */
 
       })
       .eq("id", id)
       .eq(
         "status",
         "APPROVED_AWAITING_PAYMENT"
+      )
+      .eq(
+        "member_code",
+        membership.member_code
       );
 
   if (error) {
@@ -1090,10 +1191,14 @@ async function confirmPaymentAndActivate(id) {
     "Business:\n" +
     membership.business_name +
 
-    "\n\nMember Code:\n" +
-    memberCode +
+    "\n\nIndustry Member Code:\n" +
+    membership.member_code +
 
     "\n\nStatus: ACTIVE\n\n" +
+
+    "The same Industry Member Code remains " +
+    "the member's JobsNZ reference for future " +
+    "job listings and membership renewals.\n\n" +
 
     "The membership expires one year " +
     "from today's activation date."
