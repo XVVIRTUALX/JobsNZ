@@ -116,12 +116,18 @@ body{
 
 /* ===== PANELS ===== */
 .panel{
-    background: linear-gradient(145deg,#0e141a,#0a0f14);
+    width:calc(100% - 40px);
+    max-width:1150px;
+    box-sizing:border-box;
+
+    background:linear-gradient(145deg,#0e141a,#0a0f14);
     border:1px solid #1e2a33;
     border-radius:10px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 0 12px rgba(0,0,0,0.6);
+
+    padding:22px 26px;
+    margin:0 auto 18px auto;
+
+    box-shadow:0 0 12px rgba(0,0,0,0.45);
 }
 
 
