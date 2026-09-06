@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>JobsNZ Industry Membership Review</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -25,6 +26,11 @@
       margin-bottom: 5px;
     }
 
+    h2 {
+      clear: both;
+      margin-top: 30px;
+    }
+
     .subtext {
       margin-bottom: 20px;
       color: #555;
@@ -37,6 +43,10 @@
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 20px;
+    }
+
+    .awaiting-card {
+      border-left: 6px solid #6f42c1;
     }
 
     input {
@@ -62,6 +72,17 @@
 
     .reject-btn {
       background: #dc3545;
+      color: white;
+    }
+
+    .activate-btn {
+      background: #198754;
+      color: white;
+      font-weight: bold;
+    }
+
+    .copy-btn {
+      background: #6f42c1;
       color: white;
     }
 
@@ -92,6 +113,35 @@
       margin-bottom: 12px;
     }
 
+    .payment-reference {
+      display: inline-block;
+      background: #f1e9ff;
+      border: 1px solid #6f42c1;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-family: monospace;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 4px 0 12px;
+    }
+
+    .payment-box {
+      background: #f8f5ff;
+      border: 1px solid #d9c8f4;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+      white-space: pre-wrap;
+    }
+
+    .warning-box {
+      background: #fff3cd;
+      border: 1px solid #ffe69c;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 15px 0;
+    }
+
     .message {
       margin: 15px 0;
       font-weight: bold;
@@ -99,6 +149,12 @@
 
     a {
       color: #6f42c1;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin: 18px 0;
     }
   </style>
 </head>
@@ -108,9 +164,14 @@
 <div class="container">
 
   <h1>JobsNZ Industry Membership Review</h1>
-  <p class="subtext">PūtaiaoTech / VOCC - JobsNZ Administration</p>
+  <p class="subtext">
+    PūtaiaoTech / VOCC - JobsNZ Administration
+  </p>
+
+  <!-- ADMIN LOGIN -->
 
   <div id="loginBox" class="login-box">
+
     <h2>Admin Login</h2>
 
     <label>Email</label>
@@ -122,15 +183,21 @@
     <button onclick="adminLogin()">Login</button>
 
     <div id="loginMessage" class="message"></div>
+
   </div>
+
+
+  <!-- ADMIN PANEL -->
 
   <div id="adminPanel" style="display:none;">
 
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <button class="logout-btn" onclick="logout()">
+      Logout
+    </button>
 
     <h2>Pending Industry Membership Applications</h2>
 
-    <button class="refresh-btn" onclick="loadMemberships()">
+    <button class="refresh-btn" onclick="loadAllMemberships()">
       Refresh Applications
     </button>
 
@@ -138,9 +205,22 @@
 
     <div id="membershipList"></div>
 
+
+    <h2>Approved — Awaiting Hnry Payment</h2>
+
+    <p class="subtext">
+      Confirm payment only after matching the JobsNZ Payment Reference
+      against the payment details shown in Hnry.
+    </p>
+
+    <div id="paymentMessage" class="message"></div>
+
+    <div id="awaitingPaymentList"></div>
+
   </div>
 
 </div>
+
 
 <script>
 
@@ -153,8 +233,13 @@ const SUPABASE_KEY =
 const jobsNZSupabase =
   supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const ADMIN_EMAIL = "virtualonlinenz@gmail.com";
+const ADMIN_EMAIL =
+  "virtualonlinenz@gmail.com";
 
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
 
 async function adminLogin() {
 
@@ -167,7 +252,8 @@ async function adminLogin() {
   const loginMessage =
     document.getElementById("loginMessage");
 
-  loginMessage.textContent = "Logging in...";
+  loginMessage.textContent =
+    "Logging in...";
 
   const { data, error } =
     await jobsNZSupabase.auth.signInWithPassword({
@@ -176,16 +262,21 @@ async function adminLogin() {
     });
 
   if (error) {
+
     console.error(error);
+
     loginMessage.textContent =
       "Login failed. Please check your details.";
+
     return;
   }
 
   if (
     !data.user ||
-    data.user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()
+    data.user.email.toLowerCase() !==
+      ADMIN_EMAIL.toLowerCase()
   ) {
+
     await jobsNZSupabase.auth.signOut();
 
     loginMessage.textContent =
@@ -198,9 +289,13 @@ async function adminLogin() {
 
   showAdminPanel();
 
-  await loadMemberships();
+  await loadAllMemberships();
 }
 
+
+/* =========================================================
+   EXISTING SESSION
+========================================================= */
 
 async function checkExistingSession() {
 
@@ -218,7 +313,7 @@ async function checkExistingSession() {
 
     showAdminPanel();
 
-    await loadMemberships();
+    await loadAllMemberships();
   }
 }
 
@@ -232,6 +327,22 @@ function showAdminPanel() {
     "block";
 }
 
+
+/* =========================================================
+   LOAD BOTH ADMIN SECTIONS
+========================================================= */
+
+async function loadAllMemberships() {
+
+  await loadMemberships();
+
+  await loadAwaitingPayments();
+}
+
+
+/* =========================================================
+   PENDING MEMBERSHIP APPLICATIONS
+========================================================= */
 
 async function loadMemberships() {
 
@@ -281,7 +392,8 @@ async function loadMemberships() {
     const card =
       document.createElement("div");
 
-    card.className = "membership-card";
+    card.className =
+      "membership-card";
 
     const submittedDate =
       membership.submitted_at
@@ -335,79 +447,131 @@ async function loadMemberships() {
 
       <div class="field">
         <span class="label">NZBN:</span>
-        ${escapeHtml(membership.nzbn || "Not supplied")}
+        ${escapeHtml(
+          membership.nzbn || "Not supplied"
+        )}
       </div>
 
       <div class="field">
         <span class="label">Website:</span>
+
         ${
           membership.website
-            ? `<a href="${escapeAttribute(membership.website)}"
+            ? `<a
+                 href="${escapeAttribute(membership.website)}"
                  target="_blank"
                  rel="noopener noreferrer">
                  ${escapeHtml(membership.website)}
                </a>`
             : "Not supplied"
         }
+
       </div>
 
       <div class="field">
-        <span class="label">Business Description:</span><br>
+        <span class="label">
+          Business Description:
+        </span><br>
+
         ${escapeHtml(membership.business_description)}
       </div>
 
       <hr>
 
       <div class="field">
-        <span class="label">Legitimate Business Confirmed:</span>
-        ${membership.legitimate_business_confirmed ? "Yes" : "No"}
+        <span class="label">
+          Legitimate Business Confirmed:
+        </span>
+
+        ${
+          membership.legitimate_business_confirmed
+            ? "Yes"
+            : "No"
+        }
       </div>
 
       <div class="field">
-        <span class="label">Listing Review Acknowledged:</span>
-        ${membership.listing_review_acknowledged ? "Yes" : "No"}
+        <span class="label">
+          Listing Review Acknowledged:
+        </span>
+
+        ${
+          membership.listing_review_acknowledged
+            ? "Yes"
+            : "No"
+        }
       </div>
 
       <div class="field">
-        <span class="label">Terms Accepted:</span>
-        ${membership.terms_accepted ? "Yes" : "No"}
+        <span class="label">
+          Terms Accepted:
+        </span>
+
+        ${
+          membership.terms_accepted
+            ? "Yes"
+            : "No"
+        }
       </div>
 
       <div class="field">
-        <span class="label">Terms Accepted At:</span>
+        <span class="label">
+          Terms Accepted At:
+        </span>
+
         ${termsDate}
       </div>
 
       <div class="field">
-        <span class="label">Submitted:</span>
+        <span class="label">
+          Submitted:
+        </span>
+
         ${submittedDate}
       </div>
 
       <div class="field">
-        <span class="label">Membership Fee:</span>
-        $${Number(membership.membership_fee).toFixed(2)}
+        <span class="label">
+          Membership Fee:
+        </span>
+
+        $${Number(
+          membership.membership_fee
+        ).toFixed(2)}
       </div>
 
       <div class="field">
-        <span class="label">Included Job Listings:</span>
+        <span class="label">
+          Included Job Listings:
+        </span>
+
         ${membership.included_job_listings}
       </div>
 
       <div class="field">
-        <span class="label">Additional Listing Fee:</span>
-        $${Number(membership.additional_listing_fee).toFixed(2)}
+        <span class="label">
+          Additional Listing Fee:
+        </span>
+
+        $${Number(
+          membership.additional_listing_fee
+        ).toFixed(2)}
       </div>
 
       <button
         class="approve-btn"
         onclick="approveMembership('${membership.id}')">
+
         Approve
+
       </button>
 
       <button
         class="reject-btn"
         onclick="rejectMembership('${membership.id}')">
+
         Reject
+
       </button>
     `;
 
@@ -416,12 +580,49 @@ async function loadMemberships() {
 }
 
 
+/* =========================================================
+   JOBSNZ PAYMENT REFERENCE
+========================================================= */
+
+function createPaymentReference(membershipId) {
+
+  const year =
+    new Date().getFullYear();
+
+  const safeId =
+    String(membershipId)
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toUpperCase();
+
+  /*
+    Reference belongs to JobsNZ.
+
+    Hnry is the current payment channel,
+    but the reference remains a JobsNZ
+    business reference.
+  */
+
+  return (
+    "JNZ-IND-" +
+    year +
+    "-" +
+    safeId.substring(0, 10)
+  );
+}
+
+
+/* =========================================================
+   APPROVE APPLICATION
+========================================================= */
+
 async function approveMembership(id) {
 
   const confirmed =
     confirm(
       "Approve this Industry Membership application?\n\n" +
-      "The applicant will move to APPROVED_AWAITING_PAYMENT."
+      "JobsNZ will create a payment reference and move " +
+      "the application to APPROVED_AWAITING_PAYMENT.\n\n" +
+      "The Member Code will NOT be issued yet."
     );
 
   if (!confirmed) {
@@ -434,19 +635,36 @@ async function approveMembership(id) {
     await jobsNZSupabase.auth.getSession();
 
   if (!session) {
-    alert("Your admin session has expired.");
+
+    alert(
+      "Your admin session has expired."
+    );
+
     return;
   }
+
+  const paymentReference =
+    createPaymentReference(id);
 
   const { error } =
     await jobsNZSupabase
       .from("industry_memberships")
       .update({
-        status: "APPROVED_AWAITING_PAYMENT",
-        reviewed_at: new Date().toISOString(),
-        reviewed_by: session.user.email
+
+        status:
+          "APPROVED_AWAITING_PAYMENT",
+
+        reviewed_at:
+          new Date().toISOString(),
+
+        reviewed_by:
+          session.user.email,
+
+        payment_reference:
+          paymentReference
       })
-      .eq("id", id);
+      .eq("id", id)
+      .eq("status", "PENDING_REVIEW");
 
   if (error) {
 
@@ -456,7 +674,8 @@ async function approveMembership(id) {
     );
 
     alert(
-      "The Industry Membership application could not be approved."
+      "The Industry Membership application " +
+      "could not be approved."
     );
 
     return;
@@ -464,13 +683,23 @@ async function approveMembership(id) {
 
   alert(
     "Industry Membership approved.\n\n" +
-    "Status: APPROVED_AWAITING_PAYMENT\n\n" +
-    "The Member Code is NOT issued until payment is confirmed."
+
+    "Payment Reference:\n" +
+    paymentReference +
+
+    "\n\nStatus: APPROVED_AWAITING_PAYMENT" +
+
+    "\n\nThe Member Code is NOT issued " +
+    "until payment is confirmed."
   );
 
-  await loadMemberships();
+  await loadAllMemberships();
 }
 
+
+/* =========================================================
+   REJECT APPLICATION
+========================================================= */
 
 async function rejectMembership(id) {
 
@@ -489,7 +718,11 @@ async function rejectMembership(id) {
     await jobsNZSupabase.auth.getSession();
 
   if (!session) {
-    alert("Your admin session has expired.");
+
+    alert(
+      "Your admin session has expired."
+    );
+
     return;
   }
 
@@ -497,11 +730,19 @@ async function rejectMembership(id) {
     await jobsNZSupabase
       .from("industry_memberships")
       .update({
-        status: "REJECTED",
-        reviewed_at: new Date().toISOString(),
-        reviewed_by: session.user.email
+
+        status:
+          "REJECTED",
+
+        reviewed_at:
+          new Date().toISOString(),
+
+        reviewed_by:
+          session.user.email
+
       })
-      .eq("id", id);
+      .eq("id", id)
+      .eq("status", "PENDING_REVIEW");
 
   if (error) {
 
@@ -511,36 +752,485 @@ async function rejectMembership(id) {
     );
 
     alert(
-      "The Industry Membership application could not be rejected."
+      "The Industry Membership application " +
+      "could not be rejected."
     );
 
     return;
   }
 
-  alert("Industry Membership application rejected.");
+  alert(
+    "Industry Membership application rejected."
+  );
 
-  await loadMemberships();
+  await loadAllMemberships();
 }
 
+
+/* =========================================================
+   APPROVED — AWAITING PAYMENT
+========================================================= */
+
+async function loadAwaitingPayments() {
+
+  const awaitingPaymentList =
+    document.getElementById(
+      "awaitingPaymentList"
+    );
+
+  const paymentMessage =
+    document.getElementById(
+      "paymentMessage"
+    );
+
+  awaitingPaymentList.innerHTML = "";
+
+  paymentMessage.textContent =
+    "Loading memberships awaiting payment...";
+
+  const { data, error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .select("*")
+      .eq(
+        "status",
+        "APPROVED_AWAITING_PAYMENT"
+      )
+      .order(
+        "reviewed_at",
+        { ascending: true }
+      );
+
+  if (error) {
+
+    console.error(
+      "Awaiting payment load error:",
+      error
+    );
+
+    paymentMessage.textContent =
+      "Could not load memberships awaiting payment.";
+
+    return;
+  }
+
+  paymentMessage.textContent = "";
+
+  if (!data || data.length === 0) {
+
+    awaitingPaymentList.innerHTML =
+      "<p>No approved Industry Memberships are currently awaiting payment.</p>";
+
+    return;
+  }
+
+  data.forEach(membership => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "membership-card awaiting-card";
+
+    const paymentInstructions =
+`Subject: JobsNZ Industry Membership Approved – Payment Required
+
+Kia ora ${membership.contact_name},
+
+Your application for JobsNZ Industry Membership for ${membership.business_name} has been approved, subject to receipt of the $${Number(membership.membership_fee).toFixed(2)} annual membership payment.
+
+Membership fee: $${Number(membership.membership_fee).toFixed(2)} NZD
+
+JobsNZ Payment Reference:
+${membership.payment_reference}
+
+When making payment, please use your JobsNZ Payment Reference exactly as shown above.
+
+Once payment has been received and confirmed, JobsNZ will activate your membership and issue your Industry Member Code.
+
+Your membership includes ${membership.included_job_listings} approved job listing. Additional approved job listings are $${Number(membership.additional_listing_fee).toFixed(2)} each.
+
+All job listings are reviewed before publication.
+
+Ngā mihi,
+
+VOCC – JobsNZ Administration
+PūtaiaoTech`;
+
+    card.innerHTML = `
+
+      <div class="status">
+        APPROVED — AWAITING PAYMENT
+      </div>
+
+      <div class="field">
+        <span class="label">Business:</span>
+        ${escapeHtml(membership.business_name)}
+      </div>
+
+      <div class="field">
+        <span class="label">Contact:</span>
+        ${escapeHtml(membership.contact_name)}
+      </div>
+
+      <div class="field">
+        <span class="label">Email:</span>
+        ${escapeHtml(membership.contact_email)}
+      </div>
+
+      <div class="field">
+        <span class="label">Membership Fee:</span>
+        $${Number(
+          membership.membership_fee
+        ).toFixed(2)}
+      </div>
+
+      <div class="field">
+        <span class="label">
+          JobsNZ Payment Reference:
+        </span><br>
+
+        <div class="payment-reference">
+          ${escapeHtml(
+            membership.payment_reference ||
+            "REFERENCE NOT RECORDED"
+          )}
+        </div>
+      </div>
+
+      <div class="payment-box">${escapeHtml(
+        paymentInstructions
+      )}</div>
+
+      <button
+        class="copy-btn"
+        onclick="copyPaymentInstructions('${membership.id}')">
+
+        Copy Approval / Payment Message
+
+      </button>
+
+      <div class="warning-box">
+
+        <strong>Before activation:</strong><br>
+
+        Open the Hnry Pay Summary and confirm
+        that the payment belongs to this business
+        and matches this JobsNZ Payment Reference.
+
+      </div>
+
+      <button
+        class="activate-btn"
+        onclick="confirmPaymentAndActivate('${membership.id}')">
+
+        Confirm Payment &amp; Activate
+
+      </button>
+
+      <textarea
+        id="paymentText-${membership.id}"
+        style="display:none;">${escapeHtml(paymentInstructions)}</textarea>
+    `;
+
+    awaitingPaymentList.appendChild(card);
+  });
+}
+
+
+/* =========================================================
+   COPY PAYMENT MESSAGE
+========================================================= */
+
+async function copyPaymentInstructions(id) {
+
+  const textarea =
+    document.getElementById(
+      "paymentText-" + id
+    );
+
+  if (!textarea) {
+
+    alert(
+      "Payment message could not be found."
+    );
+
+    return;
+  }
+
+  try {
+
+    await navigator.clipboard.writeText(
+      textarea.value
+    );
+
+    alert(
+      "Approval and payment message copied."
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Clipboard error:",
+      error
+    );
+
+    textarea.style.display =
+      "block";
+
+    textarea.select();
+
+    alert(
+      "Automatic copy was unavailable. " +
+      "The message has been selected for manual copying."
+    );
+  }
+}
+
+
+/* =========================================================
+   MEMBER CODE
+========================================================= */
+
+function createMemberCode(membershipId) {
+
+  const safeId =
+    String(membershipId)
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toUpperCase();
+
+  return (
+    "JNZ-IND-" +
+    safeId.slice(-10)
+  );
+}
+
+
+/* =========================================================
+   CONFIRM PAYMENT AND ACTIVATE
+========================================================= */
+
+async function confirmPaymentAndActivate(id) {
+
+  const {
+    data: { session }
+  } =
+    await jobsNZSupabase.auth.getSession();
+
+  if (!session) {
+
+    alert(
+      "Your admin session has expired."
+    );
+
+    return;
+  }
+
+  /*
+    Read the membership again immediately
+    before activation.
+  */
+
+  const {
+    data: membership,
+    error: membershipError
+  } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .select("*")
+      .eq("id", id)
+      .eq(
+        "status",
+        "APPROVED_AWAITING_PAYMENT"
+      )
+      .single();
+
+  if (
+    membershipError ||
+    !membership
+  ) {
+
+    console.error(
+      "Membership verification error:",
+      membershipError
+    );
+
+    alert(
+      "This membership could not be verified " +
+      "for payment activation."
+    );
+
+    return;
+  }
+
+  if (!membership.payment_reference) {
+
+    alert(
+      "STOP: This membership does not have " +
+      "a JobsNZ Payment Reference."
+    );
+
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      "CONFIRM PAYMENT\n\n" +
+
+      "Business:\n" +
+      membership.business_name +
+
+      "\n\nAmount:\n$" +
+      Number(
+        membership.membership_fee
+      ).toFixed(2) +
+
+      "\n\nJobsNZ Payment Reference:\n" +
+      membership.payment_reference +
+
+      "\n\nHave you checked the Hnry Pay Summary " +
+      "and confirmed that this payment matches " +
+      "the business and JobsNZ Payment Reference?"
+    );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const secondConfirmation =
+    confirm(
+      "Activate this Industry Membership now?\n\n" +
+      "This will issue the Industry Member Code " +
+      "and set the membership to ACTIVE."
+    );
+
+  if (!secondConfirmation) {
+    return;
+  }
+
+  const now =
+    new Date();
+
+  const expiry =
+    new Date(now);
+
+  /*
+    Annual membership:
+    expires one calendar year from activation.
+  */
+
+  expiry.setFullYear(
+    expiry.getFullYear() + 1
+  );
+
+  const memberCode =
+    createMemberCode(id);
+
+  const { error } =
+    await jobsNZSupabase
+      .from("industry_memberships")
+      .update({
+
+        payment_confirmed_at:
+          now.toISOString(),
+
+        payment_confirmed_by:
+          session.user.email,
+
+        activated_at:
+          now.toISOString(),
+
+        expires_at:
+          expiry.toISOString(),
+
+        member_code:
+          memberCode,
+
+        status:
+          "ACTIVE"
+
+      })
+      .eq("id", id)
+      .eq(
+        "status",
+        "APPROVED_AWAITING_PAYMENT"
+      );
+
+  if (error) {
+
+    console.error(
+      "Membership activation error:",
+      error
+    );
+
+    alert(
+      "Payment was NOT recorded and the " +
+      "membership was NOT activated.\n\n" +
+      "Please check the error before trying again."
+    );
+
+    return;
+  }
+
+  alert(
+    "INDUSTRY MEMBERSHIP ACTIVATED ✔\n\n" +
+
+    "Business:\n" +
+    membership.business_name +
+
+    "\n\nMember Code:\n" +
+    memberCode +
+
+    "\n\nStatus: ACTIVE\n\n" +
+
+    "The membership expires one year " +
+    "from today's activation date."
+  );
+
+  await loadAllMemberships();
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 async function logout() {
 
   await jobsNZSupabase.auth.signOut();
 
-  document.getElementById("adminPanel").style.display =
+  document.getElementById(
+    "adminPanel"
+  ).style.display =
     "none";
 
-  document.getElementById("loginBox").style.display =
+  document.getElementById(
+    "loginBox"
+  ).style.display =
     "block";
 
-  document.getElementById("membershipList").innerHTML =
+  document.getElementById(
+    "membershipList"
+  ).innerHTML =
+    "";
+
+  document.getElementById(
+    "awaitingPaymentList"
+  ).innerHTML =
     "";
 }
 
 
+/* =========================================================
+   SECURITY / DISPLAY HELPERS
+========================================================= */
+
 function escapeHtml(value) {
 
-  if (value === null || value === undefined) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
     return "";
   }
 
@@ -558,6 +1248,10 @@ function escapeAttribute(value) {
   return escapeHtml(value);
 }
 
+
+/* =========================================================
+   START
+========================================================= */
 
 checkExistingSession();
 
