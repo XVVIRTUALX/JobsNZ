@@ -424,29 +424,98 @@ All job listings are reviewed before publication.
   height: auto;
 }
 </style>
-    
+ <!-- ===== JOBSNZ PROMOTIONAL VIDEOS ===== -->
+
+<style>
+.video-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.video-panel {
+  flex: 1 1 30%;
+  min-width: 250px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.video-panel h3 {
+  color: #FFD54F;
+  margin-bottom: 12px;
+}
+
+.video-panel video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+</style>
+
 <section class="video-section">
-<div class="video-container">
-  <div class="video-panel">
-    <h3>Health and Safety apps</h3>
-    <video controls>
-      <source src="videos/video1.mp4" type="video/mp4">
-    </video>
+
+  <div class="video-container">
+
+    <!-- VIDEO 1 - HEALTH & SAFETY -->
+    <div class="video-panel">
+      <h3>Health &amp; Safety</h3>
+
+      <video controls preload="metadata">
+        <source src="videos/video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <p>
+        Practical Health &amp; Safety tools supporting
+        New Zealand businesses and people at work.
+      </p>
+    </div>
+
+
+    <!-- VIDEO 2 - MONITORING & DATA / VOCC -->
+    <div class="video-panel">
+      <h3>Monitoring &amp; Data Services</h3>
+
+      <video controls preload="metadata">
+        <source src="videos/video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <p>
+        Digital operations, monitoring and data services
+        managed through the Virtual Online Contact Centre.
+      </p>
+    </div>
+
+
+    <!-- VIDEO 3 - JOBSNZ -->
+    <div class="video-panel">
+      <h3>JobsNZ — Work &amp; Opportunities</h3>
+
+      <video controls preload="metadata">
+        <source src="videos/video3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <p>
+        Connecting workers, contractors, businesses and
+        work opportunities across New Zealand.
+      </p>
+    </div>
+
   </div>
 
-  <div class="video-panel">
-    <h3>Monitoring Data Services app</h3>
-    <video controls>
-      <source src="videos/video2.mp4" type="video/mp4">
-    </video>
-  </div>
+  <p style="font-size:0.8em; margin-top:15px; text-align:center;">
+    PūtaiaoTech products and services are managed through the
+    Virtual Online Contact Centre (VOCC).
+  </p>
 
- <div class="video-panel">
-  <h3>JobsNZ / Odd Jobs</h3>
-  <video controls>
-    <source src="videos/video3.mp4" type="video/mp4">
-  </video>
-</div>
+</section>
+
+<!-- ===== END JOBSNZ PROMOTIONAL VIDEOS ===== -->
  
 
 
