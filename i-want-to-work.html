@@ -383,7 +383,35 @@ textarea{
 .report-option strong{
     color:#FFD54F;
 }
+/* ===== SUBMIT WORKER PROFILE ===== */
 
+.submit-profile-btn{
+    width:100%;
+    border:none;
+    border-radius:8px;
+    padding:16px 22px;
+    background:linear-gradient(180deg,#FFD54F,#F4B400);
+    color:#2b124c;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.35);
+}
+
+.submit-profile-btn:hover{
+    filter:brightness(1.05);
+}
+
+.submit-profile-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.form-message{
+    margin-top:16px;
+    min-height:24px;
+    line-height:1.5;
+}
 
 /* ===== MOBILE ===== */
 
@@ -1097,7 +1125,26 @@ textarea{
 
         </section>
 
+<!-- SUBMIT WORKER PROFILE -->
+<section class="form-panel">
 
+    <h2>Submit Your Worker Profile</h2>
+
+    <p class="help">
+        Review your information before submitting.
+        Required declarations must be completed before JobsNZ can accept your profile.
+    </p>
+
+    <button
+        type="submit"
+        id="submitWorkerProfile"
+        class="submit-profile-btn">
+        Submit Worker Profile
+    </button>
+
+    <div id="formMessage" class="form-message" aria-live="polite"></div>
+
+</section>
     </form>
 
 </div>
