@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JobsNZ Worker Review</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:20px;
+    color:#222;
+}
+
+.container{
+    max-width:1100px;
+    margin:0 auto;
+}
+
+h1{margin-bottom:5px;}
+
+.subtext{
+    color:#555;
+    margin-bottom:20px;
+}
+
+.login-box,
+.worker-card{
+    background:white;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.worker-card{
+    border-left:6px solid #6f42c1;
+}
+
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:10px;
+    margin:6px 0 12px;
+}
+
+button{
+    padding:10px 16px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:8px;
+    margin-top:8px;
+}
+
+.approve-btn{
+    background:#198754;
+    color:white;
+}
+
+.changes-btn{
+    background:#f0ad4e;
+    color:#222;
+}
+
+.reject-btn{
+    background:#dc3545;
+    color:white;
+}
+
+.refresh-btn{
+    background:#6f42c1;
+    color:white;
+}
+
+.logout-btn{
+    background:#333;
+    color:white;
+    float:right;
+}
+
+.field{
+    margin-bottom:9px;
+}
+
+.label{
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    background:#fff3cd;
+    margin-bottom:12px;
+    font-weight:bold;
+}
+
+.profile-box{
+    background:#f8f5ff;
+    border:1px solid #d9c8f4;
+    border-radius:8px;
+    padding:15px;
+    margin:15px 0;
+}
+
+.private-box{
+    background:#fff8e1;
+    border:1px solid #ffe69c;
+    border-radius:8px;
+    padding:15px;
+    margin:15px 0;
+}
+
+.positive-item{
+    display:inline-block;
+    background:#e9f7ef;
+    border:1px solid #badbcc;
+    border-radius:6px;
+    padding:6px 9px;
+    margin:3px;
+}
+
+.message{
+    margin:15px 0;
+    font-weight:bold;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #ddd;
+    margin:18px 0;
+}
+
+.review-note{
+    width:100%;
+    box-sizing:border-box;
+    min-height:80px;
+    padding:10px;
+    margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>VOCC — JobsNZ Worker Review</h1>
+
+<p class="subtext">
+PūtaiaoTech / VOCC — JobsNZ Administration
+</p>
+
+
+<!-- ADMIN LOGIN -->
+
+<div id="loginBox" class="login-box">
+
+    <h2>Admin Login</h2>
+
+    <label>Email</label>
+    <input type="email" id="email">
+
+    <label>Password</label>
+    <input type="password" id="password">
+
+    <button onclick="adminLogin()">Login</button>
+
+    <div id="loginMessage" class="message"></div>
+
+</div>
+
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel" style="display:none;">
+
+    <button class="logout-btn" onclick="logout()">
+        Logout
+    </button>
+
+    <h2>Pending Worker Profiles</h2>
+
+    <button class="refresh-btn" onclick="loadWorkers()">
+        Refresh Workers
+    </button>
+
+    <div id="adminMessage" class="message"></div>
+
+    <div id="workerList"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+
+const jobsNZSupabase =
+supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const ADMIN_EMAIL =
+"virtualonlinenz@gmail.com";
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+async function adminLogin(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+    loginMessage.textContent = "Logging in...";
+
+    const {data,error} =
+        await jobsNZSupabase.auth.signInWithPassword({
+            email:email,
+            password:password
+        });
+
+    if(error){
+
+        console.error(error);
+
+        loginMessage.textContent =
+            "Login failed. Please check your details.";
+
+        return;
+    }
+
+    if(
+        !data.user ||
+        data.user.email.toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+    ){
+
+        await jobsNZSupabase.auth.signOut();
+
+        loginMessage.textContent =
+            "This account is not authorised for JobsNZ administration.";
+
+        return;
+    }
+
+    loginMessage.textContent = "";
+
+    showAdminPanel();
+
+    await loadWorkers();
+}
+
+
+/* =========================================================
+   EXISTING SESSION
+========================================================= */
+
+async function checkExistingSession(){
+
+    const {
+        data:{session}
+    } =
+        await jobsNZSupabase.auth.getSession();
+
+    if(
+        session &&
+        session.user &&
+        session.user.email.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+    ){
+
+        showAdminPanel();
+
+        await loadWorkers();
+    }
+}
+
+
+function showAdminPanel(){
+
+    document.getElementById("loginBox").style.display =
+        "none";
+
+    document.getElementById("adminPanel").style.display =
+        "block";
+}
+
+
+/* =========================================================
+   LOAD PENDING WORKERS
+========================================================= */
+
+async function loadWorkers(){
+
+    const workerList =
+        document.getElementById("workerList");
+
+    const adminMessage =
+        document.getElementById("adminMessage");
+
+    workerList.innerHTML = "";
+
+    adminMessage.textContent =
+        "Loading pending worker profiles...";
+
+    const {data,error} =
+        await jobsNZSupabase
+        .from("worker_profiles")
+        .select("*")
+        .eq("profile_status","PENDING_REVIEW")
+        .order("created_at",{ascending:true});
+
+    if(error){
+
+        console.error(
+            "Worker profile load error:",
+            error
+        );
+
+        adminMessage.textContent =
+            "Could not load worker profiles.";
+
+        return;
+    }
+
+    adminMessage.textContent = "";
+
+    if(!data || data.length === 0){
+
+        workerList.innerHTML =
+            "<p>No worker profiles are currently pending review.</p>";
+
+        return;
+    }
+
+    data.forEach(worker => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "worker-card";
+
+        const submitted =
+            worker.created_at
+                ? new Date(worker.created_at)
+                    .toLocaleString("en-NZ")
+                : "Not recorded";
+
+        const pathways = [];
+
+        if(worker.work_anywhere)
+            pathways.push("Anywhere on JobsNZ");
+
+        if(worker.immediate_painters)
+            pathways.push("Immediate Painters");
+
+        if(worker.odd_jobs)
+            pathways.push("Odd Jobs");
+
+        if(worker.care_assist)
+            pathways.push("Care Assist");
+
+        if(worker.vocc)
+            pathways.push("VOCC");
+
+        if(worker.volunteer)
+            pathways.push("Volunteer Opportunities");
+
+
+        const workTypes = [];
+
+        if(worker.full_time)
+            workTypes.push("Full-time");
+
+        if(worker.part_time)
+            workTypes.push("Part-time");
+
+        if(worker.permanent_work)
+            workTypes.push("Permanent");
+
+        if(worker.contract_work)
+            workTypes.push("Contract");
+
+        if(worker.casual_work)
+            workTypes.push("Casual");
+
+        if(worker.seasonal_work)
+            workTypes.push("Seasonal");
+
+        if(worker.one_off_work)
+            workTypes.push("One-off / Short-term");
+
+
+        const positives = [];
+
+        if(worker.reliable_transport)
+            positives.push("Reliable transport");
+
+        if(worker.physically_able)
+            positives.push("Physically able for work sought");
+
+        if(worker.available_immediately)
+            positives.push("Can start immediately");
+
+        if(worker.can_travel_to_work)
+            positives.push("Can reliably travel to work");
+
+        if(worker.willing_drug_test)
+            positives.push("Willing to undertake appropriate drug testing");
+
+        if(worker.reference_available)
+            positives.push("Can provide a reference");
+
+        if(worker.reliable_hard_worker)
+            positives.push("Reliable / hard worker");
+
+        if(worker.fluent_english)
+            positives.push("Fluent English");
+
+
+        const supporting = [];
+
+        if(worker.driver_licence_available)
+            supporting.push("Driver licence ID available");
+
+        if(worker.passport_id_available)
+            supporting.push("Passport ID available");
+
+        if(worker.address_documentation_available)
+            supporting.push("Address documentation available");
+
+        if(worker.address_over_two_years)
+            supporting.push("Current address over two years");
+
+        if(worker.qualification_evidence_available)
+            supporting.push("Qualification / certification evidence available");
+
+
+        card.innerHTML = `
+
+            <div class="status">
+                ${escapeHtml(worker.profile_status)}
+            </div>
+
+            <div class="private-box">
+
+                <strong>VOCC PRIVATE — ADMIN INFORMATION</strong>
+
+                <hr>
+
+                <div class="field">
+                    <span class="label">Display Name:</span>
+                    ${escapeHtml(worker.display_name)}
+                </div>
+
+                <div class="field">
+                    <span class="label">Email:</span>
+                    ${escapeHtml(worker.email)}
+                </div>
+
+                <div class="field">
+                    <span class="label">Phone:</span>
+                    ${escapeHtml(worker.phone || "Not supplied")}
+                </div>
+
+                <div class="field">
+                    <span class="label">Region:</span>
+                    ${escapeHtml(worker.region || "Not supplied")}
+                </div>
+
+                <div class="field">
+                    <span class="label">Town / City:</span>
+                    ${escapeHtml(worker.town_city || "Not supplied")}
+                </div>
+
+                <div class="field">
+                    <span class="label">Submitted:</span>
+                    ${submitted}
+                </div>
+
+                <div class="field">
+                    <span class="label">Work entitlement declaration:</span>
+                    ${worker.entitled_to_work_nz ? "✔ Confirmed" : "⚠ NOT CONFIRMED"}
+                </div>
+
+                <div class="field">
+                    <span class="label">Applicant declaration:</span>
+                    ${worker.applicant_declaration ? "✔ Confirmed" : "⚠ NOT CONFIRMED"}
+                </div>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <strong>WORKER PROFILE</strong>
+
+                <hr>
+
+                <div class="field">
+                    <span class="label">About Me:</span><br>
+                    ${escapeHtml(worker.about_me || "Not supplied")}
+                </div>
+
+                <div class="field">
+                    <span class="label">JobsNZ Pathways:</span><br>
+                    ${escapeHtml(pathways.join(", ") || "None selected")}
+                </div>
+
+                <div class="field">
+                    <span class="label">Work Types:</span><br>
+                    ${escapeHtml(workTypes.join(", ") || "None selected")}
+                </div>
+
+                <div class="field">
+                    <span class="label">Experience:</span>
+                    ${escapeHtml(formatExperience(worker.experience_level))}
+                </div>
+
+                <hr>
+
+                <div class="field">
+                    <span class="label">Positive Profile Statements:</span><br>
+                    ${
+                        positives.length
+                            ? positives.map(item =>
+                                `<span class="positive-item">${escapeHtml(item)}</span>`
+                              ).join("")
+                            : "None selected"
+                    }
+                </div>
+
+                <hr>
+
+                <div class="field">
+                    <span class="label">Supporting Information Available:</span><br>
+                    ${
+                        supporting.length
+                            ? supporting.map(item =>
+                                `<span class="positive-item">${escapeHtml(item)}</span>`
+                              ).join("")
+                            : "None selected"
+                    }
+                </div>
+
+                <hr>
+
+                <div class="field">
+                    <span class="label">Job Search Activity Report:</span>
+                    ${worker.job_search_report_opt_in
+                        ? "Opted in"
+                        : "Not requested"}
+                </div>
+
+            </div>
+
+
+            <label class="label">
+                VOCC Review Notes
+            </label>
+
+            <textarea
+                class="review-note"
+                id="notes-${worker.id}"
+                placeholder="Optional internal review notes"></textarea>
+
+
+            <button
+                class="approve-btn"
+                onclick="reviewWorker('${worker.id}','APPROVED')">
+                ✔ Approve
+            </button>
+
+            <button
+                class="changes-btn"
+                onclick="reviewWorker('${worker.id}','NEEDS_CHANGES')">
+                ↩ Needs Changes
+            </button>
+
+            <button
+                class="reject-btn"
+                onclick="reviewWorker('${worker.id}','REJECTED')">
+                ✖ Reject
+            </button>
+        `;
+
+        workerList.appendChild(card);
+    });
+}
+
+
+/* =========================================================
+   REVIEW WORKER
+========================================================= */
+
+async function reviewWorker(id,newStatus){
+
+    const {
+        data:{session}
+    } =
+        await jobsNZSupabase.auth.getSession();
+
+    if(!session){
+
+        alert(
+            "Your admin session has expired."
+        );
+
+        return;
+    }
+
+
+    let actionText = newStatus;
+
+    if(newStatus === "APPROVED")
+        actionText = "APPROVE";
+
+    if(newStatus === "NEEDS_CHANGES")
+        actionText = "MARK AS NEEDS CHANGES";
+
+    if(newStatus === "REJECTED")
+        actionText = "REJECT";
+
+
+    const confirmed =
+        confirm(
+            actionText +
+            " this worker profile?"
+        );
+
+    if(!confirmed)
+        return;
+
+
+    const notesElement =
+        document.getElementById(
+            "notes-" + id
+        );
+
+    const reviewNotes =
+        notesElement
+            ? notesElement.value.trim()
+            : "";
+
+
+    const {error} =
+        await jobsNZSupabase
+        .from("worker_profiles")
+        .update({
+
+            profile_status:newStatus,
+
+            reviewed_at:
+                new Date().toISOString(),
+
+            reviewed_by:
+                session.user.email,
+
+            review_notes:
+                reviewNotes || null,
+
+            human_review_required:false
+
+        })
+        .eq("id",id)
+        .eq("profile_status","PENDING_REVIEW");
+
+
+    if(error){
+
+        console.error(
+            "Worker review update error:",
+            error
+        );
+
+        alert(
+            "The worker profile could not be updated.\n\n" +
+            error.message
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Worker profile updated ✔\n\n" +
+        "Status: " + newStatus
+    );
+
+    await loadWorkers();
+}
+
+
+/* =========================================================
+   EXPERIENCE DISPLAY
+========================================================= */
+
+function formatExperience(value){
+
+    if(value === "ENTRY_LEVEL")
+        return "Entry-level";
+
+    if(value === "EXPERIENCED")
+        return "Experienced";
+
+    if(value === "PREFER_NOT_DISPLAY")
+        return "Prefer not to display";
+
+    return "Not supplied";
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout(){
+
+    await jobsNZSupabase.auth.signOut();
+
+    document.getElementById("adminPanel").style.display =
+        "none";
+
+    document.getElementById("loginBox").style.display =
+        "block";
+
+    document.getElementById("workerList").innerHTML =
+        "";
+}
+
+
+/* =========================================================
+   SECURITY / DISPLAY
+========================================================= */
+
+function escapeHtml(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+checkExistingSession();
+
+</script>
+
+</body>
+</html>
