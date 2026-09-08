@@ -404,210 +404,127 @@ textarea{
         <!-- BASIC WORKER PROFILE -->
         <section class="form-panel">
 
-            <h2>About You</h2>
+           <!-- ABOUT YOU -->
+<section class="form-panel">
 
-            <p class="help">
-                Start by providing your basic contact and location information.
-                Your private contact details will not be displayed publicly by default.
-            </p>
-
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label for="displayName">
-                        Display Name <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="displayName"
-                        name="displayName"
-                        required
-                        maxlength="100"
-                        autocomplete="name">
-                </div>
-
-                <div class="form-group">
-                    <label for="region">
-                        Region <span class="required">*</span>
-                    </label>
-
-                    <select id="region" name="region" required>
-                        <option value="">Select your region</option>
-                        <option>Northland</option>
-                        <option>Auckland</option>
-                        <option>Waikato</option>
-                        <option>Bay of Plenty</option>
-                        <option>Gisborne</option>
-                        <option>Hawke's Bay</option>
-                        <option>Taranaki</option>
-                        <option>Manawatū-Whanganui</option>
-                        <option>Wellington</option>
-                        <option>Tasman</option>
-                        <option>Nelson</option>
-                        <option>Marlborough</option>
-                        <option>West Coast</option>
-                        <option>Canterbury</option>
-                        <option>Otago</option>
-                        <option>Southland</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="townCity">
-                        Town / City
-                    </label>
-
-                    <input
-                        type="text"
-                        id="townCity"
-                        name="townCity"
-                        maxlength="100">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">
-                        Email Address <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        autocomplete="email">
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">
-                        Phone
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        autocomplete="tel">
-                </div>
-                 <h2>Experience & Information Available</h2>
+    <h2>About You</h2>
 
     <p class="help">
-        You can choose what you would like prospective employers to know.
-        You are not required to upload identification documents to your public JobsNZ profile.
+        Start by providing your basic contact and location information.
+        Your private contact details will not be displayed publicly by default.
     </p>
 
-    <h3 style="color:#FFD54F; margin-top:0;">
-        Experience Level
-    </h3>
+    <div class="form-grid">
 
-    <div class="experience-list">
+        <div class="form-group">
+            <label for="displayName">
+                Display Name <span class="required">*</span>
+            </label>
 
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="ENTRY_LEVEL">
-            <span><strong>Entry-level</strong></span>
-        </label>
+            <input
+                type="text"
+                id="displayName"
+                name="displayName"
+                required
+                maxlength="100"
+                autocomplete="name">
+        </div>
 
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="EXPERIENCED">
-            <span><strong>Experienced</strong></span>
-        </label>
+        <div class="form-group">
+            <label for="region">
+                Region <span class="required">*</span>
+            </label>
 
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="PREFER_NOT_DISPLAY">
-            <span><strong>Prefer not to display</strong></span>
-        </label>
+            <select id="region" name="region" required>
+                <option value="">Select your region</option>
+                <option>Northland</option>
+                <option>Auckland</option>
+                <option>Waikato</option>
+                <option>Bay of Plenty</option>
+                <option>Gisborne</option>
+                <option>Hawke's Bay</option>
+                <option>Taranaki</option>
+                <option>Manawatū-Whanganui</option>
+                <option>Wellington</option>
+                <option>Tasman</option>
+                <option>Nelson</option>
+                <option>Marlborough</option>
+                <option>West Coast</option>
+                <option>Canterbury</option>
+                <option>Otago</option>
+                <option>Southland</option>
+            </select>
+        </div>
 
-    </div>
+        <div class="form-group">
+            <label for="townCity">Town / City</label>
 
-    <h3 style="color:#FFD54F; margin-top:24px;">
-        Supporting information available
-    </h3>
+            <input
+                type="text"
+                id="townCity"
+                name="townCity"
+                maxlength="100">
+        </div>
 
-    <p class="help">
-        Select any information you could provide directly to an employer if appropriately requested during recruitment.
-    </p>
+        <div class="form-group">
+            <label for="email">
+                Email Address <span class="required">*</span>
+            </label>
 
-    <div class="supporting-info-list">
+            <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email">
+        </div>
 
-        <label class="supporting-info-option">
-            <input type="checkbox" name="driver_licence_available" value="true">
-            <span>Current driver licence identification available.</span>
-        </label>
+        <div class="form-group">
+            <label for="phone">Phone</label>
 
-        <label class="supporting-info-option">
-            <input type="checkbox" name="passport_id_available" value="true">
-            <span>Passport identification available.</span>
-        </label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel">
+        </div>
 
-        <label class="supporting-info-option">
-            <input type="checkbox" name="address_documentation_available" value="true">
-            <span>Address documentation available.</span>
-        </label>
+        <div class="form-group full">
+            <label for="aboutMe">About Me</label>
 
-        <label class="supporting-info-option">
-            <input type="checkbox" name="address_over_two_years" value="true">
-            <span>I have lived at my current address for more than two years.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="qualification_evidence_available" value="true">
-            <span>Qualification or certification evidence available.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="reference_available" value="true">
-            <span>Work or character references available.</span>
-        </label>
+            <textarea
+                id="aboutMe"
+                name="aboutMe"
+                maxlength="1500"
+                placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
+        </div>
 
     </div>
 
     <div class="privacy-note">
-        <strong>Protect your identity:</strong>
-        Do not place passport numbers, driver licence numbers, IRD numbers,
-        your full home address or other sensitive identification information
-        in your public profile or About Me section.
+        <strong>Privacy:</strong>
+        Your email address, phone number and other private contact
+        information are collected for JobsNZ administration and are
+        not intended to appear on your public worker profile.
     </div>
 
 </section>
-                <div class="form-group full">
-                    <label for="aboutMe">
-                        About Me
-                    </label>
 
-                    <textarea
-                        id="aboutMe"
-                        name="aboutMe"
-                        maxlength="1500"
-                        placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
-                </div>
-                            </div>
 
-            <div class="privacy-note">
-                <strong>Privacy:</strong>
-                Your email address, phone number and other private contact
-                information are collected for JobsNZ administration and are
-                not intended to appear on your public worker profile.
-            </div>
-
-        </section>
-
-<!-- EXPERIENCE & INFORMATION AVAILABLE -->
-<section class="form-panel">
-
-   
-
-  <!-- OPTIONAL PROFILE INFORMATION -->
+<!-- OPTIONAL PROFILE INFORMATION -->
 <section class="form-panel">
 
     <h2>Optional Profile Information</h2>
 
     <p class="help">
-        The statements below are optional. They are designed to help you tell prospective employers more about yourself and what you can offer.
+        The statements below are optional. They are designed to help you tell
+        prospective employers more about yourself and what you can offer.
     </p>
 
     <div class="privacy-note">
         <strong>Only the statements you choose will appear on your public JobsNZ profile.</strong><br>
-        If you leave a question unticked, nothing will be displayed. It will not appear as “No”.
+        If you leave a question unticked, nothing will be displayed.
+        It will not appear as “No”.
     </div>
 
     <div class="optional-profile-list">
@@ -655,17 +572,92 @@ textarea{
     </div>
 
 </section>
-            </div>
 
-            <div class="privacy-note">
-                <strong>Privacy:</strong>
-                Your email address, phone number and other private contact
-                information are collected for JobsNZ administration and are
-                not intended to appear on your public worker profile.
-            </div>
 
-        </section>
+<!-- EXPERIENCE & INFORMATION AVAILABLE -->
+<section class="form-panel">
 
+    <h2>Experience & Information Available</h2>
+
+    <p class="help">
+        You can choose what you would like prospective employers to know.
+        You are not required to upload identification documents to your public JobsNZ profile.
+    </p>
+
+    <h3 style="color:#FFD54F; margin-top:0;">
+        Experience Level
+    </h3>
+
+    <div class="experience-list">
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="ENTRY_LEVEL">
+            <span><strong>Entry-level</strong></span>
+        </label>
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="EXPERIENCED">
+            <span><strong>Experienced</strong></span>
+        </label>
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="PREFER_NOT_DISPLAY">
+            <span><strong>Prefer not to display</strong></span>
+        </label>
+
+    </div>
+
+    <h3 style="color:#FFD54F; margin-top:24px;">
+        Supporting information available
+    </h3>
+
+    <p class="help">
+        Select any information you could provide directly to an employer
+        if appropriately requested during recruitment.
+    </p>
+
+    <div class="supporting-info-list">
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="driver_licence_available" value="true">
+            <span>Current driver licence identification available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="passport_id_available" value="true">
+            <span>Passport identification available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="address_documentation_available" value="true">
+            <span>Address documentation available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="address_over_two_years" value="true">
+            <span>I have lived at my current address for more than two years.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="qualification_evidence_available" value="true">
+            <span>Qualification or certification evidence available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="reference_available" value="true">
+            <span>Work or character references available.</span>
+        </label>
+
+    </div>
+
+    <div class="privacy-note">
+        <strong>Protect your identity:</strong>
+        Do not place passport numbers, driver licence numbers, IRD numbers,
+        your full home address or other sensitive identification information
+        in your public profile or About Me section.
+    </div>
+
+</section>
     </form>
 
 </div>
