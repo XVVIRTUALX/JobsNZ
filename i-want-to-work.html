@@ -130,9 +130,41 @@ textarea{
     line-height:1.5;
     color:#e8e8e8;
 }
+.pathway-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
 
+.pathway-option{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:#171f26;
+    border:1px solid #34414b;
+    border-radius:8px;
+    padding:16px;
+    cursor:pointer;
+    line-height:1.45;
+}
+
+.pathway-option:hover{
+    border-color:#FFD54F;
+}
+
+.pathway-option input{
+    width:auto;
+    margin-top:4px;
+    transform:scale(1.2);
+}
+
+.pathway-option strong{
+    color:#FFD54F;
+}
 @media(max-width:700px){
-
+.pathway-list{
+    grid-template-columns:1fr;
+}
     .container{
         width:calc(100% - 24px);
     }
@@ -179,7 +211,69 @@ textarea{
     </div>
 
     <form id="workerProfileForm">
+<!-- WORK PATHWAYS -->
+<section class="form-panel">
 
+    <h2>Where would you like to work?</h2>
+
+    <p class="help">
+        Choose one or more JobsNZ pathways that interest you.
+        You can select several.
+    </p>
+
+    <div class="pathway-list">
+
+        <label class="pathway-option">
+            <input type="checkbox" name="work_anywhere" value="true">
+            <span>
+                <strong>Anywhere on JobsNZ</strong><br>
+                Open to suitable work opportunities across the JobsNZ platform.
+            </span>
+        </label>
+
+        <label class="pathway-option">
+            <input type="checkbox" name="immediate_painters" value="true">
+            <span>
+                <strong>Immediate Painters</strong><br>
+                Painting work and painting-related opportunities.
+            </span>
+        </label>
+
+        <label class="pathway-option">
+            <input type="checkbox" name="odd_jobs" value="true">
+            <span>
+                <strong>Odd Jobs</strong><br>
+                Casual, seasonal, short-term and one-off work.
+            </span>
+        </label>
+
+        <label class="pathway-option">
+            <input type="checkbox" name="care_assist" value="true">
+            <span>
+                <strong>Care Assist</strong><br>
+                Care and support work opportunities.
+            </span>
+        </label>
+
+        <label class="pathway-option">
+            <input type="checkbox" name="vocc" value="true">
+            <span>
+                <strong>VOCC</strong><br>
+                Administration, online support and business-service opportunities.
+            </span>
+        </label>
+
+        <label class="pathway-option">
+            <input type="checkbox" name="volunteer" value="true">
+            <span>
+                <strong>Volunteer Opportunities</strong><br>
+                Genuine volunteer opportunities available through JobsNZ.
+            </span>
+        </label>
+
+    </div>
+
+</section>
         <!-- BASIC WORKER PROFILE -->
         <section class="form-panel">
 
