@@ -194,7 +194,45 @@ textarea{
 .work-type-option strong{
     color:#FFD54F;
 }
+    /* ===== OPTIONAL PROFILE INFORMATION ===== */
+
+.optional-profile-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+}
+
+.optional-profile-option{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:#171f26;
+    border:1px solid #34414b;
+    border-radius:8px;
+    padding:15px;
+    cursor:pointer;
+    line-height:1.45;
+}
+
+.optional-profile-option:hover{
+    border-color:#FFD54F;
+}
+
+.optional-profile-option input{
+    width:auto;
+    margin-top:4px;
+    transform:scale(1.2);
+}
+
+.optional-profile-option span{
+    color:#ffffff;
+       }
 @media(max-width:700px){
+
+    .optional-profile-list{
+        grid-template-columns:1fr;
+    }
 .pathway-list{
     grid-template-columns:1fr;
 }
@@ -457,7 +495,65 @@ textarea{
                         maxlength="1500"
                         placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
                 </div>
+<!-- OPTIONAL PROFILE INFORMATION -->
+<section class="form-panel">
 
+    <h2>Optional Profile Information</h2>
+
+    <p class="help">
+        The statements below are optional. They are designed to help you tell prospective employers more about yourself and what you can offer.
+    </p>
+
+    <div class="privacy-note">
+        <strong>Only the statements you choose will appear on your public JobsNZ profile.</strong><br>
+        If you leave a question unticked, nothing will be displayed. It will not appear as “No”.
+    </div>
+
+    <div class="optional-profile-list">
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="reliable_transport" value="true">
+            <span>I have reliable transport or reliable access to transport.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="physically_able" value="true">
+            <span>I am physically able to undertake the type of work I am seeking.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="available_immediately" value="true">
+            <span>I am available to start work immediately.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="can_travel_to_work" value="true">
+            <span>I can reliably travel to the workplace or job location.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="willing_drug_test" value="true">
+            <span>I am willing to complete a drug test where lawfully and appropriately required.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="reference_available" value="true">
+            <span>I can provide a work or character reference.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="reliable_hard_worker" value="true">
+            <span>I consider myself reliable and a hard worker.</span>
+        </label>
+
+        <label class="optional-profile-option">
+            <input type="checkbox" name="fluent_english" value="true">
+            <span>I speak fluent English.</span>
+        </label>
+
+    </div>
+
+</section>
             </div>
 
             <div class="privacy-note">
