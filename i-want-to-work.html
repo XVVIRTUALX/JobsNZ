@@ -1158,6 +1158,112 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
+    const workerForm = document.getElementById("workerProfileForm");
+const submitButton = document.getElementById("submitWorkerProfile");
+const formMessage = document.getElementById("formMessage");
+
+workerForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    formMessage.textContent = "";
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    const checked = (name) =>
+        workerForm.querySelector(`[name="${name}"]`)?.checked || false;
+
+    const experience =
+        workerForm.querySelector('input[name="experience_level"]:checked');
+
+    const workerProfile = {
+
+        // WORKER
+        display_name: document.getElementById("displayName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim() || null,
+        region: document.getElementById("region").value,
+        town_city: document.getElementById("townCity").value.trim() || null,
+
+        // WHAT WORK THEY WANT
+        work_anywhere: checked("work_anywhere"),
+        immediate_painters: checked("immediate_painters"),
+        odd_jobs: checked("odd_jobs"),
+        care_assist: checked("care_assist"),
+        vocc: checked("vocc"),
+        volunteer: checked("volunteer"),
+        barter: false,
+
+        // WORK TYPE
+        full_time: checked("full_time"),
+        part_time: checked("part_time"),
+        permanent_work: checked("permanent_work"),
+        contract_work: checked("contract_work"),
+        casual_work: checked("casual_work"),
+        seasonal_work: checked("seasonal_work"),
+        one_off_work: checked("one_off_work"),
+
+        // PROFILE
+        about_me: document.getElementById("aboutMe").value.trim() || null,
+
+        // OPTIONAL PROFILE INFORMATION
+        reliable_transport: checked("reliable_transport"),
+        physically_able: checked("physically_able"),
+        available_immediately: checked("available_immediately"),
+        can_travel_to_work: checked("can_travel_to_work"),
+        willing_drug_test: checked("willing_drug_test"),
+        reference_available: checked("reference_available"),
+        reliable_hard_worker: checked("reliable_hard_worker"),
+        fluent_english: checked("fluent_english"),
+
+        // EXPERIENCE
+        experience_level: experience ? experience.value : null,
+
+        // SUPPORTING INFORMATION
+        driver_licence_available: checked("driver_licence_available"),
+        passport_id_available: checked("passport_id_available"),
+        address_documentation_available: checked("address_documentation_available"),
+        address_over_two_years: checked("address_over_two_years"),
+        qualification_evidence_available: checked("qualification_evidence_available"),
+
+        // REQUIRED DECLARATIONS
+        entitled_to_work_nz: checked("entitled_to_work_nz"),
+        applicant_declaration: checked("applicant_declaration"),
+        declaration_at: new Date().toISOString(),
+
+        // OPTIONAL JOB SEARCH REPORT
+        job_search_report_opt_in: checked("job_search_report_opt_in")
+    };
+
+    try {
+
+        const { error } = await supabaseClient
+            .from("worker_profiles")
+            .insert([workerProfile]);
+
+        if (error) {
+            throw error;
+        }
+
+        formMessage.textContent =
+            "✔ Your JobsNZ worker profile has been submitted successfully and is awaiting review.";
+
+        workerForm.reset();
+
+    } catch (error) {
+
+        console.error("JobsNZ worker profile submission error:", error);
+
+        formMessage.textContent =
+            "Your worker profile could not be submitted. Please try again.";
+
+    } finally {
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Worker Profile";
+    }
+
+});
 );
 </script>
 </body>
