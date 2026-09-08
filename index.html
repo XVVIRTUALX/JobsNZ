@@ -222,7 +222,41 @@ body{
     margin-top: 40px;
 }
 }
+/* ===== JOBSNZ SERVICE VIDEOS ===== */
 
+.service-video{
+    width:100%;
+    max-width:650px;
+    margin:20px auto;
+}
+
+.service-video video{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:10px;
+    background:#000;
+}
+
+.service-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:flex-end;
+    margin-top:18px;
+}
+
+.service-buttons .btn{
+    float:none;
+}
+
+@media(max-width:700px){
+
+    .service-buttons{
+        justify-content:center;
+    }
+
+}
 </style>
 </head>
 
@@ -283,46 +317,142 @@ body{
 <!-- PAGE CONTENT -->
        
     <!-- Add more panels here for other apps -->
-  </div>
-<!-- 3 ADD INDUSTRY -->
-            <div class="panel">
-              <h2>JobsNZ Industry Membership</h2>
+  </div><!-- ===== JOBSNZ MAIN WORK OPTIONS ===== -->
 
-<p>
-Join JobsNZ during our startup phase for just <strong>$9 per year</strong>.
-</p>
 
-<p>
-Your membership includes <strong>1 job listing</strong>.
-Additional approved job listings are <strong>$9 each</strong>.
-</p>
+<!-- 1 ALL JOBS -->
+<div class="panel">
+    <h2>ALL JOBS</h2>
 
-<p>
-All job listings are reviewed before publication.
-</p>
+    <p>
+        Find work opportunities across New Zealand.
+    </p>
 
-<a href="industry-registration.html">Join JobsNZ Industry Membership</a>
-        
+    <p style="margin-top:10px;">
+        Full-time • Part-time • Permanent • Contract • Casual • Seasonal • One-off • Odd Jobs
+    </p>
+
+    <a href="all-jobs.html" class="btn app-btn">
+        View All Jobs
+    </a>
 </div>
 
 
-</body>
-    </div>
-<!-- LEFT COLUMN -->
-<div>
-                <!-- 1 ODD JOBS -->
-            <div class="panel">
-                <a href="odd-jobs/index.html" class="btn app-btn">Get Started</a>
-                        <h2>Odd-Jobs NZ</h2>
-                <p>Find workers for everyday jobs NZ-wide.</p>
-            </div>
+<!-- 2 I WANT TO WORK -->
+<div class="panel">
+    <h2>I WANT TO WORK</h2>
 
-         <!-- 2 IMMEDIATE PAINTERS -->
-            <div class="panel">
-                <a href="immediate-painters/index.html" class="btn app-btn">Get Started</a>
-                <h2>Immediate Painters</h2>
-                <p>Connect with painters ready to work now.</p>
-            </div>
+    <p>
+        Looking for work? Create your JobsNZ worker profile and
+        let potential employers see what you can offer.
+    </p>
+
+    <p style="margin-top:10px;">
+        Choose the opportunities that interest you:
+        Anywhere on JobsNZ • Immediate Painters • Odd Jobs •
+        Care Assist • VOCC • Volunteer Opportunities
+    </p>
+
+    <p style="margin-top:10px; font-size:0.9em;">
+        Profile questions are optional and designed to help you
+        present yourself positively to potential employers.
+        Only the statements you choose will appear on your public profile.
+    </p>
+
+    <p style="margin-top:10px; font-size:0.9em;">
+        Workers can also choose to receive a personal JobsNZ
+        Job Search Activity Report showing applications made through JobsNZ.
+        This feature is optional and private.
+    </p>
+
+    <a href="i-want-to-work.html" class="btn app-btn">
+        I Want to Work
+    </a>
+</div>
+
+
+<!-- 3 ODD JOBS -->
+<div class="panel">
+
+    <h2>ODD JOBS — FREE</h2>
+
+    <p>
+        Need someone for a casual, seasonal, short-term or one-off job?
+    </p>
+
+    <div class="service-video">
+        <video controls preload="metadata">
+            <source src="video3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="service-buttons">
+
+        <a href="odd-jobs/index.html" class="btn app-btn">
+            Post an Odd Job
+        </a>
+
+        <a href="worker-jobs.html" class="btn app-btn">
+            View Odd Jobs
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- 4 IMMEDIATE PAINTERS -->
+<div class="panel">
+
+    <h2>Immediate Painters</h2>
+
+    <p>
+        Connect with painting services and painting work opportunities.
+    </p>
+
+    <p style="margin-top:10px;">
+        Workers interested in painting opportunities can register through
+        the JobsNZ I WANT TO WORK section.
+    </p>
+
+    <a href="immediate-painters/index.html" class="btn app-btn">
+        Immediate Painters
+    </a>
+
+</div>
+
+
+<!-- 5 EMPLOYERS & BUSINESSES -->
+<div class="panel">
+
+    <h2>EMPLOYERS &amp; BUSINESSES</h2>
+
+    <p>
+        Advertise full-time, part-time, permanent, contract and
+        ongoing work opportunities through JobsNZ.
+    </p>
+
+    <p style="margin-top:10px;">
+        Join JobsNZ during our 2026 startup phase for
+        <strong>$9 per year</strong>.
+    </p>
+
+    <p style="margin-top:10px;">
+        Membership includes <strong>1 approved job listing</strong>.
+        Additional approved job listings are currently <strong>$9 each</strong>.
+    </p>
+
+    <p style="margin-top:10px;">
+        2026 approved Industry Members receive
+        <strong>Gold Founding Member recognition</strong>.
+    </p>
+
+    <a href="industry-registration.html" class="btn app-btn">
+        Join JobsNZ
+    </a>
+
+</div>
 
             <!-- ===== HIDDEN JOBSNZ SUPPORT SERVICES - FUTURE USE =====
      CV, Cover Letter, Business Card, Branding,
