@@ -257,6 +257,58 @@ body{
     }
 
 }
+    /* ===== COMPACT ODD JOBS PANEL ===== */
+
+.odd-jobs-panel{
+    display:grid;
+    grid-template-columns:1fr 220px 260px;
+    gap:20px;
+    align-items:center;
+}
+
+.odd-jobs-info h2{
+    margin-bottom:8px;
+}
+
+.odd-jobs-video video{
+    width:100%;
+    max-height:180px;
+    object-fit:contain;
+    display:block;
+    border-radius:8px;
+    background:#000;
+}
+
+.odd-jobs-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.odd-jobs-buttons .btn{
+    float:none;
+    text-align:center;
+}
+
+
+/* MOBILE */
+@media(max-width:800px){
+
+    .odd-jobs-panel{
+        display:block;
+    }
+
+    .odd-jobs-video{
+        max-width:300px;
+        margin:15px auto;
+    }
+
+    .odd-jobs-buttons{
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
 </style>
 </head>
 
@@ -372,21 +424,24 @@ body{
 <!-- 3 ODD JOBS -->
 <div class="panel">
 
-    <h2>ODD JOBS — FREE</h2>
+    <!-- 3 ODD JOBS -->
+<div class="panel odd-jobs-panel">
 
-    <p>
-        Need someone for a casual, seasonal, short-term or one-off job?
-    </p>
+    <div class="odd-jobs-info">
+        <h2>ODD JOBS — FREE</h2>
+        <p>
+            Need someone for a casual, seasonal, short-term or one-off job?
+        </p>
+    </div>
 
-    <div class="service-video">
+    <div class="odd-jobs-video">
         <video controls preload="metadata">
             <source src="video3.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
-    <div class="service-buttons">
-
+    <div class="odd-jobs-buttons">
         <a href="odd-jobs/index.html" class="btn app-btn">
             Post an Odd Job
         </a>
@@ -394,11 +449,9 @@ body{
         <a href="worker-jobs.html" class="btn app-btn">
             View Odd Jobs
         </a>
-
     </div>
 
 </div>
-
 
 <!-- 4 IMMEDIATE PAINTERS -->
 <div class="panel">
