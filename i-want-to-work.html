@@ -328,7 +328,43 @@ textarea{
 .declaration-option strong{
     color:#FFD54F;
 }
-    
+/* ===== JOB SEARCH ACTIVITY REPORT ===== */
+
+.report-option{
+    margin-top:18px;
+    margin-bottom:18px;
+}
+
+.report-option label{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:#171f26;
+    border:1px solid #34414b;
+    border-radius:8px;
+    padding:18px;
+    cursor:pointer;
+    line-height:1.5;
+}
+
+.report-option label:hover{
+    border-color:#FFD54F;
+}
+
+.report-option input{
+    width:auto;
+    margin-top:4px;
+    flex:0 0 auto;
+    transform:scale(1.2);
+}
+
+.report-option span{
+    flex:1;
+}
+
+.report-option strong{
+    color:#FFD54F;
+}    
 @media(max-width:700px){
     .experience-list{
     grid-template-columns:1fr;
@@ -811,53 +847,7 @@ textarea{
     </div>
 
 </section>
-<!-- OPTIONAL JOB SEARCH ACTIVITY REPORT -->
-<section class="form-panel">
 
-    <h2>Job Search Activity Report — Optional</h2>
-
-    <p class="help">
-        Workers have told us they would like an easy way to keep a record
-        of the jobs they have applied for.
-    </p>
-
-    <p>
-        JobsNZ can create a personal Job Search Activity Report showing
-        applications you make through JobsNZ, including the job, date of
-        application and application status.
-    </p>
-
-    <p>
-        You can use or share your report whenever you choose.
-    </p>
-
-    <div class="report-option">
-
-        <label>
-            <input
-                type="checkbox"
-                name="job_search_report_opt_in"
-                value="true">
-
-            <span>
-                <strong>
-                    Yes, I would like JobsNZ to create my Job Search Activity Report.
-                </strong>
-            </span>
-        </label>
-
-    </div>
-
-    <div class="privacy-note">
-        <strong>Private and optional:</strong><br>
-        This service does not affect your JobsNZ profile or your ability
-        to apply for work. Your Job Search Activity Report is not displayed
-        to employers.
-        <br><br>
-        <strong>Your job-search report is for you.</strong>
-        JobsNZ does not use this feature to monitor whether you are applying
-        for enough jobs.
-    </div>
 
 </section>
 </form>
