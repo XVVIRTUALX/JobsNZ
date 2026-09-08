@@ -1,1 +1,300 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>I WANT TO WORK | JobsNZ</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:linear-gradient(135deg,#32125c,#6b32a8);
+    color:#ffffff;
+    min-height:100vh;
+}
+
+.container{
+    width:calc(100% - 40px);
+    max-width:1000px;
+    margin:0 auto;
+    padding:35px 0 60px;
+}
+
+.back-link{
+    display:inline-block;
+    color:#FFD54F;
+    text-decoration:none;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.page-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    color:#FFD54F;
+    font-size:42px;
+    margin:0 0 10px;
+}
+
+.page-header h2{
+    margin:0 0 12px;
+    font-size:21px;
+}
+
+.page-header p{
+    max-width:720px;
+    margin:0 auto;
+    line-height:1.6;
+    color:#eeeeee;
+}
+
+.form-panel{
+    background:linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #26323b;
+    border-radius:12px;
+    padding:28px;
+    margin-bottom:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.35);
+}
+
+.form-panel h2{
+    color:#FFD54F;
+    margin-top:0;
+    margin-bottom:8px;
+}
+
+.form-panel .help{
+    color:#cfd5da;
+    margin-top:0;
+    margin-bottom:22px;
+    line-height:1.5;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border-radius:6px;
+    border:1px solid #53606a;
+    background:#ffffff;
+    color:#111111;
+    font-size:16px;
+}
+
+textarea{
+    min-height:130px;
+    resize:vertical;
+}
+
+.required{
+    color:#FFD54F;
+}
+
+.privacy-note{
+    background:#171f26;
+    border-left:4px solid #FFD54F;
+    padding:14px 16px;
+    margin-top:20px;
+    line-height:1.5;
+    color:#e8e8e8;
+}
+
+@media(max-width:700px){
+
+    .container{
+        width:calc(100% - 24px);
+    }
+
+    .page-header h1{
+        font-size:34px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .form-panel{
+        padding:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="index.html" class="back-link">
+        ← Back to JobsNZ
+    </a>
+
+    <div class="page-header">
+
+        <h1>I WANT TO WORK</h1>
+
+        <h2>Create your JobsNZ worker profile</h2>
+
+        <p>
+            Tell prospective employers what you can offer and choose the
+            types of work opportunities that interest you across JobsNZ.
+        </p>
+
+    </div>
+
+    <form id="workerProfileForm">
+
+        <!-- BASIC WORKER PROFILE -->
+        <section class="form-panel">
+
+            <h2>About You</h2>
+
+            <p class="help">
+                Start by providing your basic contact and location information.
+                Your private contact details will not be displayed publicly by default.
+            </p>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="displayName">
+                        Display Name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="displayName"
+                        name="displayName"
+                        required
+                        maxlength="100"
+                        autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="region">
+                        Region <span class="required">*</span>
+                    </label>
+
+                    <select id="region" name="region" required>
+                        <option value="">Select your region</option>
+                        <option>Northland</option>
+                        <option>Auckland</option>
+                        <option>Waikato</option>
+                        <option>Bay of Plenty</option>
+                        <option>Gisborne</option>
+                        <option>Hawke's Bay</option>
+                        <option>Taranaki</option>
+                        <option>Manawatū-Whanganui</option>
+                        <option>Wellington</option>
+                        <option>Tasman</option>
+                        <option>Nelson</option>
+                        <option>Marlborough</option>
+                        <option>West Coast</option>
+                        <option>Canterbury</option>
+                        <option>Otago</option>
+                        <option>Southland</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="townCity">
+                        Town / City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="townCity"
+                        name="townCity"
+                        maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email Address <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        autocomplete="tel">
+                </div>
+
+                <div class="form-group full">
+                    <label for="aboutMe">
+                        About Me
+                    </label>
+
+                    <textarea
+                        id="aboutMe"
+                        name="aboutMe"
+                        maxlength="1500"
+                        placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
+                </div>
+
+            </div>
+
+            <div class="privacy-note">
+                <strong>Privacy:</strong>
+                Your email address, phone number and other private contact
+                information are collected for JobsNZ administration and are
+                not intended to appear on your public worker profile.
+            </div>
+
+        </section>
+
+    </form>
+
+</div>
+
+</body>
+</html>
