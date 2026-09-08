@@ -430,8 +430,7 @@ textarea{
     }
 }
 
-</style>
-</head>
+</style></head>
 
 <body>
 
@@ -454,423 +453,652 @@ textarea{
 
     </div>
 
+
     <form id="workerProfileForm">
-<!-- WORK PATHWAYS -->
-<section class="form-panel">
 
-    <h2>What work opportunities interest you?</h2>
 
-    <p class="help">
-        Choose one or more JobsNZ pathways that interest you.
-        You can select several.
-    </p>
+        <!-- =====================================
+             WORK PATHWAYS
+        ====================================== -->
 
-    <div class="pathway-list">
-
-        <label class="pathway-option">
-            <input type="checkbox" name="work_anywhere" value="true">
-            <span>
-                <strong>Anywhere on JobsNZ</strong><br>
-                Open to suitable work opportunities across the JobsNZ platform.
-            </span>
-        </label>
-
-        <label class="pathway-option">
-            <input type="checkbox" name="immediate_painters" value="true">
-            <span>
-                <strong>Immediate Painters</strong><br>
-                Painting work and painting-related opportunities.
-            </span>
-        </label>
-
-        <label class="pathway-option">
-            <input type="checkbox" name="odd_jobs" value="true">
-            <span>
-                <strong>Odd Jobs</strong><br>
-                Casual, seasonal, short-term and one-off work.
-            </span>
-        </label>
-
-        <label class="pathway-option">
-            <input type="checkbox" name="care_assist" value="true">
-            <span>
-                <strong>Care Assist</strong><br>
-                Care and support work opportunities.
-            </span>
-        </label>
-
-        <label class="pathway-option">
-            <input type="checkbox" name="vocc" value="true">
-            <span>
-                <strong>VOCC</strong><br>
-                Administration, online support and business-service opportunities.
-            </span>
-        </label>
-
-        <label class="pathway-option">
-            <input type="checkbox" name="volunteer" value="true">
-            <span>
-                <strong>Volunteer Opportunities</strong><br>
-                Genuine volunteer opportunities available through JobsNZ.
-            </span>
-        </label>
-
-    </div>
-<!-- TYPE OF WORK -->
-<section class="form-panel">
-
-    <h2>What type of work are you looking for?</h2>
-
-    <p class="help">
-        Select all the types of work you would consider.
-    </p>
-
-    <div class="work-type-list">
-
-        <label class="work-type-option">
-            <input type="checkbox" name="full_time" value="true">
-            <span><strong>Full-time</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="part_time" value="true">
-            <span><strong>Part-time</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="permanent_work" value="true">
-            <span><strong>Permanent</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="contract_work" value="true">
-            <span><strong>Contract</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="casual_work" value="true">
-            <span><strong>Casual</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="seasonal_work" value="true">
-            <span><strong>Seasonal</strong></span>
-        </label>
-
-        <label class="work-type-option">
-            <input type="checkbox" name="one_off_work" value="true">
-            <span><strong>One-off / Short-term</strong></span>
-        </label>
-
-    </div>
-
-</section>
-        <!-- BASIC WORKER PROFILE -->
         <section class="form-panel">
 
-           <!-- ABOUT YOU -->
-<section class="form-panel">
-
-    <h2>About You</h2>
-
-    <p class="help">
-        Start by providing your basic contact and location information.
-        Your private contact details will not be displayed publicly by default.
-    </p>
-
-    <div class="form-grid">
-
-        <div class="form-group">
-            <label for="displayName">
-                Display Name <span class="required">*</span>
-            </label>
-
-            <input
-                type="text"
-                id="displayName"
-                name="displayName"
-                required
-                maxlength="100"
-                autocomplete="name">
-        </div>
-
-        <div class="form-group">
-            <label for="region">
-                Region <span class="required">*</span>
-            </label>
-
-            <select id="region" name="region" required>
-                <option value="">Select your region</option>
-                <option>Northland</option>
-                <option>Auckland</option>
-                <option>Waikato</option>
-                <option>Bay of Plenty</option>
-                <option>Gisborne</option>
-                <option>Hawke's Bay</option>
-                <option>Taranaki</option>
-                <option>Manawatū-Whanganui</option>
-                <option>Wellington</option>
-                <option>Tasman</option>
-                <option>Nelson</option>
-                <option>Marlborough</option>
-                <option>West Coast</option>
-                <option>Canterbury</option>
-                <option>Otago</option>
-                <option>Southland</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="townCity">Town / City</label>
-
-            <input
-                type="text"
-                id="townCity"
-                name="townCity"
-                maxlength="100">
-        </div>
-
-        <div class="form-group">
-            <label for="email">
-                Email Address <span class="required">*</span>
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                autocomplete="email">
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Phone</label>
-
-            <input
-                type="tel"
-                id="phone"
-                name="phone"
-                autocomplete="tel">
-        </div>
-
-        <div class="form-group full">
-            <label for="aboutMe">About Me</label>
-
-            <textarea
-                id="aboutMe"
-                name="aboutMe"
-                maxlength="1500"
-                placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
-        </div>
-
-    </div>
-
-    <div class="privacy-note">
-        <strong>Privacy:</strong>
-        Your email address, phone number and other private contact
-        information are collected for JobsNZ administration and are
-        not intended to appear on your public worker profile.
-    </div>
+            <h2>What work opportunities interest you?</h2>
+
+            <p class="help">
+                Choose one or more JobsNZ pathways that interest you.
+                You can select several.
+            </p>
+
+            <div class="pathway-list">
+
+                <label class="pathway-option">
+                    <input type="checkbox" name="work_anywhere" value="true">
+                    <span>
+                        <strong>Anywhere on JobsNZ</strong><br>
+                        Open to suitable work opportunities across the JobsNZ platform.
+                    </span>
+                </label>
+
+                <label class="pathway-option">
+                    <input type="checkbox" name="immediate_painters" value="true">
+                    <span>
+                        <strong>Immediate Painters</strong><br>
+                        Painting work and painting-related opportunities.
+                    </span>
+                </label>
+
+                <label class="pathway-option">
+                    <input type="checkbox" name="odd_jobs" value="true">
+                    <span>
+                        <strong>Odd Jobs</strong><br>
+                        Casual, seasonal, short-term and one-off work.
+                    </span>
+                </label>
+
+                <label class="pathway-option">
+                    <input type="checkbox" name="care_assist" value="true">
+                    <span>
+                        <strong>Care Assist</strong><br>
+                        Care and support work opportunities.
+                    </span>
+                </label>
+
+                <label class="pathway-option">
+                    <input type="checkbox" name="vocc" value="true">
+                    <span>
+                        <strong>VOCC</strong><br>
+                        Administration, online support and business-service opportunities.
+                    </span>
+                </label>
 
-</section>
+                <label class="pathway-option">
+                    <input type="checkbox" name="volunteer" value="true">
+                    <span>
+                        <strong>Volunteer Opportunities</strong><br>
+                        Genuine volunteer opportunities available through JobsNZ.
+                    </span>
+                </label>
 
+            </div>
 
-<!-- OPTIONAL PROFILE INFORMATION -->
-<section class="form-panel">
+        </section>
 
-    <h2>Optional Profile Information</h2>
+
+        <!-- =====================================
+             TYPE OF WORK
+        ====================================== -->
+
+        <section class="form-panel">
+
+            <h2>What type of work are you looking for?</h2>
+
+            <p class="help">
+                Select all the types of work you would consider.
+            </p>
+
+            <div class="work-type-list">
+
+                <label class="work-type-option">
+                    <input type="checkbox" name="full_time" value="true">
+                    <span><strong>Full-time</strong></span>
+                </label>
+
+                <label class="work-type-option">
+                    <input type="checkbox" name="part_time" value="true">
+                    <span><strong>Part-time</strong></span>
+                </label>
+
+                <label class="work-type-option">
+                    <input type="checkbox" name="permanent_work" value="true">
+                    <span><strong>Permanent</strong></span>
+                </label>
+
+                <label class="work-type-option">
+                    <input type="checkbox" name="contract_work" value="true">
+                    <span><strong>Contract</strong></span>
+                </label>
 
-    <p class="help">
-        The statements below are optional. They are designed to help you tell
-        prospective employers more about yourself and what you can offer.
-    </p>
+                <label class="work-type-option">
+                    <input type="checkbox" name="casual_work" value="true">
+                    <span><strong>Casual</strong></span>
+                </label>
 
-    <div class="privacy-note">
-        <strong>Only the statements you choose will appear on your public JobsNZ profile.</strong><br>
-        If you leave a question unticked, nothing will be displayed.
-        It will not appear as “No”.
-    </div>
+                <label class="work-type-option">
+                    <input type="checkbox" name="seasonal_work" value="true">
+                    <span><strong>Seasonal</strong></span>
+                </label>
 
-    <div class="optional-profile-list">
+                <label class="work-type-option">
+                    <input type="checkbox" name="one_off_work" value="true">
+                    <span><strong>One-off / Short-term</strong></span>
+                </label>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="reliable_transport" value="true">
-            <span>I have reliable transport or reliable access to transport.</span>
-        </label>
+            </div>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="physically_able" value="true">
-            <span>I am physically able to undertake the type of work I am seeking.</span>
-        </label>
+        </section>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="available_immediately" value="true">
-            <span>I am available to start work immediately.</span>
-        </label>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="can_travel_to_work" value="true">
-            <span>I can reliably travel to the workplace or job location.</span>
-        </label>
+        <!-- =====================================
+             ABOUT YOU
+        ====================================== -->
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="willing_drug_test" value="true">
-            <span>I am willing to complete a drug test where lawfully and appropriately required.</span>
-        </label>
+        <section class="form-panel">
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="reference_available" value="true">
-            <span>I can provide a work or character reference.</span>
-        </label>
+            <h2>About You</h2>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="reliable_hard_worker" value="true">
-            <span>I consider myself reliable and a hard worker.</span>
-        </label>
+            <p class="help">
+                Start by providing your basic contact and location information.
+                Your private contact details will not be displayed publicly by default.
+            </p>
 
-        <label class="optional-profile-option">
-            <input type="checkbox" name="fluent_english" value="true">
-            <span>I speak fluent English.</span>
-        </label>
+            <div class="form-grid">
 
-    </div>
+                <div class="form-group">
 
-</section>
+                    <label for="displayName">
+                        Display Name <span class="required">*</span>
+                    </label>
 
+                    <input
+                        type="text"
+                        id="displayName"
+                        name="displayName"
+                        required
+                        maxlength="100"
+                        autocomplete="name">
 
-<!-- EXPERIENCE & INFORMATION AVAILABLE -->
-<section class="form-panel">
+                </div>
 
-    <h2>Experience & Information Available</h2>
-
-    <p class="help">
-        You can choose what you would like prospective employers to know.
-        You are not required to upload identification documents to your public JobsNZ profile.
-    </p>
-
-    <h3 style="color:#FFD54F; margin-top:0;">
-        Experience Level
-    </h3>
-
-    <div class="experience-list">
-
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="ENTRY_LEVEL">
-            <span><strong>Entry-level</strong></span>
-        </label>
-
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="EXPERIENCED">
-            <span><strong>Experienced</strong></span>
-        </label>
-
-        <label class="experience-option">
-            <input type="radio" name="experience_level" value="PREFER_NOT_DISPLAY">
-            <span><strong>Prefer not to display</strong></span>
-        </label>
-
-    </div>
-
-    <h3 style="color:#FFD54F; margin-top:24px;">
-        Supporting information available
-    </h3>
-
-    <p class="help">
-        Select any information you could provide directly to an employer
-        if appropriately requested during recruitment.
-    </p>
-
-    <div class="supporting-info-list">
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="driver_licence_available" value="true">
-            <span>Current driver licence identification available.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="passport_id_available" value="true">
-            <span>Passport identification available.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="address_documentation_available" value="true">
-            <span>Address documentation available.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="address_over_two_years" value="true">
-            <span>I have lived at my current address for more than two years.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="qualification_evidence_available" value="true">
-            <span>Qualification or certification evidence available.</span>
-        </label>
-
-        <label class="supporting-info-option">
-            <input type="checkbox" name="reference_available" value="true">
-            <span>Work or character references available.</span>
-        </label>
-
-    </div>
-
-    <div class="privacy-note">
-        <strong>Protect your identity:</strong>
-        Do not place passport numbers, driver licence numbers, IRD numbers,
-        your full home address or other sensitive identification information
-        in your public profile or About Me section.
-    </div>
-
-</section>
-     <!-- WORK ENTITLEMENT & APPLICANT DECLARATION -->
-<section class="form-panel">
-
-    <h2>Work Entitlement & Applicant Declaration</h2>
-
-    <p class="help">
-        The following declarations are required before your JobsNZ worker profile can be submitted.
-    </p>
-
-    <div class="declaration-list">
-
-        <label class="declaration-option">
-            <input
-                type="checkbox"
-                name="entitled_to_work_nz"
-                value="true"
-                required>
-            <span>
-                <strong>I confirm that I am currently entitled to work in New Zealand.</strong><br>
-                Employers may still ask you to provide appropriate evidence of your work entitlement during recruitment.
-            </span>
-        </label>
-
-        <label class="declaration-option">
-            <input
-                type="checkbox"
-                name="applicant_declaration"
-                value="true"
-                required>
-            <span>
-                <strong>I confirm that the information I have provided is true and accurate to the best of my knowledge.</strong><br>
-                I understand that providing false or misleading information may result in my JobsNZ profile or access being suspended or removed.
-            </span>
-        </label>
-
-    </div>
-
-    <div class="privacy-note">
-        <strong>JobsNZ records what you declare.</strong><br>
-        JobsNZ does not automatically verify your identity, qualifications,
-        references or work entitlement unless a specific verification process
-        has been completed.
-    </div>
-
-</section>
-
-
-</section>
-</form>
+
+                <div class="form-group">
+
+                    <label for="region">
+                        Region <span class="required">*</span>
+                    </label>
+
+                    <select id="region" name="region" required>
+
+                        <option value="">Select your region</option>
+                        <option>Northland</option>
+                        <option>Auckland</option>
+                        <option>Waikato</option>
+                        <option>Bay of Plenty</option>
+                        <option>Gisborne</option>
+                        <option>Hawke's Bay</option>
+                        <option>Taranaki</option>
+                        <option>Manawatū-Whanganui</option>
+                        <option>Wellington</option>
+                        <option>Tasman</option>
+                        <option>Nelson</option>
+                        <option>Marlborough</option>
+                        <option>West Coast</option>
+                        <option>Canterbury</option>
+                        <option>Otago</option>
+                        <option>Southland</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="townCity">
+                        Town / City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="townCity"
+                        name="townCity"
+                        maxlength="100">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        autocomplete="email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        autocomplete="tel">
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="aboutMe">
+                        About Me
+                    </label>
+
+                    <textarea
+                        id="aboutMe"
+                        name="aboutMe"
+                        maxlength="1500"
+                        placeholder="Tell prospective employers about your experience, skills and the type of work you are looking for."></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="privacy-note">
+
+                <strong>Privacy:</strong>
+                Your email address, phone number and other private contact
+                information are collected for JobsNZ administration and are
+                not intended to appear on your public worker profile.
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             OPTIONAL PROFILE INFORMATION
+        ====================================== -->
+
+        <section class="form-panel">
+
+            <h2>Optional Profile Information</h2>
+
+            <p class="help">
+                The statements below are optional. They are designed to help you
+                tell prospective employers more about yourself and what you can offer.
+            </p>
+
+            <div class="privacy-note">
+
+                <strong>
+                    Only the statements you choose will appear on your public JobsNZ profile.
+                </strong>
+
+                <br>
+
+                If you leave a question unticked, nothing will be displayed.
+                It will not appear as “No”.
+
+            </div>
+
+            <div class="optional-profile-list">
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="reliable_transport" value="true">
+                    <span>
+                        I have reliable transport or reliable access to transport.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="physically_able" value="true">
+                    <span>
+                        I am physically able to undertake the type of work I am seeking.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="available_immediately" value="true">
+                    <span>
+                        I am available to start work immediately.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="can_travel_to_work" value="true">
+                    <span>
+                        I can reliably travel to the workplace or job location.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="willing_drug_test" value="true">
+                    <span>
+                        I am willing to complete a drug test where lawfully
+                        and appropriately required.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="reference_available" value="true">
+                    <span>
+                        I can provide a work or character reference.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="reliable_hard_worker" value="true">
+                    <span>
+                        I consider myself reliable and a hard worker.
+                    </span>
+                </label>
+
+                <label class="optional-profile-option">
+                    <input type="checkbox" name="fluent_english" value="true">
+                    <span>
+                        I speak fluent English.
+                    </span>
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             EXPERIENCE & INFORMATION AVAILABLE
+        ====================================== -->
+
+        <section class="form-panel">
+
+            <h2>Experience & Information Available</h2>
+
+            <p class="help">
+                You can choose what you would like prospective employers to know.
+                You are not required to upload identification documents to your
+                public JobsNZ profile.
+            </p>
+
+            <h3 style="color:#FFD54F; margin-top:0;">
+                Experience Level
+            </h3>
+
+            <div class="experience-list">
+
+                <label class="experience-option">
+                    <input
+                        type="radio"
+                        name="experience_level"
+                        value="ENTRY_LEVEL">
+
+                    <span>
+                        <strong>Entry-level</strong>
+                    </span>
+                </label>
+
+                <label class="experience-option">
+                    <input
+                        type="radio"
+                        name="experience_level"
+                        value="EXPERIENCED">
+
+                    <span>
+                        <strong>Experienced</strong>
+                    </span>
+                </label>
+
+                <label class="experience-option">
+                    <input
+                        type="radio"
+                        name="experience_level"
+                        value="PREFER_NOT_DISPLAY">
+
+                    <span>
+                        <strong>Prefer not to display</strong>
+                    </span>
+                </label>
+
+            </div>
+
+
+            <h3 style="color:#FFD54F; margin-top:24px;">
+                Supporting information available
+            </h3>
+
+            <p class="help">
+                Select any information you could provide directly to an employer
+                if appropriately requested during recruitment.
+            </p>
+
+            <div class="supporting-info-list">
+
+                <label class="supporting-info-option">
+                    <input
+                        type="checkbox"
+                        name="driver_licence_available"
+                        value="true">
+
+                    <span>
+                        Current driver licence identification available.
+                    </span>
+                </label>
+
+                <label class="supporting-info-option">
+                    <input
+                        type="checkbox"
+                        name="passport_id_available"
+                        value="true">
+
+                    <span>
+                        Passport identification available.
+                    </span>
+                </label>
+
+                <label class="supporting-info-option">
+                    <input
+                        type="checkbox"
+                        name="address_documentation_available"
+                        value="true">
+
+                    <span>
+                        Address documentation available.
+                    </span>
+                </label>
+
+                <label class="supporting-info-option">
+                    <input
+                        type="checkbox"
+                        name="address_over_two_years"
+                        value="true">
+
+                    <span>
+                        I have lived at my current address for more than two years.
+                    </span>
+                </label>
+
+                <label class="supporting-info-option">
+                    <input
+                        type="checkbox"
+                        name="qualification_evidence_available"
+                        value="true">
+
+                    <span>
+                        Qualification or certification evidence available.
+                    </span>
+                </label>
+
+            </div>
+
+
+            <div class="privacy-note">
+
+                <strong>Protect your identity:</strong>
+
+                Do not place passport numbers, driver licence numbers,
+                IRD numbers, your full home address or other sensitive
+                identification information in your public profile or
+                About Me section.
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             WORK ENTITLEMENT & DECLARATION
+        ====================================== -->
+
+        <section class="form-panel">
+
+            <h2>Work Entitlement & Applicant Declaration</h2>
+
+            <p class="help">
+                The following declarations are required before your
+                JobsNZ worker profile can be submitted.
+            </p>
+
+            <div class="declaration-list">
+
+                <label class="declaration-option">
+
+                    <input
+                        type="checkbox"
+                        name="entitled_to_work_nz"
+                        value="true"
+                        required>
+
+                    <span>
+
+                        <strong>
+                            I confirm that I am currently entitled to work in New Zealand.
+                        </strong>
+
+                        <br>
+
+                        Employers may still ask you to provide appropriate
+                        evidence of your work entitlement during recruitment.
+
+                    </span>
+
+                </label>
+
+
+                <label class="declaration-option">
+
+                    <input
+                        type="checkbox"
+                        name="applicant_declaration"
+                        value="true"
+                        required>
+
+                    <span>
+
+                        <strong>
+                            I confirm that the information I have provided is
+                            true and accurate to the best of my knowledge.
+                        </strong>
+
+                        <br>
+
+                        I understand that providing false or misleading information
+                        may result in my JobsNZ profile or access being suspended
+                        or removed.
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div class="privacy-note">
+
+                <strong>
+                    JobsNZ records what you declare.
+                </strong>
+
+                <br>
+
+                JobsNZ does not automatically verify your identity,
+                qualifications, references or work entitlement unless
+                a specific verification process has been completed.
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             JOB SEARCH ACTIVITY REPORT
+        ====================================== -->
+
+        <section class="form-panel">
+
+            <h2>Job Search Activity Report — Optional</h2>
+
+            <p class="help">
+                Workers have told us they would like an easy way to keep
+                a record of the jobs they have applied for.
+            </p>
+
+            <p>
+                JobsNZ can create a personal Job Search Activity Report
+                showing applications you make through JobsNZ, including
+                the job, date of application and application status.
+            </p>
+
+            <p>
+                You can use or share your report whenever you choose.
+            </p>
+
+
+            <div class="report-option">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        name="job_search_report_opt_in"
+                        value="true">
+
+                    <span>
+
+                        <strong>
+                            Yes, I would like JobsNZ to create my
+                            Job Search Activity Report.
+                        </strong>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div class="privacy-note">
+
+                <strong>Private and optional:</strong>
+
+                <br>
+
+                This service does not affect your JobsNZ profile or
+                your ability to apply for work. Your Job Search Activity
+                Report is not displayed to employers.
+
+                <br><br>
+
+                <strong>Your job-search report is for you.</strong>
+
+                JobsNZ does not use this feature to monitor whether
+                you are applying for enough jobs.
+
+            </div>
+
+        </section>
+
+
+    </form>
 
 </div>
 
