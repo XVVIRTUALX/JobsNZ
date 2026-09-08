@@ -229,7 +229,13 @@ textarea{
     color:#ffffff;
        }
 @media(max-width:700px){
+.experience-list{
+    grid-template-columns:1fr;
+}
 
+.supporting-info-list{
+    grid-template-columns:1fr;
+}
     .optional-profile-list{
         grid-template-columns:1fr;
     }
@@ -483,7 +489,89 @@ textarea{
                         name="phone"
                         autocomplete="tel">
                 </div>
+<!-- EXPERIENCE & INFORMATION AVAILABLE -->
+<section class="form-panel">
 
+    <h2>Experience & Information Available</h2>
+
+    <p class="help">
+        You can choose what you would like prospective employers to know.
+        You are not required to upload identification documents to your public JobsNZ profile.
+    </p>
+
+    <h3 style="color:#FFD54F; margin-top:0;">
+        Experience Level
+    </h3>
+
+    <div class="experience-list">
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="ENTRY_LEVEL">
+            <span><strong>Entry-level</strong></span>
+        </label>
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="EXPERIENCED">
+            <span><strong>Experienced</strong></span>
+        </label>
+
+        <label class="experience-option">
+            <input type="radio" name="experience_level" value="PREFER_NOT_DISPLAY">
+            <span><strong>Prefer not to display</strong></span>
+        </label>
+
+    </div>
+
+    <h3 style="color:#FFD54F; margin-top:24px;">
+        Supporting information available
+    </h3>
+
+    <p class="help">
+        Select any information you could provide directly to an employer if appropriately requested during recruitment.
+    </p>
+
+    <div class="supporting-info-list">
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="driver_licence_available" value="true">
+            <span>Current driver licence identification available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="passport_id_available" value="true">
+            <span>Passport identification available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="address_documentation_available" value="true">
+            <span>Address documentation available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="address_over_two_years" value="true">
+            <span>I have lived at my current address for more than two years.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="qualification_evidence_available" value="true">
+            <span>Qualification or certification evidence available.</span>
+        </label>
+
+        <label class="supporting-info-option">
+            <input type="checkbox" name="reference_available" value="true">
+            <span>Work or character references available.</span>
+        </label>
+
+    </div>
+
+    <div class="privacy-note">
+        <strong>Protect your identity:</strong>
+        Do not place passport numbers, driver licence numbers, IRD numbers,
+        your full home address or other sensitive identification information
+        in your public profile or About Me section.
+    </div>
+
+</section>
                 <div class="form-group full">
                     <label for="aboutMe">
                         About Me
