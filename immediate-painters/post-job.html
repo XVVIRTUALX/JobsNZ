@@ -51,8 +51,17 @@ AND expiresAt > current date
   <label for="location">Location*</label>
   <input type="text" name="location" id="location" required>
 
-  <label for="budget">Budget (NZD)*</label>
-  <input type="number" name="budget" id="budget" required>
+ <label for="payType">Pay Type*</label>
+<select name="pay_type" id="payType" required>
+  <option value="">Select pay type</option>
+  <option value="HOURLY">Hourly Rate</option>
+  <option value="FIXED">Fixed Job Budget</option>
+  <option value="ANNUAL">Annual Salary</option>
+  <option value="NEGOTIABLE">Negotiable / Quote Requested</option>
+</select>
+
+<label for="budget">Pay / Job Budget (NZD)*</label>
+<input type="number" name="budget" id="budget" required>
 
   <label for="description">Description*</label>
   <textarea name="description" id="description" required></textarea>
