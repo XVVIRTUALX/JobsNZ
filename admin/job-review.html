@@ -309,15 +309,6 @@ if (job.marketplace === "IMMEDIATE_PAINTERS") {
   marketplaceName = job.marketplace || "Unknown";
 }
 
-
-    const budgetDisplay =
-      job.budget
-        ? `<p><strong>Budget:</strong>
-           NZ$${escapeHTML(job.budget)}</p>`
-        : "";
-
-    
-<!-- payTypeDisplay -->
     const budgetDisplay =
       job.budget
         ? `<p><strong>Budget:</strong>
@@ -329,6 +320,8 @@ if (job.marketplace === "IMMEDIATE_PAINTERS") {
         ? `<p><strong>Pay Type:</strong>
            ${escapeHTML(job.pay_type)}</p>`
         : "";
+
+    card.innerHTML = `
 
     card.innerHTML = `
 
