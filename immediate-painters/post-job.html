@@ -52,7 +52,7 @@ AND expiresAt > current date
   <input type="text" name="location" id="location" required>
 
  <label for="payType">Pay Type*</label>
-<select name="pay_type" id="payType" required>
+<select name="pay_type" id="payType" required onchange="toggleBudgetRequirement()">
   <option value="">Select pay type</option>
   <option value="HOURLY">Hourly Rate</option>
   <option value="FIXED">Fixed Job Budget</option>
@@ -141,20 +141,20 @@ document.getElementById('jobForm')
         .from('jobs')
         .insert({
 
-          marketplace: 'IMMEDIATE_PAINTERS',
+      marketplace: 'IMMEDIATE_PAINTERS',
 
-       job_title: jobTitle,
-job_location: jobLocation,
-budget: budget ? Number(budget) : null,
-pay_type: document.getElementById('payType').value,
-job_description: jobDescription,
+      job_title: jobTitle,
+      job_location: jobLocation,
+      budget: budget ? Number(budget) : null,
+      pay_type: document.getElementById('payType').value,
+      job_description: jobDescription,
 
-          contact_email: contactEmail,
-          contact_phone: contactPhone,
+      contact_email: contactEmail,
+      contact_phone: contactPhone,
 
-          status: 'PENDING_REVIEW'
+      status: 'PENDING_REVIEW'
 
-        });
+    });
 
 
     if (error) {
@@ -188,6 +188,27 @@ job_description: jobDescription,
       "Submit Job for Review";
 
   });
+  function toggleBudgetRequirement() {
+
+  const payType =
+    document.getElementById("payType").value;
+
+  const budget =
+    document.getElementById("budget");
+
+  const budgetLabel =
+    document.getElementById("budgetLabel");
+
+  if (payType === "NEGOTIABLE") {
+    budget.required = false;
+    budgetLabel.textContent =
+      "Pay / Job Budget (NZD) — Optional";
+  } else {
+    budget.required = true;
+    budgetLabel.textContent =
+      "Pay / Job Budget (NZD)*";
+  }
+}
 </script>
 
 <footer>
