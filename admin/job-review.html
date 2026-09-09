@@ -316,6 +316,19 @@ if (job.marketplace === "IMMEDIATE_PAINTERS") {
            NZ$${escapeHTML(job.budget)}</p>`
         : "";
 
+    
+<!-- payTypeDisplay -->
+    const budgetDisplay =
+      job.budget
+        ? `<p><strong>Budget:</strong>
+           NZ$${escapeHTML(job.budget)}</p>`
+        : "";
+
+    const payTypeDisplay =
+      job.pay_type
+        ? `<p><strong>Pay Type:</strong>
+           ${escapeHTML(job.pay_type)}</p>`
+        : "";
 
     card.innerHTML = `
 
