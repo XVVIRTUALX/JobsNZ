@@ -297,10 +297,17 @@ async function loadPendingJobs() {
     card.className = "job-card";
 
 
-    const marketplaceName =
-      job.marketplace === "IMMEDIATE_PAINTERS"
-        ? "Immediate Painters"
-        : "Odd-Jobs NZ";
+   let marketplaceName;
+
+if (job.marketplace === "IMMEDIATE_PAINTERS") {
+  marketplaceName = "Immediate Painters";
+} else if (job.marketplace === "INDUSTRY") {
+  marketplaceName = "JobsNZ Industry";
+} else if (job.marketplace === "ODD_JOBS") {
+  marketplaceName = "Odd Jobs NZ";
+} else {
+  marketplaceName = job.marketplace || "Unknown";
+}
 
 
     const budgetDisplay =
