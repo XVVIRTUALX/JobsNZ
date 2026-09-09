@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>All Jobs – JobsNZ</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      margin: 0;
+    }
+
+    .header {
+      background: #5b2c83;
+      color: white;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .header h1 {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
+    }
+
+    .header p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .jobs-container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .job-listing {
+      background: white;
+      margin-bottom: 20px;
+      padding: 22px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+
+    .marketplace {
+      display: inline-block;
+      font-weight: bold;
+      color: #5b2c83;
+      margin-bottom: 8px;
+    }
+
+    .job-listing h2 {
+      margin: 6px 0 15px;
+      color: #333;
+    }
+
+    .job-listing p {
+      line-height: 1.5;
+    }
+
+    .apply-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 11px 16px;
+      background: #f4c430;
+      color: #222;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .apply-link:hover {
+      opacity: 0.9;
+    }
+
+    .back-link {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .back-link a {
+      color: #5b2c83;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .message {
+      background: white;
+      text-align: center;
+      padding: 25px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="header">
+
+    <h1>ALL JOBS</h1>
+
+    <p>
+      Find approved work opportunities across New Zealand.
+    </p>
+
+    <p>
+      Full-time • Part-time • Permanent • Contract •
+      Casual • Seasonal • One-off • Odd Jobs
+    </p>
+
+  </div>
+
+
+  <div
+    class="jobs-container"
+    id="approvedJobs"
+  >
+
+    <div class="message">
+      Loading available jobs...
+    </div>
+
+  </div>
+
+
+  <div class="back-link">
+    <a href="index.html">
+      ← Back to JobsNZ
+    </a>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+
+
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+function escapeHTML(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function marketplaceName(value) {
+
+  if (value === "INDUSTRY") {
+    return "JobsNZ Industry";
+  }
+
+  if (value === "IMMEDIATE_PAINTERS") {
+    return "Immediate Painters";
+  }
+
+  if (value === "ODD_JOBS") {
+    return "Odd Jobs NZ";
+  }
+
+  return "JobsNZ";
+}
+
+
+async function loadApprovedJobs() {
+
+  const container =
+    document.getElementById(
+      "approvedJobs"
+    );
+
+
+  const { data: jobs, error } =
+    await jobsNZSupabase
+      .from("jobs")
+      .select(`
+        id,
+        marketplace,
+        job_title,
+        job_description,
+        job_location,
+        contact_email,
+        employment_type,
+        published_at,
+        expires_at
+      `)
+      .eq(
+        "status",
+        "APPROVED"
+      )
+      .gt(
+        "expires_at",
+        new Date().toISOString()
+      )
+      .order(
+        "published_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "JobsNZ All Jobs load error:",
+      error
+    );
+
+    container.innerHTML = `
+      <div class="message">
+        Unable to load available jobs at this time.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  if (!jobs || jobs.length === 0) {
+
+    container.innerHTML = `
+      <div class="message">
+        No approved jobs are currently available.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  jobs.forEach(job => {
+
+    const listing =
+      document.createElement(
+        "div"
+      );
+
+
+    listing.className =
+      "job-listing";
+
+
+    const workType =
+      job.employment_type
+        ? `
+          <p>
+            <strong>Work Type:</strong>
+            ${escapeHTML(
+              job.employment_type
+                .replaceAll("_", " ")
+            )}
+          </p>
+        `
+        : "";
+
+
+    listing.innerHTML = `
+
+      <div class="marketplace">
+        ${escapeHTML(
+          marketplaceName(
+            job.marketplace
+          )
+        )}
+      </div>
+
+
+      <h2>
+        ${escapeHTML(
+          job.job_title
+        )}
+      </h2>
+
+
+      <p>
+        <strong>Location:</strong>
+        ${escapeHTML(
+          job.job_location
+        )}
+      </p>
+
+
+      ${workType}
+
+
+      <p>
+        ${escapeHTML(
+          job.job_description
+        )}
+      </p>
+
+
+      <p>
+        <strong>Contact:</strong>
+        <a
+          href="mailto:${escapeHTML(
+            job.contact_email
+          )}"
+        >
+          ${escapeHTML(
+            job.contact_email
+          )}
+        </a>
+      </p>
+
+
+      <a
+        class="apply-link"
+        href="mailto:${escapeHTML(
+          job.contact_email
+        )}?subject=${encodeURIComponent(
+          "JobsNZ application - " +
+          job.job_title
+        )}"
+      >
+        Apply for this job
+      </a>
+
+    `;
+
+
+    container.appendChild(
+      listing
+    );
+
+  });
+
+}
+
+
+loadApprovedJobs();
+
+</script>
+
+</body>
+</html>
