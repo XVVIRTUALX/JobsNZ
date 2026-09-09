@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post an Industry Job – JobsNZ</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #5b2c83;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+      color: white;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 24px;
+      border-radius: 10px;
+      max-width: 650px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .member-check {
+      background: #f8f4ff;
+      border: 1px solid #d7c7ef;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .member-status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .submit-btn,
+    .check-btn {
+      background-color: #f4c430;
+      color: #222;
+      padding: 11px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 14px;
+    }
+
+    .submit-btn:hover,
+    .check-btn:hover {
+      opacity: 0.9;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .info {
+      font-size: 0.92em;
+      color: #555;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Post an Industry Job</h2>
+
+  <div class="form-container">
+
+    <div class="member-check">
+      <label for="member-code">
+        JobsNZ Industry Member Code
+      </label>
+
+      <input
+        type="text"
+        id="member-code"
+        placeholder="e.g. JNZ-IND-XXXXXXXXXX"
+        required
+      >
+
+      <button
+        type="button"
+        class="check-btn"
+        id="check-member-btn"
+      >
+        Check Membership
+      </button>
+
+      <div
+        id="member-status"
+        class="member-status"
+      ></div>
+    </div>
+
+
+    <form id="industry-job-form">
+
+      <label for="job-title">
+        Job Title
+      </label>
+
+      <input
+        type="text"
+        id="job-title"
+        required
+      >
+
+
+      <label for="employment-type">
+        Employment / Work Type
+      </label>
+
+      <select
+        id="employment-type"
+        required
+      >
+        <option value="">Select work type</option>
+        <option value="FULL_TIME">Full-time</option>
+        <option value="PART_TIME">Part-time</option>
+        <option value="PERMANENT">Permanent</option>
+        <option value="CONTRACT">Contract</option>
+        <option value="CASUAL">Casual</option>
+        <option value="SEASONAL">Seasonal</option>
+      </select>
+
+
+      <label for="job-description">
+        Job Description
+      </label>
+
+      <textarea
+        id="job-description"
+        rows="5"
+        required
+      ></textarea>
+
+
+      <label for="job-location">
+        Job Location
+      </label>
+
+      <input
+        type="text"
+        id="job-location"
+        placeholder="e.g. Hamilton"
+        required
+      >
+
+
+      <label for="contact-email">
+        Employer Contact Email
+      </label>
+
+      <input
+        type="email"
+        id="contact-email"
+        required
+      >
+
+
+      <label for="contact-phone">
+        Employer Contact Phone
+      </label>
+
+      <input
+        type="text"
+        id="contact-phone"
+        required
+      >
+
+
+      <p class="info">
+        <strong>Listing Review:</strong>
+        All Industry job listings are reviewed before publication.
+        Submitting a listing does not guarantee publication.
+        JobsNZ may reject, request changes to, suspend or remove listings
+        that appear unlawful, misleading, unsafe, inappropriate or
+        inconsistent with the JobsNZ Terms of Use.
+      </p>
+
+      <p class="info">
+        Your 2026 Industry Membership includes one approved job listing.
+        Additional approved listings are currently $9 each.
+      </p>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        id="submit-job-btn"
+        disabled
+      >
+        Submit Industry Job for Review
+      </button>
+
+    </form>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+
+const jobsNZSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+let verifiedMembership = null;
+
+
+const memberCodeInput =
+  document.getElementById("member-code");
+
+const memberStatus =
+  document.getElementById("member-status");
+
+const checkMemberButton =
+  document.getElementById("check-member-btn");
+
+const submitJobButton =
+  document.getElementById("submit-job-btn");
+
+
+checkMemberButton.addEventListener(
+  "click",
+  async function() {
+
+    const memberCode =
+      memberCodeInput.value.trim().toUpperCase();
+
+    verifiedMembership = null;
+
+    submitJobButton.disabled = true;
+
+    memberStatus.textContent =
+      "Checking membership...";
+
+
+    if (!memberCode) {
+
+      memberStatus.textContent =
+        "Please enter your JobsNZ Industry Member Code.";
+
+      return;
+    }
+
+
+    const { data, error } =
+      await jobsNZSupabase
+        .from("industry_memberships")
+        .select(
+          "id, business_name, member_code, status, expires_at"
+        )
+        .eq("member_code", memberCode)
+        .eq("status", "ACTIVE")
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.error(
+        "Membership check error:",
+        error
+      );
+
+      memberStatus.textContent =
+        "Membership could not be checked. Please try again.";
+
+      return;
+    }
+
+
+    if (!data) {
+
+      memberStatus.textContent =
+        "No active JobsNZ Industry Membership was found for that Member Code.";
+
+      return;
+    }
+
+
+    if (
+      data.expires_at &&
+      new Date(data.expires_at) <= new Date()
+    ) {
+
+      memberStatus.textContent =
+        "This JobsNZ Industry Membership has expired.";
+
+      return;
+    }
+
+
+    verifiedMembership = data;
+
+    memberStatus.textContent =
+      "✔ Active Industry Member: " +
+      data.business_name;
+
+    submitJobButton.disabled = false;
+
+  }
+);
+
+
+
+document
+  .getElementById("industry-job-form")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      if (!verifiedMembership) {
+
+        alert(
+          "Please confirm your active JobsNZ Industry Membership before submitting a job."
+        );
+
+        return;
+      }
+
+
+      const currentMemberCode =
+        memberCodeInput.value.trim().toUpperCase();
+
+
+      if (
+        currentMemberCode !==
+        verifiedMembership.member_code
+      ) {
+
+        verifiedMembership = null;
+
+        submitJobButton.disabled = true;
+
+        memberStatus.textContent =
+          "Membership details changed. Please check your membership again.";
+
+        return;
+      }
+
+
+      const submitButton =
+        document.getElementById(
+          "submit-job-btn"
+        );
+
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        "Submitting...";
+
+
+      const jobTitle =
+        document
+          .getElementById("job-title")
+          .value
+          .trim();
+
+      const employmentType =
+        document
+          .getElementById("employment-type")
+          .value;
+
+      const jobDescription =
+        document
+          .getElementById("job-description")
+          .value
+          .trim();
+
+      const jobLocation =
+        document
+          .getElementById("job-location")
+          .value
+          .trim();
+
+      const contactEmail =
+        document
+          .getElementById("contact-email")
+          .value
+          .trim();
+
+      const contactPhone =
+        document
+          .getElementById("contact-phone")
+          .value
+          .trim();
+
+
+      const { error } =
+        await jobsNZSupabase
+          .from("jobs")
+          .insert({
+
+            marketplace: "INDUSTRY",
+
+            job_title: jobTitle,
+
+            job_description: jobDescription,
+
+            job_location: jobLocation,
+
+            contact_email: contactEmail,
+
+            contact_phone: contactPhone,
+
+            status: "PENDING_REVIEW",
+
+            industry_member_code:
+              verifiedMembership.member_code,
+
+            industry_membership_id:
+              verifiedMembership.id,
+
+            employment_type:
+              employmentType
+
+          });
+
+
+      if (error) {
+
+        console.error(
+          "Industry job submission error:",
+          error
+        );
+
+        alert(
+          "Your Industry job could not be submitted. Please try again."
+        );
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          "Submit Industry Job for Review";
+
+        return;
+      }
+
+
+      alert(
+        "✔ Your Industry job has been submitted for JobsNZ review. It will not appear publicly until approved."
+      );
+
+
+      document
+        .getElementById(
+          "industry-job-form"
+        )
+        .reset();
+
+
+      verifiedMembership = null;
+
+      memberCodeInput.value = "";
+
+      memberStatus.textContent = "";
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        "Submit Industry Job for Review";
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
