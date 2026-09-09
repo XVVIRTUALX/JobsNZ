@@ -1,88 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Jobs – Odd Jobs NZ</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Available Jobs – JobsNZ</title>
+
   <style>
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: #f4f4f4;
       color: #333;
+      margin: 0;
+      padding: 20px;
     }
-    h2 {
+
+    h1 {
       text-align: center;
-      margin-top: 30px;
-      color: #2c3e50;
+      color: #5b2c83;
     }
+
+    .intro {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto 25px;
+    }
+
     .job-listing {
-      background-color: #ffffff;
+      background: white;
       margin: 20px auto;
       padding: 20px;
       border-radius: 8px;
-      max-width: 600px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .job-listing h3 {
-      color: #27ae60;
+
+    .marketplace {
+      font-weight: bold;
+      color: #5b2c83;
+      margin-bottom: 8px;
     }
+
+    .job-listing h2 {
+      margin-top: 8px;
+    }
+
     .contact-info {
-      color: #2980b9;
+      margin-top: 15px;
     }
+
+    .apply-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #f4c430;
+      color: #222;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
   </style>
+
 </head>
+
 <body>
 
-  <h2>Search Available Jobs</h2>
+<h1>Available Jobs</h1>
 
-<div id="approvedJobs"></div>
+<p class="intro">
+  Browse approved work opportunities currently available through JobsNZ.
+</p>
 
-<script>
-function escapeHTML(value) {
-  if (!value) return "";
+<div id="approvedJobs">
+  <p style="text-align:center;">
+    Loading available jobs...
+  </p>
+</div>
 
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
 
-function loadApprovedJobs() {
-  const container = document.getElementById("approvedJobs");
-
-  const jobs =
-    JSON.parse(localStorage.getItem("jobListings")) || [];
-
-  const approvedJobs =
-    jobs.filter(job => job.status === "APPROVED");
-
-  container.innerHTML = "";
-
-  if (approvedJobs.length === 0) {
-    container.innerHTML =
-      "<p>No approved jobs are currently available.</p>";
-    return;
-  }
-
-  approvedJobs.forEach(job => {
-    const listing = document.createElement("div");
-    listing.className = "job-listing";
-
-    listing.innerHTML = `
-      <h3>${escapeHTML(job.jobTitle)} – ${escapeHTML(job.jobLocation || "")}</h3>
-
-      <p>${escapeHTML(job.jobDescription)}</p>
-
-      <p class="contact-info">
-        Contact:
-        <a href="mailto:${escapeHTML(job.contactEmail)}">
-          ${escapeHTML(job.contactEmail)}
-        </a>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
 const SUPABASE_URL =
   "https://rfukmsuhbetdeudqtsxo.supabase.co";
 
@@ -97,6 +103,7 @@ const jobsNZSupabase =
 
 
 function escapeHTML(value) {
+
   if (!value) return "";
 
   return String(value)
@@ -108,13 +115,28 @@ function escapeHTML(value) {
 }
 
 
+function getMarketplaceName(marketplace) {
+
+  if (marketplace === "INDUSTRY") {
+    return "JobsNZ Industry";
+  }
+
+  if (marketplace === "IMMEDIATE_PAINTERS") {
+    return "Immediate Painters";
+  }
+
+  if (marketplace === "ODD_JOBS") {
+    return "Odd Jobs NZ";
+  }
+
+  return marketplace || "JobsNZ";
+}
+
+
 async function loadApprovedJobs() {
 
   const container =
     document.getElementById("approvedJobs");
-
-  container.innerHTML =
-    "<p style='text-align:center;'>Loading available jobs...</p>";
 
 
   const { data: jobs, error } =
@@ -122,6 +144,7 @@ async function loadApprovedJobs() {
       .from("jobs")
       .select(`
         id,
+        marketplace,
         job_title,
         job_description,
         job_location,
@@ -129,12 +152,17 @@ async function loadApprovedJobs() {
         published_at,
         expires_at
       `)
-      .eq("marketplace", "ODD_JOBS")
       .eq("status", "APPROVED")
-      .gt("expires_at", new Date().toISOString())
-      .order("published_at", {
-        ascending: false
-      });
+      .gt(
+        "expires_at",
+        new Date().toISOString()
+      )
+      .order(
+        "published_at",
+        {
+          ascending: false
+        }
+      );
 
 
   if (error) {
@@ -172,144 +200,61 @@ async function loadApprovedJobs() {
       "job-listing";
 
 
+    const marketplaceName =
+      getMarketplaceName(
+        job.marketplace
+      );
+
+
     listing.innerHTML = `
 
-      <h3>
+      <div class="marketplace">
+        ${escapeHTML(marketplaceName)}
+      </div>
+
+      <h2>
         ${escapeHTML(job.job_title)}
-        –
+      </h2>
+
+      <p>
+        <strong>Location:</strong>
         ${escapeHTML(job.job_location)}
-      </h3>
+      </p>
 
       <p>
         ${escapeHTML(job.job_description)}
       </p>
 
       <p class="contact-info">
-        Contact:
-        <a href="mailto:${escapeHTML(job.contact_email)}">
-          ${escapeHTML(job.contact_email)}
-        </a>
-    <div id="approvedJobs"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL =
-  "https://rfukmsuhbetdeudqtsxo.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-  "PASTE_YOUR_REAL_sb_publishable_KEY_HERE";
-
-const jobsNZSupabase =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-function escapeHTML(value) {
-  if (!value) return "";
-
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-async function loadApprovedJobs() {
-
-  const container =
-    document.getElementById("approvedJobs");
-
-  container.innerHTML =
-    "<p style='text-align:center;'>Loading available jobs...</p>";
-
-  const { data: jobs, error } =
-    await jobsNZSupabase
-      .from("jobs")
-      .select(`
-        id,
-        job_title,
-        job_description,
-        job_location,
-        contact_email,
-        published_at,
-        expires_at
-      `)
-      .eq("marketplace", "ODD_JOBS")
-      .eq("status", "APPROVED")
-      .gt("expires_at", new Date().toISOString())
-      .order("published_at", {
-        ascending: false
-      });
-
-  if (error) {
-    console.error(
-      "JobsNZ job loading error:",
-      error
-    );
-
-    container.innerHTML =
-      "<p style='text-align:center;'>Unable to load available jobs at this time.</p>";
-
-    return;
-  }
-
-  container.innerHTML = "";
-
-  if (!jobs || jobs.length === 0) {
-    container.innerHTML =
-      "<p style='text-align:center;'>No approved jobs are currently available.</p>";
-
-    return;
-  }
-
-  jobs.forEach(job => {
-
-    const listing =
-      document.createElement("div");
-
-    listing.className =
-      "job-listing";
-
-    listing.innerHTML = `
-      <h3>
-        ${escapeHTML(job.job_title)}
-        –
-        ${escapeHTML(job.job_location)}
-      </h3>
-
-      <p>
-        ${escapeHTML(job.job_description)}
-      </p>
-
-      <p class="contact-info">
-        Contact:
+        <strong>Contact:</strong>
         <a href="mailto:${escapeHTML(job.contact_email)}">
           ${escapeHTML(job.contact_email)}
         </a>
       </p>
 
-      <p>
-        <a href="mailto:${escapeHTML(job.contact_email)}?subject=${encodeURIComponent(
+      <a
+        class="apply-link"
+        href="mailto:${escapeHTML(job.contact_email)}?subject=${encodeURIComponent(
           "JobsNZ application - " + job.job_title
-        )}">
-          Apply for this job
-        </a>
-      </p>
+        )}"
+      >
+        Apply for this job
+      </a>
+
     `;
 
-    container.appendChild(listing);
+    container.appendChild(
+      listing
+    );
 
   });
+
 }
 
-loadApprovedJobs();
-</script>
 
-</body>
-</html>
+loadApprovedJobs();
+
+</script>
 
 </body>
 </html>
