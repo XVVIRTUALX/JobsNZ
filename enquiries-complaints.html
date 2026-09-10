@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>JobsNZ Enquiries & Complaints</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #5b2a86;
+      color: #222;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    h1 {
+      color: #5b2a86;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-top: 6px;
+    }
+
+    textarea {
+      min-height: 140px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .notice {
+      background: #f4f1f8;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    #formMessage {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <h1>JobsNZ Enquiries & Complaints</h1>
+
+  <div class="notice">
+    Use this form for questions about JobsNZ or to report a concern about
+    activity on the JobsNZ platform.
+    A complaint is recorded as an allegation or concern unless and until it
+    is reviewed and supported by evidence or an appropriate external finding.
+  </div>
+
+  <form id="enquiryComplaintForm">
+
+    <label for="submissionType">Type*</label>
+    <select id="submissionType" required>
+      <option value="">Select one</option>
+      <option value="ENQUIRY">General Enquiry</option>
+      <option value="COMPLAINT">Complaint</option>
+    </select>
+
+    <label for="name">Your Name*</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Your Email*</label>
+    <input type="email" id="email" required>
+
+    <label for="phone">Phone</label>
+    <input type="text" id="phone">
+
+    <label for="employerBusinessName">
+      Employer / Business Name
+    </label>
+    <input type="text" id="employerBusinessName">
+
+    <label for="industryMemberCode">
+      JobsNZ Industry Member Code
+    </label>
+    <input type="text" id="industryMemberCode">
+
+    <label for="jobReference">
+      Job Reference
+    </label>
+    <input type="text" id="jobReference">
+
+    <label for="complaintCategory">
+      Complaint Category
+    </label>
+    <select id="complaintCategory">
+      <option value="">Not applicable / Select</option>
+      <option value="JOB_LISTING">Job Listing</option>
+      <option value="EMPLOYER_CONDUCT">Employer Conduct</option>
+      <option value="WORKER_CONDUCT">Worker Conduct</option>
+      <option value="PAYMENT">Payment</option>
+      <option value="SAFETY">Health or Safety</option>
+      <option value="PRIVACY">Privacy</option>
+      <option value="FRAUD_SCAM">Suspected Fraud or Scam</option>
+      <option value="OTHER">Other</option>
+    </select>
+
+    <label for="description">
+      Tell us what happened / Your enquiry*
+    </label>
+    <textarea id="description" required></textarea>
+
+    <button type="submit" id="submitButton">
+      Submit
+    </button>
+
+    <p id="formMessage"></p>
+
+  </form>
+
+</div>
+
+<script>
+  const SUPABASE_URL =
+    "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+
+  const jobsNZSupabase =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+  const form =
+    document.getElementById("enquiryComplaintForm");
+
+  const submitButton =
+    document.getElementById("submitButton");
+
+  form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    const submissionType =
+      document.getElementById("submissionType").value;
+
+    const name =
+      document.getElementById("name").value.trim();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const phone =
+      document.getElementById("phone").value.trim();
+
+    const employerBusinessName =
+      document.getElementById("employerBusinessName").value.trim();
+
+    const industryMemberCode =
+      document.getElementById("industryMemberCode").value.trim();
+
+    const jobReference =
+      document.getElementById("jobReference").value.trim();
+
+    const complaintCategory =
+      document.getElementById("complaintCategory").value;
+
+    const description =
+      document.getElementById("description").value.trim();
+
+    const { error } =
+      await jobsNZSupabase
+        .from("enquiries_complaints")
+        .insert({
+
+          submission_type: submissionType,
+
+          name,
+          email,
+
+          phone: phone || null,
+
+          employer_business_name:
+            employerBusinessName || null,
+
+          industry_member_code:
+            industryMemberCode || null,
+
+          job_reference:
+            jobReference || null,
+
+          complaint_category:
+            complaintCategory || null,
+
+          description,
+
+          status: "RECEIVED",
+
+          allegation_status: "UNASSESSED",
+
+          human_review_required: true
+
+        });
+
+    const message =
+      document.getElementById("formMessage");
+
+    if (error) {
+
+      console.error(error);
+
+      message.textContent =
+        "Unable to submit. Please try again.";
+
+    } else {
+
+      message.textContent =
+        "Thank you. Your submission has been received by JobsNZ for review.";
+
+      form.reset();
+
+    }
+
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit";
+
+  });
+</script>
+
+</body>
+</html>
