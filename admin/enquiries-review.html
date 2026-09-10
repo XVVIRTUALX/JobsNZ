@@ -1,1 +1,593 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VOCC - JobsNZ Enquiries & Complaints Review</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0d1117;
+      color: #ffffff;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .panel,
+    .case-card {
+      background: #111923;
+      border: 1px solid #293442;
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #ffffff;
+    }
+
+    h2 {
+      margin-top: 8px;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-top: 6px;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-top: 14px;
+      margin-right: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .login {
+      background: #6b35a5;
+      color: white;
+      border: none;
+    }
+
+    .save {
+      background: #198754;
+      color: white;
+      border: none;
+    }
+
+    .close {
+      background: #b02a37;
+      color: white;
+      border: none;
+    }
+
+    .logout {
+      background: #555;
+      color: white;
+      border: none;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      background: #f0a000;
+      color: #111;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .muted {
+      color: #b9c2cc;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <h1>VOCC - JobsNZ Enquiries & Complaints</h1>
+
+  <!-- LOGIN -->
+  <div id="loginPanel" class="panel">
+
+    <p>
+      Sign in to access the JobsNZ enquiries and complaints register.
+    </p>
+
+    <label>Email</label>
+    <input
+      type="email"
+      id="adminEmail"
+      value="virtualonlinenz@gmail.com"
+    >
+
+    <label>Password</label>
+    <input
+      type="password"
+      id="adminPassword"
+    >
+
+    <button
+      class="login"
+      onclick="adminLogin()">
+      Sign In
+    </button>
+
+    <p id="loginMessage"></p>
+
+  </div>
+
+
+  <!-- REVIEW DASHBOARD -->
+  <div id="reviewPanel" class="hidden">
+
+    <button
+      class="logout"
+      onclick="adminLogout()">
+      Sign Out
+    </button>
+
+    <h2>Open Enquiries & Complaints</h2>
+
+    <div id="caseList">
+      <p>Loading...</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const SUPABASE_URL =
+    "https://rfukmsuhbetdeudqtsxo.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_Jn-Y_0f-Zz-Y4MEV4nJlgQ_hPvD7ZV2";
+
+  const jobsNZSupabase =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  function escapeHTML(value) {
+
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+
+  function formatDate(value) {
+
+    if (!value) {
+      return "";
+    }
+
+    return new Date(value).toLocaleString();
+  }
+
+
+  async function adminLogin() {
+
+    const email =
+      document.getElementById("adminEmail").value.trim();
+
+    const password =
+      document.getElementById("adminPassword").value;
+
+    const { error } =
+      await jobsNZSupabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) {
+
+      document.getElementById("loginMessage")
+        .textContent =
+        "Login failed. Check your email and password.";
+
+      console.error(error);
+
+      return;
+    }
+
+    document.getElementById("loginMessage")
+      .textContent = "";
+
+    showReviewDashboard();
+  }
+
+
+  async function adminLogout() {
+
+    await jobsNZSupabase.auth.signOut();
+
+    document
+      .getElementById("reviewPanel")
+      .classList.add("hidden");
+
+    document
+      .getElementById("loginPanel")
+      .classList.remove("hidden");
+  }
+
+
+  async function showReviewDashboard() {
+
+    document
+      .getElementById("loginPanel")
+      .classList.add("hidden");
+
+    document
+      .getElementById("reviewPanel")
+      .classList.remove("hidden");
+
+    await loadCases();
+  }
+
+
+  async function loadCases() {
+
+    const container =
+      document.getElementById("caseList");
+
+    container.innerHTML =
+      "<p>Loading enquiries and complaints...</p>";
+
+    const { data: cases, error } =
+      await jobsNZSupabase
+        .from("enquiries_complaints")
+        .select("*")
+        .neq("status", "CLOSED")
+        .order("submitted_at", {
+          ascending: true
+        });
+
+    if (error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        "<p>Unable to load enquiries and complaints.</p>";
+
+      return;
+    }
+
+    container.innerHTML = "";
+
+    if (!cases || cases.length === 0) {
+
+      container.innerHTML =
+        '<div class="panel">No open enquiries or complaints.</div>';
+
+      return;
+    }
+
+    cases.forEach(item => {
+
+      const card =
+        document.createElement("div");
+
+      card.className = "case-card";
+
+
+      const complaintFields =
+        item.submission_type === "COMPLAINT"
+          ? `
+            <p>
+              <strong>Complaint Category:</strong>
+              ${escapeHTML(item.complaint_category || "Not supplied")}
+            </p>
+
+            <label>Allegation Status</label>
+
+            <select id="allegation-${item.id}">
+              <option value="UNASSESSED"
+                ${item.allegation_status === "UNASSESSED" ? "selected" : ""}>
+                Unassessed
+              </option>
+
+              <option value="UNRESOLVED"
+                ${item.allegation_status === "UNRESOLVED" ? "selected" : ""}>
+                Unresolved
+              </option>
+
+              <option value="SUBSTANTIATED"
+                ${item.allegation_status === "SUBSTANTIATED" ? "selected" : ""}>
+                Substantiated
+              </option>
+
+              <option value="NOT_SUBSTANTIATED"
+                ${item.allegation_status === "NOT_SUBSTANTIATED" ? "selected" : ""}>
+                Not Substantiated
+              </option>
+            </select>
+          `
+          : "";
+
+
+      card.innerHTML = `
+
+        <div class="status">
+          ${escapeHTML(item.status)}
+        </div>
+
+        <h2>
+          ${escapeHTML(item.submission_type)}
+        </h2>
+
+        <p>
+          <strong>Name:</strong>
+          ${escapeHTML(item.name)}
+        </p>
+
+        <p>
+          <strong>Email:</strong>
+          ${escapeHTML(item.email)}
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          ${escapeHTML(item.phone || "Not supplied")}
+        </p>
+
+        <p>
+          <strong>Employer / Business:</strong>
+          ${escapeHTML(item.employer_business_name || "Not supplied")}
+        </p>
+
+        <p>
+          <strong>Industry Member Code:</strong>
+          ${escapeHTML(item.industry_member_code || "Not supplied")}
+        </p>
+
+        <p>
+          <strong>Job Reference:</strong>
+          ${escapeHTML(item.job_reference || "Not supplied")}
+        </p>
+
+        ${complaintFields}
+
+        <p>
+          <strong>Submission:</strong><br>
+          ${escapeHTML(item.description)}
+        </p>
+
+        <p class="muted">
+          Submitted:
+          ${formatDate(item.submitted_at)}
+        </p>
+
+
+        <label>Status</label>
+
+        <select id="status-${item.id}">
+
+          <option value="RECEIVED"
+            ${item.status === "RECEIVED" ? "selected" : ""}>
+            Received
+          </option>
+
+          <option value="TRIAGED"
+            ${item.status === "TRIAGED" ? "selected" : ""}>
+            Triaged
+          </option>
+
+          <option value="ACTION_REQUIRED"
+            ${item.status === "ACTION_REQUIRED" ? "selected" : ""}>
+            Action Required
+          </option>
+
+          <option value="REFERRED"
+            ${item.status === "REFERRED" ? "selected" : ""}>
+            Referred
+          </option>
+
+          <option value="CLOSED">
+            Closed
+          </option>
+
+        </select>
+
+
+        <label>VOCC Review Notes</label>
+
+        <textarea id="notes-${item.id}">${escapeHTML(item.review_notes || "")}</textarea>
+
+
+        <label>Outcome</label>
+
+        <textarea id="outcome-${item.id}">${escapeHTML(item.outcome || "")}</textarea>
+
+
+        <button
+          class="save"
+          onclick="saveCase('${item.id}', '${item.submission_type}')">
+          Save Review
+        </button>
+
+        <button
+          class="close"
+          onclick="closeCase('${item.id}', '${item.submission_type}')">
+          Close Case
+        </button>
+
+        <p id="message-${item.id}"></p>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+
+  async function saveCase(id, submissionType) {
+
+    const status =
+      document.getElementById(`status-${id}`).value;
+
+    const reviewNotes =
+      document.getElementById(`notes-${id}`).value.trim();
+
+    const outcome =
+      document.getElementById(`outcome-${id}`).value.trim();
+
+    let allegationStatus = "UNASSESSED";
+
+    if (submissionType === "COMPLAINT") {
+
+      allegationStatus =
+        document.getElementById(`allegation-${id}`).value;
+    }
+
+
+    const { data: userData } =
+      await jobsNZSupabase.auth.getUser();
+
+    const reviewer =
+      userData?.user?.email || "VOCC";
+
+
+    const updates = {
+
+      status,
+
+      review_notes:
+        reviewNotes || null,
+
+      outcome:
+        outcome || null,
+
+      allegation_status:
+        allegationStatus,
+
+      reviewed_at:
+        new Date().toISOString(),
+
+      reviewed_by:
+        reviewer,
+
+      human_review_required:
+        status !== "CLOSED"
+    };
+
+
+    if (status === "CLOSED") {
+
+      updates.closed_at =
+        new Date().toISOString();
+    }
+
+
+    const { error } =
+      await jobsNZSupabase
+        .from("enquiries_complaints")
+        .update(updates)
+        .eq("id", id);
+
+
+    const message =
+      document.getElementById(`message-${id}`);
+
+
+    if (error) {
+
+      console.error(error);
+
+      message.textContent =
+        "Unable to save review.";
+
+      return;
+    }
+
+
+    message.textContent =
+      "Review saved.";
+
+    await loadCases();
+  }
+
+
+  async function closeCase(id, submissionType) {
+
+    const confirmed =
+      confirm(
+        "Close this JobsNZ enquiry or complaint?"
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    document.getElementById(`status-${id}`).value =
+      "CLOSED";
+
+    await saveCase(id, submissionType);
+  }
+
+
+  async function restoreSession() {
+
+    const { data } =
+      await jobsNZSupabase.auth.getSession();
+
+    const session =
+      data?.session;
+
+    if (
+      session &&
+      session.user?.email ===
+        "virtualonlinenz@gmail.com"
+    ) {
+
+      showReviewDashboard();
+    }
+  }
+
+
+  restoreSession();
+
+</script>
+
+</body>
+</html>
