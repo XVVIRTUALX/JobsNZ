@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>School Leavers | JobsNZ</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:linear-gradient(180deg,#3b176d,#210b40);
+    color:#ffffff;
+}
+
+header{
+    background:#0b1117;
+    padding:24px 20px;
+    text-align:center;
+    border-bottom:4px solid #FFD54F;
+}
+
+header h1{
+    margin:0;
+    color:#FFD54F;
+    font-size:38px;
+}
+
+header p{
+    margin:8px 0 0;
+    font-size:18px;
+}
+
+.container{
+    width:92%;
+    max-width:1050px;
+    margin:25px auto 60px;
+}
+
+.panel{
+    background:linear-gradient(145deg,#0e141a,#0a0f14);
+    border:1px solid #1e2a33;
+    border-radius:10px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 0 12px rgba(0,0,0,0.45);
+}
+
+h2{
+    color:#FFD54F;
+    margin-top:0;
+}
+
+h3{
+    color:#FFD54F;
+}
+
+.hero-image{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:10px;
+    margin:20px 0;
+}
+
+.pathway{
+    background:#141e27;
+    border-left:5px solid #FFD54F;
+    padding:18px;
+    margin:20px 0;
+    line-height:1.7;
+}
+
+.question{
+    margin:26px 0;
+    padding-bottom:22px;
+    border-bottom:1px solid #34414c;
+}
+
+.question-title{
+    display:block;
+    font-weight:bold;
+    margin-bottom:12px;
+    font-size:17px;
+}
+
+.option{
+    display:block;
+    margin:10px 0;
+}
+
+select,
+textarea{
+    width:100%;
+    max-width:700px;
+    padding:12px;
+    border-radius:6px;
+    border:1px solid #aaa;
+    font-size:15px;
+}
+
+textarea{
+    min-height:110px;
+}
+
+.btn{
+    display:inline-block;
+    background:linear-gradient(180deg,#FFD54F,#F4B400);
+    color:#2b124c;
+    font-weight:bold;
+    text-decoration:none;
+    border:none;
+    border-radius:6px;
+    padding:13px 24px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn:hover{
+    background:linear-gradient(180deg,#FFE27A,#FFD54F);
+}
+
+.notice{
+    background:#141e27;
+    border-left:4px solid #FFD54F;
+    padding:16px;
+    margin:20px 0;
+}
+
+.small{
+    font-size:0.92em;
+    line-height:1.5;
+}
+
+.back-link{
+    color:#FFD54F;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>JobsNZ School Leavers</h1>
+
+    <p>
+        First jobs. Safer starts.
+    </p>
+
+</header>
+
+
+<div class="container">
+
+    <p>
+        <a href="index.html" class="back-link">
+            ← Back to JobsNZ
+        </a>
+    </p>
+
+
+    <!-- SCHOOL LEAVER HEMI IMAGE -->
+
+    <img
+        src="images/school-leavers-hemi.png"
+        alt="Hemi starting his first JobsNZ work journey"
+        class="hero-image">
+
+
+    <div class="panel">
+
+        <h2>Your First Step Into Work</h2>
+
+        <p>
+            Leaving school and looking for your first job,
+            apprenticeship, training opportunity or work experience?
+        </p>
+
+        <p>
+            JobsNZ provides a pathway to help you introduce yourself
+            to employers and prepare for entering the workplace.
+        </p>
+
+
+        <div class="pathway">
+
+            <strong>STEP 1 — ABOUT YOU</strong><br>
+            A short School Leaver questionnaire.
+
+            <br><br>
+
+            ↓
+
+            <br><br>
+
+            <strong>STEP 2 — CREATE YOUR JOBSNZ PROFILE</strong><br>
+            Tell employers about your skills, interests and what you can offer.
+
+            <br><br>
+
+            ↓
+
+            <br><br>
+
+            <strong>STEP 3 — JOBSNZ WORK ORIENTATION</strong><br>
+            Learn about starting work, workplace expectations,
+            communication, safety and your employment rights.
+
+        </div>
+
+
+        <div class="notice">
+
+            <strong>Your identity documents stay with you.</strong>
+
+            <br><br>
+
+            JobsNZ does not require you to place passport numbers,
+            driver licence numbers or other sensitive identity credentials
+            in your public worker profile.
+
+            Employers remain responsible for carrying out appropriate
+            employment and right-to-work checks.
+
+        </div>
+
+    </div>
+
+
+    <!-- STEP 1 -->
+
+    <div class="panel">
+
+        <h2>STEP 1 — ABOUT YOU</h2>
+
+        <p>
+            Tell us a little about where you are starting from.
+        </p>
+
+        <p class="small">
+            You do not need previous employment experience.
+            Everyone has a first job.
+        </p>
+
+
+        <form id="schoolLeaverForm">
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    1. Are you a New Zealand citizen?
+                </span>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="citizen"
+                        value="Yes"
+                        required>
+                    Yes
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="citizen"
+                        value="No">
+                    No
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    2. Do you have identification that you can
+                    present directly to an employer if required?
+                </span>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="identification"
+                        value="Yes"
+                        required>
+                    Yes
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="identification"
+                        value="No">
+                    No
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="identification"
+                        value="Need help">
+                    I need help understanding what identification I may need
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    3. How would you describe your English communication?
+                </span>
+
+                <select name="english" required>
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option value="Fluent">
+                        Fluent
+                    </option>
+
+                    <option value="Good">
+                        Good
+                    </option>
+
+                    <option value="Developing">
+                        Developing
+                    </option>
+
+                    <option value="Additional language">
+                        English is an additional language
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    4. What is your highest NCEA level?
+                </span>
+
+                <select name="ncea" required>
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option>NCEA Level 1</option>
+                    <option>NCEA Level 2</option>
+                    <option>NCEA Level 3</option>
+                    <option>Still completing NCEA</option>
+                    <option>Other qualification</option>
+                    <option>No NCEA qualification yet</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    5. How would you describe your school attendance?
+                </span>
+
+                <select name="attendance" required>
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option>Excellent</option>
+                    <option>Good</option>
+                    <option>Some absences</option>
+                    <option>Prefer not to say</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    6. Tell us about your achievements,
+                    activities or skills.
+                </span>
+
+                <p class="small">
+                    You could include school subjects, qualifications,
+                    sport, kapa haka, cultural activities, leadership,
+                    volunteering, community involvement, practical skills,
+                    helping whānau, hobbies or responsibilities.
+                </p>
+
+                <textarea
+                    name="achievements"
+                    maxlength="1500"
+                    placeholder="Tell us about your achievements, activities or skills..."></textarea>
+
+            </div>
+
+
+            <div class="question">
+
+                <span class="question-title">
+                    7. What opportunities are you interested in?
+                </span>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="First job">
+                    First job
+                </label>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="Full-time">
+                    Full-time work
+                </label>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="Part-time">
+                    Part-time work
+                </label>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="Apprenticeship">
+                    Apprenticeship
+                </label>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="Training">
+                    Training
+                </label>
+
+                <label class="option">
+                    <input type="checkbox" name="opportunity" value="Work experience">
+                    Work experience
+                </label>
+
+            </div>
+
+
+            <button type="submit" class="btn">
+                Continue to Create My JobsNZ Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document
+    .getElementById("schoolLeaverForm")
+    .addEventListener("submit", function(event){
+
+        event.preventDefault();
+
+        /*
+         * Step 1 is not yet being permanently stored.
+         *
+         * The pathway parameter tells the existing worker-profile
+         * page that this applicant entered through School Leavers.
+         */
+
+        window.location.href =
+            "i-want-to-work.html?pathway=school-leaver";
+
+    });
+
+</script>
+
+
+</body>
+</html>
