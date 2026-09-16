@@ -1544,9 +1544,15 @@ workerForm.addEventListener("submit", async function(event) {
 
     } finally {
 
-        submitButton.disabled = false;
+    submitButton.disabled = false;
+
+    if (isSchoolLeaver) {
+        submitButton.textContent =
+            "Save Profile & Continue to Work Orientation";
+    } else {
         submitButton.textContent = "Submit Worker Profile";
     }
+}
 
 });
 
