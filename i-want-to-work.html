@@ -1425,6 +1425,14 @@ const workerForm = document.getElementById("workerProfileForm");
 const submitButton = document.getElementById("submitWorkerProfile");
 const formMessage = document.getElementById("formMessage");
 
+    // Detect whether this worker entered through the School Leaver pathway
+const urlParams = new URLSearchParams(window.location.search);
+const isSchoolLeaver = urlParams.get("pathway") === "school-leaver";
+
+// Change the submit button for School Leavers
+if (isSchoolLeaver) {
+    submitButton.textContent = "Save Profile & Continue to Work Orientation";
+}
 workerForm.addEventListener("submit", async function(event) {
 
     event.preventDefault();
