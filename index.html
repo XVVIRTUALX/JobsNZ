@@ -1044,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const accepted = chk.checked;
 
         appButtons.forEach(btn => {
-            btn.style.opacity = accepted ? "1" : "0.5";
+            btn.style.opacity = "1";
             btn.style.cursor = accepted ? "pointer" : "not-allowed";
             btn.setAttribute("aria-disabled", accepted ? "false" : "true");
         });
