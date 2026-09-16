@@ -1516,10 +1516,24 @@ workerForm.addEventListener("submit", async function(event) {
             throw error;
         }
 
-        formMessage.textContent =
-            "✔ Your JobsNZ worker profile has been submitted successfully and is awaiting review.";
+       if (isSchoolLeaver) {
 
-        workerForm.reset();
+    formMessage.textContent =
+        "✔ Your JobsNZ worker profile has been saved. Taking you to Work Orientation...";
+
+    // Profile has successfully saved to Supabase.
+    // Continue the School Leaver pathway.
+    setTimeout(function () {
+        window.location.href = "school-leaver-orientation.html";
+    }, 1200);
+
+} else {
+
+    formMessage.textContent =
+        "✔ Your JobsNZ worker profile has been submitted successfully and is awaiting review.";
+
+    workerForm.reset();
+}
 
     } catch (error) {
 
