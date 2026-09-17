@@ -1548,7 +1548,7 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 // ===== SENIOR JOBS 55+ PATHWAY =====
-const urlParams = new URLSearchParams(window.location.search);
+
 const isSenior55 = urlParams.get("path") === "senior55";
 
 const senior55Section = document.getElementById("senior55Section");
