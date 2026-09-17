@@ -1396,7 +1396,7 @@ textarea{
         Required declarations must be completed before JobsNZ can accept your profile.
     </p>
 <!-- ===== SENIOR JOBS 55+ OPTIONAL SECTION ===== -->
-<div id="senior55Section" class="panel">
+<div id="senior55Section" class="panel" style="display:none;">
 
     <h2>SENIOR JOBS 55+ — OPTIONAL</h2>
 
@@ -1545,7 +1545,15 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
+// ===== SENIOR JOBS 55+ PATHWAY =====
+const urlParams = new URLSearchParams(window.location.search);
+const isSenior55 = urlParams.get("path") === "senior55";
 
+const senior55Section = document.getElementById("senior55Section");
+
+if (isSenior55 && senior55Section) {
+    senior55Section.style.display = "block";
+}
 const workerForm = document.getElementById("workerProfileForm");
 const submitButton = document.getElementById("submitWorkerProfile");
 const formMessage = document.getElementById("formMessage");
